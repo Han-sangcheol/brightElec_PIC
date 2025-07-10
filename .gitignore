@@ -1,0 +1,125 @@
+# # Microchip dsPIC 모터 제어 프로젝트용 .gitignore
+# # 이 파일은 MPLAB X IDE를 사용하는 dsPIC 기반 모터 제어 프로젝트의 빌드 산출물과 임시 파일들을 관리합니다.
+
+# # =====================================
+# # MPLAB X IDE 관련 파일들
+# # =====================================
+
+# # MPLAB X 빌드 폴더들
+**/build/
+# **/debug/
+# **/dist/
+# **/disassembly/
+# **/funclist
+# **/nbproject/private/
+# **/nbproject/Makefile-*.mk
+# **/nbproject/Package-*.bash
+# **/nbproject/configurations.xml
+# **/nbproject/project.xml
+**/.generated_files/
+
+# # MPLAB X 사용자별 설정 파일들
+# **/nbproject/private/
+# **/nbproject/Makefile-local-*.mk
+
+# # =====================================
+# # 컴파일러 및 링커 산출물
+# # =====================================
+
+# # 오브젝트 파일들
+# *.o
+# *.obj
+# *.lst
+# *.cod
+# *.sym
+# *.err
+# *.map
+*.hex
+*.elf
+# *.bin
+# *.hzx
+# *.cof
+# *.mcw
+# *.mcr
+
+# # 라이브러리 파일들
+# *.lib
+# *.a
+
+# # 디버그 심볼 파일들
+# *.dbg
+# *.cdb
+
+# # 어셈블리 리스팅 파일들
+# *.asm
+# *.s
+
+# # 임시 파일들
+# *.tmp
+# *.temp
+# *.bak
+# *.swp
+# *~
+
+# # =====================================
+# # 로그 및 진단 파일들
+# # =====================================
+
+# # 빌드 로그
+# *.log
+# **/queuelogs/
+
+# # X2CScope 관련 파일들
+# **/X2CScope/
+
+# # 진단 및 디버그 파일들
+# *.trace
+# *.debug
+
+# # =====================================
+# # 개발 환경 설정 파일들
+# # =====================================
+
+# # Visual Studio Code 설정
+# .vscode/
+
+# # 다른 IDE 설정들
+# .idea/
+# *.workspace
+# *.project
+# *.cproject
+
+# # =====================================
+# # 운영체제별 임시 파일들
+# # =====================================
+
+# # Windows
+# Thumbs.db
+# ehthumbs.db
+# Desktop.ini
+# $RECYCLE.BIN/
+
+# # macOS
+# .DS_Store
+# .AppleDouble
+# .LSOverride
+
+# # Linux
+# *~
+
+# # =====================================
+# # 사용자 정의 데이터 파일들
+# # =====================================
+
+# # 설정 파일들 (필요에 따라 주석 해제)
+# # *.cfg
+# # *.ini
+
+# # 테스트 데이터
+# test_data/
+# *.test
+
+# # # 문서 작업 파일들
+# # *.docx~
+# # *.xlsx~
+# # *.pptx~
