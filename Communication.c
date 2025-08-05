@@ -10,6 +10,7 @@
  * - 정지 명령 시에도 실제 RPM이 200 RPM 이하로 떨어질 때까지 RPM 측정 및 출력 지속
  * - 자연스러운 감속 과정 모니터링 가능
  * - 완전 정지 시점 정확한 판단 가능
+ * - ISO 8601 형식 빌드 날짜/시간 출력 ("YYYY-MM-DD HH:MM")
  */
 
 /* Private Include -----------------------------------------------------------*/
@@ -26,6 +27,8 @@
 #include <libq.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "Build_Info.h"
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -217,6 +220,12 @@ void LogMotorStatus(MotorData* now_data, MotorData* cmd_data)
             *ptr++ = ',';
             len = long_to_str((long)display_speed, ptr); ptr += len;
             *ptr++ = ',';
+            if(cmd_data->speed == 0)  // 부하량 감소를 위해 정지중에만 전송
+            {
+                len = GetBuildInfoString(ptr, sizeof(message) - (ptr - message)); ptr += len;
+                *ptr++ = ',';
+            }
+
             // len = long_to_str((long)now_data->iq_measure, ptr); ptr += len;
             // *ptr++ = ',';
             // len = long_to_str((long)now_data->vq_ref, ptr); ptr += len;
