@@ -5,6 +5,11 @@
  * Author    :
  * Version   : V1.0
  * Date      : 06/20/2023
+ * 
+ * 주요 개선사항:
+ * - 정지 명령 시에도 실제 RPM이 200 RPM 이하로 떨어질 때까지 RPM 측정 및 출력 지속
+ * - 자연스러운 감속 과정 모니터링 가능
+ * - 완전 정지 시점 정확한 판단 가능
  */
 
 /* Private Include -----------------------------------------------------------*/
@@ -18,14 +23,14 @@
 #include <string.h>
 #include "Communication.h"
 #include "port_config.h"
+#include <libq.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-
-#include <stdio.h> 
-#include <string.h> 
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
-#define dVersion_FW 1004
+#define dVersion_FW 100
 
 
 #define dSTX 0x40
@@ -80,105 +85,156 @@ uint16_t g_checksum;
 uint16_t g_timer1ms_comm;
 
 uint16_t g_u16UartRXCounter; // 통신 들어온 갯수 카운트
-/* Private function prototypes -----------------------------------------------*/
-void data_change_print(MotorData* motorData);
-void now_rpm(MotorData* motorData_now, MotorData* motorData_cmd);
 
+/* Private function prototypes -----------------------------------------------*/
+// void data_change_print(MotorData* motorData);
 void rx_data_process(CommandData* pcommandData);
 void tx_data_process(CommandData* pCommandData);
 void UARTSend_2(uint8_t* data, uint8_t length);
+static void reverse(char str[], int length);
+static int long_to_str(long num, char* str);
+
 /* Private functions ---------------------------------------------------------*/
 
+/**
+ * @brief  Reverses a string 'str' of length 'len'.
+ * @param  str: The string to be reversed.
+ * @param  length: The length of the string.
+ * @return None
+ */
+static void reverse(char str[], int length) {
+    int start = 0;
+    int end = length - 1;
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        end--;
+        start++;
+    }
+}
+
+/**
+ * @brief  Converts a long integer to a null-terminated string.
+ * @param  num: The long integer to be converted.
+ * @param  str: The buffer to store the resulting string.
+ * @return The length of the generated string (excluding null terminator).
+ */
+static int long_to_str(long num, char* str) {
+    int i = 0;
+    bool isNegative = false;
+
+    if (num == 0) {
+        str[i++] = '0';
+        str[i] = '\0';
+        return 1;
+    }
+
+    if (num < 0) {
+        isNegative = true;
+        num = -num;
+    }
+
+    while (num != 0) {
+        int rem = num % 10;
+        str[i++] = rem + '0';
+        num = num / 10;
+    }
+
+    if (isNegative) {
+        str[i++] = '-';
+    }
+
+    reverse(str, i);
+    str[i] = '\0';
+
+    return i;
+}
 
 /**
  * @brief 통신 처리 함수
- * @param motorData 모터 데이터 구조체 포인터
+ * @param motorData_cmd 모터 데이터 구조체 포인터
+ * @param motorData_now 모터 데이터 구조체 포인터
  * @return 없음
  */
 void communication(MotorData* motorData_cmd, MotorData* motorData_now)
 {
-    // char message[20]; // message 변수를 함수 내에 선언
-
 	if(g_uart2_rx_flag)
 	{
 		g_uart2_rx_flag = 0;
 
-        rx_data_process(&stCommandData); // Pass the address of stCommandData
+        rx_data_process(&stCommandData);
 
-        // motor_on, direction, speed, torque 값을 구조체에 저장
         motorData_cmd->motor_on = stCommandData.key.bits.motor_on;
         motorData_cmd->direction = stCommandData.key.bits.direction;
         motorData_cmd->speed = stCommandData.speed;
-        motorData_cmd->torque = stCommandData.torque;
-
-        // 필요한 로직 추가
+        
+        // 수신된 속도값이 0이면 모터 정지 명령으로 간주
+        if (stCommandData.speed == 0)
+        {
+            motorData_cmd->motor_on = 0;
+        }
     }
-
-    // if(g_uart2_tx_flag == 1)
-    // {
-    //     g_uart2_tx_flag = 0;
-    //     // UARTSend_2((uint8_t*)command_rx_buffer, 18);
-    //     data_change_print(motorData_cmd);
-
-    //     // UARTSend_2((uint8_t*)&g_checksum_rx, 1); // g_checksum의 주소를 전달
-    //     // UARTSend_2((uint8_t*)&g_checksum, 1); // g_checksum의 주소를 전달
-
-
-    // }
-    // else if(g_uart2_tx_flag == 2)
-    // {
-    //     g_uart2_tx_flag = 0;
-    //     // UARTSend_2((uint8_t*)command_rx_buffer, 18);        
-    //     // UARTSend_2((uint8_t*)"Checksum error\n", 15);
-
-    //     UARTSend_2((uint8_t*)&g_checksum_rx, 1); // g_checksum의 주소를 전달
-    //     UARTSend_2((uint8_t*)&g_checksum, 1); // g_checksum의 주소를 전달
-
-    //     // sprintf(message, "=========\r\n");
-    //     // UARTSend_2((uint8_t*)message, 10);
-
-    //     // for(uint8_t i = 0; i < 20; i++)
-    //     // {
-    //     //     UARTSend_2(&checksum_buffer[i], 1); // checksum_buffer의 주소를 전달
-    //     // }
-    //     // sprintf(message, "========\r\n");
-    //     // UARTSend_2((uint8_t*)message, 10);
-    // }
-    // else if(g_uart2_tx_flag == 3)
-    // {
-    //     g_uart2_tx_flag = 0;
-    //     UARTSend_2((uint8_t*)"Invalid packet start\n", 21);
-    // }
     
+    // 주기적인 로그 전송 로직 제거
     // now_rpm(motorData_now, motorData_cmd);
+    LogMotorStatus(motorData_now, motorData_cmd);
 }
 
 /**
- * @brief 모터 속도 출력
- * @param motorData_now 모터 데이터 구조체 포인터
+ * @brief 모터 속도 및 디버그 정보 출력 (이벤트 기반)
+ * @param now_data: 현재 모터 데이터
+ * @param cmd_data: 명령 데이터
  * @return 없음
  */
-void now_rpm(MotorData* motorData_now, MotorData* motorData_cmd)
+void LogMotorStatus(MotorData* now_data, MotorData* cmd_data)
 {
-    char message[20];
-    static uint32_t old_speed = 0;
+    char message[90]; // 버퍼 크기 확장
+    char* ptr = message;
+    int len;
+    static bool was_running = false;
+    bool is_running = cmd_data->motor_on || (now_data->speed != 0);
 
-    if(motorData_cmd->speed != old_speed && motorData_cmd->motor_on == 1)
-    {
-        old_speed = motorData_cmd->speed;
-        g_timer1ms_comm = 1000;
-    }
-    else if(motorData_cmd->motor_on == 0)
-    {
-        old_speed = 0;
-    }
 
-    if(g_timer1ms_comm >= 1000)
+    // 로그 전송 주기를 100ms로 변경하여 부하 감소
+    if (g_timer1ms_comm >= 100) 
     {
         g_timer1ms_comm = 0;
-        sprintf(message, "rpm: %ld\r", motorData_now->speed); 
-        UARTSend_2((uint8_t*)message, strlen(message)); // 캐스팅 추가    
+        
+        // 모터가 돌고 있거나, 방금 멈췄을 경우에만 로그 전송
+        if (is_running || was_running)
+        {
+            // 표시용 속도 값만 보정 계수(20412)를 적용하여 스케일링
+            int32_t display_speed = ((int32_t)now_data->speed * 20412) >> 15;
+
+            // 수신된 원본 목표 속도를 맨 앞에 추가
+            len = long_to_str((long)cmd_data->speed, ptr); ptr += len;
+            *ptr++ = ',';
+
+
+            // 라벨을 제거하고 쉼표로 구분된 데이터만 전송하여 메시지 크기 최소화
+            len = long_to_str((long)cmd_data->speed_target, ptr); ptr += len;
+            *ptr++ = ',';
+            len = long_to_str((long)display_speed, ptr); ptr += len;
+            *ptr++ = ',';
+            // len = long_to_str((long)now_data->iq_measure, ptr); ptr += len;
+            // *ptr++ = ',';
+            // len = long_to_str((long)now_data->vq_ref, ptr); ptr += len;
+            // *ptr++ = ',';
+            // len = long_to_str((long)now_data->angle, ptr); ptr += len;
+            // *ptr++ = ',';
+            // len = long_to_str((long)now_data->hall_state, ptr); ptr += len;
+            // *ptr++ = ',';
+            // *ptr++ = now_data->loop_status;
+
+            // "\r\n"
+            *ptr++ = '\r'; *ptr++ = '\n';
+            *ptr = '\0'; // Null-terminate
+                
+            UARTSend_2((uint8_t*)message, ptr - message);
+        }
     }
+    was_running = is_running;
 }
 
 /**
@@ -186,37 +242,17 @@ void now_rpm(MotorData* motorData_now, MotorData* motorData_cmd)
  * @param motorData 모터 데이터 구조체 포인터
  * @return 없음
  */
-void data_change_print(MotorData* motorData)
-{
-    static uint8_t runMotor_old = 0;
-    static uint8_t motorDirection_old = 0;
-    static uint32_t motorSpeed_old = 3000;
-    char message[20]; // message 배열을 char 타입으로 변경
+// void data_change_print(MotorData* motorData)
+// {
+//     char message[50];
+    
+//     sprintf(message, "on:%d,dir:%d,speed:%u\r\n", // torque removed for now
+//             motorData->motor_on,
+//             motorData->direction,
+//             motorData->speed);
 
-    if(runMotor_old != motorData->motor_on)
-    {
-        runMotor_old = motorData->motor_on;
-        sprintf(message, "run: %d\r\n", motorData->motor_on); // runMotor 변수 수정
-        UARTSend_2((uint8_t*)message, strlen(message)); // 캐스팅 추가
-    }
-    else if(motorDirection_old != motorData->direction)
-    {
-        motorDirection_old = motorData->direction;
-        sprintf(message, "Dir: %d\r\n", motorData->direction);
-        UARTSend_2((uint8_t*)message, strlen(message)); // 캐스팅 추가
-    }
-    else if(motorSpeed_old != motorData->speed)
-    {
-        motorSpeed_old = motorData->speed;
-        sprintf(message, "Spd: %ld\r\n", motorData->speed);
-        UARTSend_2((uint8_t*)message, strlen(message)); // 캐스팅 추가
-
-
-// g_checksum
-
-        // X2C_targetSPD = motorSpeed;
-    }
-}
+//     UARTSend_2((uint8_t*)message, strlen(message));
+// }
 
 
 /**

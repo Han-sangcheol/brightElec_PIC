@@ -42,6 +42,7 @@
       <itemPath>../hal/uart_interface.h</itemPath>
       <itemPath>../hal/uart_types.h</itemPath>
       <itemPath>../Status_LED.h</itemPath>
+      <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -89,6 +90,7 @@
       <itemPath>../singleshunt.c</itemPath>
       <itemPath>../Communication.c</itemPath>
       <itemPath>../Status_LED.c</itemPath>
+      <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
