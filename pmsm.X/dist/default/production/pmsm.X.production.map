@@ -174,14 +174,14 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x7e8           0xbdc  (3036)
-.sinetbl                     0x9e8               0x100           0x180  (384)
-.const                       0xae8               0x116           0x1a1  (417)
-.text                        0xbfe              0x439e          0x656d  (25965)
-.dinit                      0x4f9c               0x140           0x1e0  (480)
-.text                       0x50dc               0xa1e           0xf2d  (3885)
+.text                        0x200               0x7e4           0xbd6  (3030)
+.sinetbl                     0x9e4               0x100           0x180  (384)
+.const                       0xae4               0x118           0x1a4  (420)
+.text                        0xbfc              0x43bc          0x659a  (26010)
+.dinit                      0x4fb8               0x140           0x1e0  (480)
+.text                       0x50f8               0xa1e           0xf2d  (3885)
 
-                 Total "program" memory used (bytes):         0x8577  (34167) 12%
+                 Total "program" memory used (bytes):         0x85a1  (34209) 12%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0x6000]
@@ -354,449 +354,449 @@ External Symbols in Program Memory (by address):
                   0x00023c                  __psv_init
                   0x000248                  __data_init
                   0x000248                  __data_init_extended
-                  0x0003ee                  __U2TXInterrupt
-                  0x000454                  __U2RXInterrupt
-                  0x0004d8                  __U2EInterrupt
-                  0x00056c                  __U2EVTInterrupt
-                  0x000576                  __T1Interrupt
-                  0x00059c                  __ADCAN1Interrupt
-                  0x0006cc                  __PWM1Interrupt
-                  0x0006ee                  __DefaultInterrupt
-                  0x0006f2                  _write
-                  0x00072c                  __Q15abs
-                  0x000736                  __Q15sqrt
-                  0x0007c8                  ___eqdf2
-                  0x0007c8                  ___ltdf2
-                  0x0007c8                  ___ledf2
-                  0x0007d2                  ___gedf2
-                  0x0007d2                  ___gtdf2
-                  0x0007dc                  ___divsi3
-                  0x0007fa                  ___ltsf2
-                  0x0007fa                  ___eqsf2
-                  0x0007fa                  ___lesf2
-                  0x0007fe                  ___gesf2
-                  0x0007fe                  ___gtsf2
-                  0x000802                  ___floatunsisf
-                  0x000806                  ___modsi3
-                  0x000824                  ___udivsi3
-                  0x000844                  ___umodsi3
-                  0x00084a                  __dcompare
-                  0x00089c                  __dtype
-                  0x0008c0                  __fcompare
-                  0x0008f6                  ___floatundisf
-                  0x000954                  __fpack
-                  0x0009a0                  __funpack2
-                  0x0009b0                  __funpack
-                  0x0009da                  _memcpy
-                  0x0009e8                  mcSineTableInFlash
-                  0x0009e8                  _mcSineTableInFlash
-                  0x000b98                  _UART2_Drv
-                  0x000bca                  _blockFunctionTable
-                  0x000be2                  _parameterIdTable
-                  0x000bea                  _compilationDate
-                  0x000fd2                  _Scope_Main_Init
-                  0x00104c                  _Scope_Main_Update
-                  0x001382                  _Scope_Main_Load
-                  0x001436                  _Scope_Main_Save
-                  0x001bec                  _Scope_Main_GetAddress
-                  0x001cfa                  _communication
-                  0x001d5e                  _LogMotorStatus
-                  0x001e58                  _ascii_to_hex
-                  0x001e7a                  _rx_data_process
-                  0x001f38                  _tx_data_process
-                  0x002088                  _UARTSend_1
-                  0x0020ba                  _UARTSend_2
-                  0x0020de                  _UART2_TransmitString
-                  0x0020f8                  _calculate_checksum
-                  0x002146                  _UART2_RxCompleteCallback
-                  0x0021b8                  _timer1ms_communication
-                  0x0021c4                  _Get_Rx_Ccount
-                  0x0021cc                  _sendSvNotAvailable
-                  0x0021da                  Services.o:_getDeviceInfo
-                  0x002406                  Services.o:_saveParameter
-                  0x002570                  Services.o:_loadParameter
-                  0x00264e                  Services.o:_setTargetState
-                  0x0026ee                  Services.o:_getTargetState
-                  0x002704                  _sendError
-                  0x002710                  _initServiceTable
-                  0x002724                  _addCoreServices
-                  0x00273c                  _SingleShunt_InitializeParameters
-                  0x00276e                  _SingleShunt_CalculateSpaceVectorPhaseShifted
-                  0x002b30                  _SingleShunt_PhaseCurrentReconstruction
-                  0x002c34                  _GetBuildInfo
-                  0x002c3c                  _GetBuildDate
-                  0x002c46                  _GetBuildTime
-                  0x002d74                  _GetBuildInfoString
-                  0x002de8                  _PrintBuildInfo
-                  0x002ed0                  _GetFormattedBuildDateTime
-                  0x0030ea                  _InitPWMGenerators
-                  0x00314a                  _InitDutyPWM124Generators
-                  0x00317a                  _ChargeBootstarpCapacitors
-                  0x003272                  _InitPWMGenerator1
-                  0x003378                  _InitPWMGenerator2
-                  0x003480                  _InitPWMGenerator4
-                  0x003588                  _SetMotorSpeed
-                  0x0035a0                  _Timer1_Init
-                  0x0035c8                  _uart2_setting
-                  0x0035e2                  _main
-                  0x00366e                  _Motor_Speed
-                  0x00369c                  _update_speed_command_lowlimit
-                  0x0036c2                  _update_speed_target
-                  0x00377a                  _ResetParmeters
-                  0x0037b0                  _DoControl
-                  0x003922                  _CalculateParkAngle
-                  0x0039a0                  _InitControlParameters
-                  0x003a0c                  LNet.o:_enableSend
-                  0x003a16                  LNet.o:_communicate
-                  0x003e14                  _initLNet
-                  0x003e2a                  _UART2_Initialize
-                  0x003e8a                  _UART2_Deinitialize
-                  0x003eb0                  _UART2_Read
-                  0x003eda                  _UART2_Write
-                  0x003f06                  _UART2_IsRxReady
-                  0x003f1c                  _UART2_IsTxReady
-                  0x003f4e                  _UART2_IsTxDone
-                  0x003f7e                  _UART2_TransmitEnable
-                  0x003f86                  _UART2_TransmitDisable
-                  0x003f8e                  _UART2_AutoBaudSet
-                  0x003fb4                  _UART2_AutoBaudQuery
-                  0x003fcc                  _UART2_AutoBaudEventEnableGet
-                  0x003fe4                  _UART2_BRGCountSet
-                  0x003ffa                  _UART2_BRGCountGet
-                  0x004016                  _UART2_BaudRateSet
-                  0x0040a8                  _UART2_BaudRateGet
-                  0x004118                  _UART2_ErrorGet
-                  0x004126                  _UART2_RxCompleteCallbackRegister
-                  0x00413e                  _UART2_TxCompleteCallbackRegister
-                  0x004156                  _UART2_TxCollisionCallbackRegister
-                  0x00416e                  _UART2_FramingErrorCallbackRegister
-                  0x004186                  _UART2_OverrunErrorCallbackRegister
-                  0x00419e                  _UART2_ParityErrorCallbackRegister
-                  0x0041b6                  _Estim
-                  0x0044b8                  _InitEstimParm
-                  0x004504                  _getBlockData
-                  0x004576                  _putBlockData
-                  0x0045fa                  _getRAMBlock
-                  0x0046c0                  _putRAMBlock
-                  0x0047ac                  _addBlockServices
-                  0x0047bc                  _addExtendedBlockServices
-                  0x0047c4                  _IsPressed_Button1
-                  0x0047de                  _IsPressed_Button2
-                  0x0047f8                  _BoardServiceStepIsr
-                  0x00480a                  _BoardService
-                  0x004848                  _BoardServiceInit
-                  0x0048be                  _InitPeripherals
-                  0x0048f0                  _DisablePWMOutputsInverterA
-                  0x00491a                  _EnablePWMOutputsInverterA
-                  0x00492c                  _ClearPWMPCIFaultInverterA
-                  0x004938                  _PWMDutyCycleSet
-                  0x00496e                  _PWMDutyCycleSetDualEdge
-                  0x0049b8                  _pwmDutyCycleLimitCheck
-                  0x004a2a                  _MCAPP_MeasureCurrentInit
-                  0x004a5a                  _MCAPP_MeasureCurrentOffset
-                  0x004b20                  _MCAPP_MeasureCurrentCalibrate
-                  0x004b48                  _MCAPP_MeasureCurrentOffsetStatus
-                  0x004b54                  _MCAPP_MeasureAvgInit
-                  0x004b84                  _MCAPP_MeasureAvg
-                  0x004bf8                  _MCAPP_MeasureTemperature
-                  0x004c38                  _InitFWParams
-                  0x004d1e                  _FieldWeakening
-                  0x004e3a                  _InitializeADCs
-                  0x0050dc                  _Status_LED
-                  0x005108                  _Status_LED_Control
-                  0x0051dc                  _Communication_Check
-                  0x005202                  _Interrupt_Timer1ms_Status_LED
-                  0x005214                  MC_CalculateSpaceVectorPhaseShifted_Assembly
-                  0x005214                  _MC_CalculateSpaceVectorPhaseShifted_Assembly
-                  0x0053b8                  _DiagnosticsInit
-                  0x0053d2                  _DiagnosticsStepMain
-                  0x0053da                  _DiagnosticsStepIsr
-                  0x0053e2                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_sendSerial
-                  0x0053ee                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_receiveSerial
-                  0x00540a                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isReceiveDataAvailable
-                  0x005412                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isSendReady
-                  0x005420                  _X2CScope_Init
-                  0x005432                  _Common_Init
-                  0x005434                  _Common_Update
-                  0x005436                  _Common_Load
-                  0x005438                  _Common_Save
-                  0x005440                  _Common_GetAddress
-                  0x005442                  _getAbsValI8
-                  0x005454                  _getAbsValI16
-                  0x005466                  _getAbsValI32
-                  0x00548a                  _getAbsValI64
-                  0x0054d2                  _getAbsValR32
-                  0x0054ec                  _getAbsValR64
-                  0x005516                  _INTERRUPT_Initialize
-                  0x005582                  _INTERRUPT_Deinitialize
-                  0x0055ec                  _CMP_Initialize
-                  0x00568a                  _CMP1_ReferenceSet
-                  0x005696                  _CMP1_ModuleEnable
-                  0x0056b0                  _SetupGPIOPorts
-                  0x0056e0                  _MapGPIOHWFunction
-                  0x005772                  _UART1_Initialize
-                  0x00582c                  _InitOscillator
-                  0x0058a2                  _EnableREFCLKOutput
-                  0x0058ce                  _sendSerialWrapper
-                  0x0058d4                  _receiveSerialWrapper
-                  0x0058d8                  _isReceiveDataAvailableWrapper
-                  0x0058dc                  _isSendReadyWrapper
-                  0x0058e0                  _X2CScope_Initialise
-                  0x005936                  _X2CScope_Communicate
-                  0x00593c                  _X2CScope_Update
-                  0x00593e                  _X2CScope_HookUARTFunctions
-                  0x005948                  _initSerial
-                  0x00595a                  MC_ControllerPIUpdate_Assembly
-                  0x00595a                  _MC_ControllerPIUpdate_Assembly
-                  0x0059a8                  MC_CalculateSineCosine_Assembly_Ram
-                  0x0059a8                  _MC_CalculateSineCosine_Assembly_Ram
-                  0x0059f6                  _initTableStruct
-                  0x005a1a                  _addTableStructProtocol
-                  0x005a32                  SerialGeneric.o:_sendSerial
-                  0x005a34                  SerialGeneric.o:_receiveSerial
-                  0x005a36                  SerialGeneric.o:_isReceiveDataAvailable
-                  0x005a38                  SerialGeneric.o:_isSendReady
-                  0x005a3a                  SerialGeneric.o:_getTxFifoFree
-                  0x005a3c                  SerialGeneric.o:_flush
-                  0x005a3e                  _initSerialGeneric
-                  0x005a58                  _linkSerial
-                  0x005a5c                  MC_TransformClarkeInverseSwappedInput_Assembly
-                  0x005a5c                  _MC_TransformClarkeInverseSwappedInput_Assembly
-                  0x005a84                  _MC_TransformParkInverse_Assembly
-                  0x005a84                  MC_TransformParkInverse_Assembly
-                  0x005aa8                  _MC_TransformPark_Assembly
-                  0x005aa8                  MC_TransformPark_Assembly
-                  0x005acc                  _MC_TransformClarke_Assembly
-                  0x005acc                  MC_TransformClarke_Assembly
-                  0x005aea                  _initVersionInfo
-                  0x005af2                  _X2C_Init
-                  0x005af6                  _X2C_Update
+                  0x0003ea                  __U2TXInterrupt
+                  0x000450                  __U2RXInterrupt
+                  0x0004d4                  __U2EInterrupt
+                  0x000568                  __U2EVTInterrupt
+                  0x000572                  __T1Interrupt
+                  0x000598                  __ADCAN1Interrupt
+                  0x0006c8                  __PWM1Interrupt
+                  0x0006ea                  __DefaultInterrupt
+                  0x0006ee                  _write
+                  0x000728                  __Q15abs
+                  0x000732                  __Q15sqrt
+                  0x0007c4                  ___eqdf2
+                  0x0007c4                  ___ltdf2
+                  0x0007c4                  ___ledf2
+                  0x0007ce                  ___gedf2
+                  0x0007ce                  ___gtdf2
+                  0x0007d8                  ___divsi3
+                  0x0007f6                  ___ltsf2
+                  0x0007f6                  ___eqsf2
+                  0x0007f6                  ___lesf2
+                  0x0007fa                  ___gesf2
+                  0x0007fa                  ___gtsf2
+                  0x0007fe                  ___floatunsisf
+                  0x000802                  ___modsi3
+                  0x000820                  ___udivsi3
+                  0x000840                  ___umodsi3
+                  0x000846                  __dcompare
+                  0x000898                  __dtype
+                  0x0008bc                  __fcompare
+                  0x0008f2                  ___floatundisf
+                  0x000950                  __fpack
+                  0x00099c                  __funpack2
+                  0x0009ac                  __funpack
+                  0x0009d6                  _memcpy
+                  0x0009e4                  mcSineTableInFlash
+                  0x0009e4                  _mcSineTableInFlash
+                  0x000b96                  _UART2_Drv
+                  0x000bc8                  _blockFunctionTable
+                  0x000be0                  _parameterIdTable
+                  0x000be8                  _compilationDate
+                  0x000fd0                  _Scope_Main_Init
+                  0x00104a                  _Scope_Main_Update
+                  0x001380                  _Scope_Main_Load
+                  0x001434                  _Scope_Main_Save
+                  0x001bea                  _Scope_Main_GetAddress
+                  0x001cf8                  _communication
+                  0x001d58                  _LogMotorStatus
+                  0x001e52                  _ascii_to_hex
+                  0x001e74                  _rx_data_process
+                  0x001f32                  _tx_data_process
+                  0x0020a4                  _UARTSend_1
+                  0x0020d6                  _UARTSend_2
+                  0x0020fa                  _UART2_TransmitString
+                  0x002114                  _calculate_checksum
+                  0x002162                  _UART2_RxCompleteCallback
+                  0x0021d4                  _timer1ms_communication
+                  0x0021e0                  _Get_Rx_Ccount
+                  0x0021e8                  _sendSvNotAvailable
+                  0x0021f6                  Services.o:_getDeviceInfo
+                  0x002422                  Services.o:_saveParameter
+                  0x00258c                  Services.o:_loadParameter
+                  0x00266a                  Services.o:_setTargetState
+                  0x00270a                  Services.o:_getTargetState
+                  0x002720                  _sendError
+                  0x00272c                  _initServiceTable
+                  0x002740                  _addCoreServices
+                  0x002758                  _SingleShunt_InitializeParameters
+                  0x00278a                  _SingleShunt_CalculateSpaceVectorPhaseShifted
+                  0x002b4c                  _SingleShunt_PhaseCurrentReconstruction
+                  0x002c50                  _GetBuildInfo
+                  0x002c58                  _GetBuildDate
+                  0x002c62                  _GetBuildTime
+                  0x002d90                  _GetBuildInfoString
+                  0x002e04                  _PrintBuildInfo
+                  0x002eec                  _GetFormattedBuildDateTime
+                  0x003106                  _InitPWMGenerators
+                  0x003166                  _InitDutyPWM124Generators
+                  0x003196                  _ChargeBootstarpCapacitors
+                  0x00328e                  _InitPWMGenerator1
+                  0x003394                  _InitPWMGenerator2
+                  0x00349c                  _InitPWMGenerator4
+                  0x0035a4                  _SetMotorSpeed
+                  0x0035bc                  _Timer1_Init
+                  0x0035e4                  _uart2_setting
+                  0x0035fe                  _main
+                  0x00368a                  _Motor_Speed
+                  0x0036b8                  _update_speed_command_lowlimit
+                  0x0036de                  _update_speed_target
+                  0x003796                  _ResetParmeters
+                  0x0037cc                  _DoControl
+                  0x00393e                  _CalculateParkAngle
+                  0x0039bc                  _InitControlParameters
+                  0x003a28                  LNet.o:_enableSend
+                  0x003a32                  LNet.o:_communicate
+                  0x003e30                  _initLNet
+                  0x003e46                  _UART2_Initialize
+                  0x003ea6                  _UART2_Deinitialize
+                  0x003ecc                  _UART2_Read
+                  0x003ef6                  _UART2_Write
+                  0x003f22                  _UART2_IsRxReady
+                  0x003f38                  _UART2_IsTxReady
+                  0x003f6a                  _UART2_IsTxDone
+                  0x003f9a                  _UART2_TransmitEnable
+                  0x003fa2                  _UART2_TransmitDisable
+                  0x003faa                  _UART2_AutoBaudSet
+                  0x003fd0                  _UART2_AutoBaudQuery
+                  0x003fe8                  _UART2_AutoBaudEventEnableGet
+                  0x004000                  _UART2_BRGCountSet
+                  0x004016                  _UART2_BRGCountGet
+                  0x004032                  _UART2_BaudRateSet
+                  0x0040c4                  _UART2_BaudRateGet
+                  0x004134                  _UART2_ErrorGet
+                  0x004142                  _UART2_RxCompleteCallbackRegister
+                  0x00415a                  _UART2_TxCompleteCallbackRegister
+                  0x004172                  _UART2_TxCollisionCallbackRegister
+                  0x00418a                  _UART2_FramingErrorCallbackRegister
+                  0x0041a2                  _UART2_OverrunErrorCallbackRegister
+                  0x0041ba                  _UART2_ParityErrorCallbackRegister
+                  0x0041d2                  _Estim
+                  0x0044d4                  _InitEstimParm
+                  0x004520                  _getBlockData
+                  0x004592                  _putBlockData
+                  0x004616                  _getRAMBlock
+                  0x0046dc                  _putRAMBlock
+                  0x0047c8                  _addBlockServices
+                  0x0047d8                  _addExtendedBlockServices
+                  0x0047e0                  _IsPressed_Button1
+                  0x0047fa                  _IsPressed_Button2
+                  0x004814                  _BoardServiceStepIsr
+                  0x004826                  _BoardService
+                  0x004864                  _BoardServiceInit
+                  0x0048da                  _InitPeripherals
+                  0x00490c                  _DisablePWMOutputsInverterA
+                  0x004936                  _EnablePWMOutputsInverterA
+                  0x004948                  _ClearPWMPCIFaultInverterA
+                  0x004954                  _PWMDutyCycleSet
+                  0x00498a                  _PWMDutyCycleSetDualEdge
+                  0x0049d4                  _pwmDutyCycleLimitCheck
+                  0x004a46                  _MCAPP_MeasureCurrentInit
+                  0x004a76                  _MCAPP_MeasureCurrentOffset
+                  0x004b3c                  _MCAPP_MeasureCurrentCalibrate
+                  0x004b64                  _MCAPP_MeasureCurrentOffsetStatus
+                  0x004b70                  _MCAPP_MeasureAvgInit
+                  0x004ba0                  _MCAPP_MeasureAvg
+                  0x004c14                  _MCAPP_MeasureTemperature
+                  0x004c54                  _InitFWParams
+                  0x004d3a                  _FieldWeakening
+                  0x004e56                  _InitializeADCs
+                  0x0050f8                  _Status_LED
+                  0x005124                  _Status_LED_Control
+                  0x0051f8                  _Communication_Check
+                  0x00521e                  _Interrupt_Timer1ms_Status_LED
+                  0x005230                  MC_CalculateSpaceVectorPhaseShifted_Assembly
+                  0x005230                  _MC_CalculateSpaceVectorPhaseShifted_Assembly
+                  0x0053d4                  _DiagnosticsInit
+                  0x0053ee                  _DiagnosticsStepMain
+                  0x0053f6                  _DiagnosticsStepIsr
+                  0x0053fe                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_sendSerial
+                  0x00540a                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_receiveSerial
+                  0x005426                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isReceiveDataAvailable
+                  0x00542e                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isSendReady
+                  0x00543c                  _X2CScope_Init
+                  0x00544e                  _Common_Init
+                  0x005450                  _Common_Update
+                  0x005452                  _Common_Load
+                  0x005454                  _Common_Save
+                  0x00545c                  _Common_GetAddress
+                  0x00545e                  _getAbsValI8
+                  0x005470                  _getAbsValI16
+                  0x005482                  _getAbsValI32
+                  0x0054a6                  _getAbsValI64
+                  0x0054ee                  _getAbsValR32
+                  0x005508                  _getAbsValR64
+                  0x005532                  _INTERRUPT_Initialize
+                  0x00559e                  _INTERRUPT_Deinitialize
+                  0x005608                  _CMP_Initialize
+                  0x0056a6                  _CMP1_ReferenceSet
+                  0x0056b2                  _CMP1_ModuleEnable
+                  0x0056cc                  _SetupGPIOPorts
+                  0x0056fc                  _MapGPIOHWFunction
+                  0x00578e                  _UART1_Initialize
+                  0x005848                  _InitOscillator
+                  0x0058be                  _EnableREFCLKOutput
+                  0x0058ea                  _sendSerialWrapper
+                  0x0058f0                  _receiveSerialWrapper
+                  0x0058f4                  _isReceiveDataAvailableWrapper
+                  0x0058f8                  _isSendReadyWrapper
+                  0x0058fc                  _X2CScope_Initialise
+                  0x005952                  _X2CScope_Communicate
+                  0x005958                  _X2CScope_Update
+                  0x00595a                  _X2CScope_HookUARTFunctions
+                  0x005964                  _initSerial
+                  0x005976                  MC_ControllerPIUpdate_Assembly
+                  0x005976                  _MC_ControllerPIUpdate_Assembly
+                  0x0059c4                  MC_CalculateSineCosine_Assembly_Ram
+                  0x0059c4                  _MC_CalculateSineCosine_Assembly_Ram
+                  0x005a12                  _initTableStruct
+                  0x005a36                  _addTableStructProtocol
+                  0x005a4e                  SerialGeneric.o:_sendSerial
+                  0x005a50                  SerialGeneric.o:_receiveSerial
+                  0x005a52                  SerialGeneric.o:_isReceiveDataAvailable
+                  0x005a54                  SerialGeneric.o:_isSendReady
+                  0x005a56                  SerialGeneric.o:_getTxFifoFree
+                  0x005a58                  SerialGeneric.o:_flush
+                  0x005a5a                  _initSerialGeneric
+                  0x005a74                  _linkSerial
+                  0x005a78                  MC_TransformClarkeInverseSwappedInput_Assembly
+                  0x005a78                  _MC_TransformClarkeInverseSwappedInput_Assembly
+                  0x005aa0                  _MC_TransformParkInverse_Assembly
+                  0x005aa0                  MC_TransformParkInverse_Assembly
+                  0x005ac4                  _MC_TransformPark_Assembly
+                  0x005ac4                  MC_TransformPark_Assembly
+                  0x005ae8                  _MC_TransformClarke_Assembly
+                  0x005ae8                  MC_TransformClarke_Assembly
+                  0x005b06                  _initVersionInfo
+                  0x005b0e                  _X2C_Init
+                  0x005b12                  _X2C_Update
                   0x02bf00                  __FSEC.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x003a16                  LNet.o:_communicate
-                  0x003a0c                  LNet.o:_enableSend
-                  0x0059a8                  MC_CalculateSineCosine_Assembly_Ram
-                  0x005214                  MC_CalculateSpaceVectorPhaseShifted_Assembly
-                  0x00595a                  MC_ControllerPIUpdate_Assembly
-                  0x005a5c                  MC_TransformClarkeInverseSwappedInput_Assembly
-                  0x005acc                  MC_TransformClarke_Assembly
-                  0x005a84                  MC_TransformParkInverse_Assembly
-                  0x005aa8                  MC_TransformPark_Assembly
-                  0x005a3c                  SerialGeneric.o:_flush
-                  0x005a3a                  SerialGeneric.o:_getTxFifoFree
-                  0x005a36                  SerialGeneric.o:_isReceiveDataAvailable
-                  0x005a38                  SerialGeneric.o:_isSendReady
-                  0x005a34                  SerialGeneric.o:_receiveSerial
-                  0x005a32                  SerialGeneric.o:_sendSerial
-                  0x0021da                  Services.o:_getDeviceInfo
-                  0x0026ee                  Services.o:_getTargetState
-                  0x002570                  Services.o:_loadParameter
-                  0x002406                  Services.o:_saveParameter
-                  0x00264e                  Services.o:_setTargetState
-                  0x00480a                  _BoardService
-                  0x004848                  _BoardServiceInit
-                  0x0047f8                  _BoardServiceStepIsr
-                  0x005696                  _CMP1_ModuleEnable
-                  0x00568a                  _CMP1_ReferenceSet
-                  0x0055ec                  _CMP_Initialize
-                  0x003922                  _CalculateParkAngle
-                  0x00317a                  _ChargeBootstarpCapacitors
-                  0x00492c                  _ClearPWMPCIFaultInverterA
-                  0x005440                  _Common_GetAddress
-                  0x005432                  _Common_Init
-                  0x005436                  _Common_Load
-                  0x005438                  _Common_Save
-                  0x005434                  _Common_Update
-                  0x0051dc                  _Communication_Check
-                  0x0053b8                  _DiagnosticsInit
-                  0x0053da                  _DiagnosticsStepIsr
-                  0x0053d2                  _DiagnosticsStepMain
-                  0x0048f0                  _DisablePWMOutputsInverterA
-                  0x0037b0                  _DoControl
-                  0x00491a                  _EnablePWMOutputsInverterA
-                  0x0058a2                  _EnableREFCLKOutput
-                  0x0041b6                  _Estim
-                  0x004d1e                  _FieldWeakening
-                  0x002c3c                  _GetBuildDate
-                  0x002c34                  _GetBuildInfo
-                  0x002d74                  _GetBuildInfoString
-                  0x002c46                  _GetBuildTime
-                  0x002ed0                  _GetFormattedBuildDateTime
-                  0x0021c4                  _Get_Rx_Ccount
-                  0x005582                  _INTERRUPT_Deinitialize
-                  0x005516                  _INTERRUPT_Initialize
-                  0x0039a0                  _InitControlParameters
-                  0x00314a                  _InitDutyPWM124Generators
-                  0x0044b8                  _InitEstimParm
-                  0x004c38                  _InitFWParams
-                  0x00582c                  _InitOscillator
-                  0x003272                  _InitPWMGenerator1
-                  0x003378                  _InitPWMGenerator2
-                  0x003480                  _InitPWMGenerator4
-                  0x0030ea                  _InitPWMGenerators
-                  0x0048be                  _InitPeripherals
-                  0x004e3a                  _InitializeADCs
-                  0x005202                  _Interrupt_Timer1ms_Status_LED
-                  0x0047c4                  _IsPressed_Button1
-                  0x0047de                  _IsPressed_Button2
-                  0x001d5e                  _LogMotorStatus
-                  0x004b84                  _MCAPP_MeasureAvg
-                  0x004b54                  _MCAPP_MeasureAvgInit
-                  0x004b20                  _MCAPP_MeasureCurrentCalibrate
-                  0x004a2a                  _MCAPP_MeasureCurrentInit
-                  0x004a5a                  _MCAPP_MeasureCurrentOffset
-                  0x004b48                  _MCAPP_MeasureCurrentOffsetStatus
-                  0x004bf8                  _MCAPP_MeasureTemperature
-                  0x0059a8                  _MC_CalculateSineCosine_Assembly_Ram
-                  0x005214                  _MC_CalculateSpaceVectorPhaseShifted_Assembly
-                  0x00595a                  _MC_ControllerPIUpdate_Assembly
-                  0x005a5c                  _MC_TransformClarkeInverseSwappedInput_Assembly
-                  0x005acc                  _MC_TransformClarke_Assembly
-                  0x005a84                  _MC_TransformParkInverse_Assembly
-                  0x005aa8                  _MC_TransformPark_Assembly
-                  0x0056e0                  _MapGPIOHWFunction
-                  0x00366e                  _Motor_Speed
-                  0x004938                  _PWMDutyCycleSet
-                  0x00496e                  _PWMDutyCycleSetDualEdge
-                  0x002de8                  _PrintBuildInfo
-                  0x00377a                  _ResetParmeters
-                  0x001bec                  _Scope_Main_GetAddress
-                  0x000fd2                  _Scope_Main_Init
-                  0x001382                  _Scope_Main_Load
-                  0x001436                  _Scope_Main_Save
-                  0x00104c                  _Scope_Main_Update
-                  0x003588                  _SetMotorSpeed
-                  0x0056b0                  _SetupGPIOPorts
-                  0x00276e                  _SingleShunt_CalculateSpaceVectorPhaseShifted
-                  0x00273c                  _SingleShunt_InitializeParameters
-                  0x002b30                  _SingleShunt_PhaseCurrentReconstruction
-                  0x0050dc                  _Status_LED
-                  0x005108                  _Status_LED_Control
-                  0x0035a0                  _Timer1_Init
-                  0x005772                  _UART1_Initialize
-                  0x003fcc                  _UART2_AutoBaudEventEnableGet
-                  0x003fb4                  _UART2_AutoBaudQuery
-                  0x003f8e                  _UART2_AutoBaudSet
-                  0x003ffa                  _UART2_BRGCountGet
-                  0x003fe4                  _UART2_BRGCountSet
-                  0x0040a8                  _UART2_BaudRateGet
-                  0x004016                  _UART2_BaudRateSet
-                  0x003e8a                  _UART2_Deinitialize
-                  0x000b98                  _UART2_Drv
-                  0x004118                  _UART2_ErrorGet
-                  0x00416e                  _UART2_FramingErrorCallbackRegister
-                  0x003e2a                  _UART2_Initialize
-                  0x003f06                  _UART2_IsRxReady
-                  0x003f4e                  _UART2_IsTxDone
-                  0x003f1c                  _UART2_IsTxReady
-                  0x004186                  _UART2_OverrunErrorCallbackRegister
-                  0x00419e                  _UART2_ParityErrorCallbackRegister
-                  0x003eb0                  _UART2_Read
-                  0x002146                  _UART2_RxCompleteCallback
-                  0x004126                  _UART2_RxCompleteCallbackRegister
-                  0x003f86                  _UART2_TransmitDisable
-                  0x003f7e                  _UART2_TransmitEnable
-                  0x0020de                  _UART2_TransmitString
-                  0x004156                  _UART2_TxCollisionCallbackRegister
-                  0x00413e                  _UART2_TxCompleteCallbackRegister
-                  0x003eda                  _UART2_Write
-                  0x002088                  _UARTSend_1
-                  0x0020ba                  _UARTSend_2
-                  0x005936                  _X2CScope_Communicate
-                  0x00593e                  _X2CScope_HookUARTFunctions
-                  0x005420                  _X2CScope_Init
-                  0x0058e0                  _X2CScope_Initialise
-                  0x00593c                  _X2CScope_Update
-                  0x005af2                  _X2C_Init
-                  0x005af6                  _X2C_Update
-                  0x00059c                  __ADCAN1Interrupt
-                  0x0006ee                  __DefaultInterrupt
+                  0x003a32                  LNet.o:_communicate
+                  0x003a28                  LNet.o:_enableSend
+                  0x0059c4                  MC_CalculateSineCosine_Assembly_Ram
+                  0x005230                  MC_CalculateSpaceVectorPhaseShifted_Assembly
+                  0x005976                  MC_ControllerPIUpdate_Assembly
+                  0x005a78                  MC_TransformClarkeInverseSwappedInput_Assembly
+                  0x005ae8                  MC_TransformClarke_Assembly
+                  0x005aa0                  MC_TransformParkInverse_Assembly
+                  0x005ac4                  MC_TransformPark_Assembly
+                  0x005a58                  SerialGeneric.o:_flush
+                  0x005a56                  SerialGeneric.o:_getTxFifoFree
+                  0x005a52                  SerialGeneric.o:_isReceiveDataAvailable
+                  0x005a54                  SerialGeneric.o:_isSendReady
+                  0x005a50                  SerialGeneric.o:_receiveSerial
+                  0x005a4e                  SerialGeneric.o:_sendSerial
+                  0x0021f6                  Services.o:_getDeviceInfo
+                  0x00270a                  Services.o:_getTargetState
+                  0x00258c                  Services.o:_loadParameter
+                  0x002422                  Services.o:_saveParameter
+                  0x00266a                  Services.o:_setTargetState
+                  0x004826                  _BoardService
+                  0x004864                  _BoardServiceInit
+                  0x004814                  _BoardServiceStepIsr
+                  0x0056b2                  _CMP1_ModuleEnable
+                  0x0056a6                  _CMP1_ReferenceSet
+                  0x005608                  _CMP_Initialize
+                  0x00393e                  _CalculateParkAngle
+                  0x003196                  _ChargeBootstarpCapacitors
+                  0x004948                  _ClearPWMPCIFaultInverterA
+                  0x00545c                  _Common_GetAddress
+                  0x00544e                  _Common_Init
+                  0x005452                  _Common_Load
+                  0x005454                  _Common_Save
+                  0x005450                  _Common_Update
+                  0x0051f8                  _Communication_Check
+                  0x0053d4                  _DiagnosticsInit
+                  0x0053f6                  _DiagnosticsStepIsr
+                  0x0053ee                  _DiagnosticsStepMain
+                  0x00490c                  _DisablePWMOutputsInverterA
+                  0x0037cc                  _DoControl
+                  0x004936                  _EnablePWMOutputsInverterA
+                  0x0058be                  _EnableREFCLKOutput
+                  0x0041d2                  _Estim
+                  0x004d3a                  _FieldWeakening
+                  0x002c58                  _GetBuildDate
+                  0x002c50                  _GetBuildInfo
+                  0x002d90                  _GetBuildInfoString
+                  0x002c62                  _GetBuildTime
+                  0x002eec                  _GetFormattedBuildDateTime
+                  0x0021e0                  _Get_Rx_Ccount
+                  0x00559e                  _INTERRUPT_Deinitialize
+                  0x005532                  _INTERRUPT_Initialize
+                  0x0039bc                  _InitControlParameters
+                  0x003166                  _InitDutyPWM124Generators
+                  0x0044d4                  _InitEstimParm
+                  0x004c54                  _InitFWParams
+                  0x005848                  _InitOscillator
+                  0x00328e                  _InitPWMGenerator1
+                  0x003394                  _InitPWMGenerator2
+                  0x00349c                  _InitPWMGenerator4
+                  0x003106                  _InitPWMGenerators
+                  0x0048da                  _InitPeripherals
+                  0x004e56                  _InitializeADCs
+                  0x00521e                  _Interrupt_Timer1ms_Status_LED
+                  0x0047e0                  _IsPressed_Button1
+                  0x0047fa                  _IsPressed_Button2
+                  0x001d58                  _LogMotorStatus
+                  0x004ba0                  _MCAPP_MeasureAvg
+                  0x004b70                  _MCAPP_MeasureAvgInit
+                  0x004b3c                  _MCAPP_MeasureCurrentCalibrate
+                  0x004a46                  _MCAPP_MeasureCurrentInit
+                  0x004a76                  _MCAPP_MeasureCurrentOffset
+                  0x004b64                  _MCAPP_MeasureCurrentOffsetStatus
+                  0x004c14                  _MCAPP_MeasureTemperature
+                  0x0059c4                  _MC_CalculateSineCosine_Assembly_Ram
+                  0x005230                  _MC_CalculateSpaceVectorPhaseShifted_Assembly
+                  0x005976                  _MC_ControllerPIUpdate_Assembly
+                  0x005a78                  _MC_TransformClarkeInverseSwappedInput_Assembly
+                  0x005ae8                  _MC_TransformClarke_Assembly
+                  0x005aa0                  _MC_TransformParkInverse_Assembly
+                  0x005ac4                  _MC_TransformPark_Assembly
+                  0x0056fc                  _MapGPIOHWFunction
+                  0x00368a                  _Motor_Speed
+                  0x004954                  _PWMDutyCycleSet
+                  0x00498a                  _PWMDutyCycleSetDualEdge
+                  0x002e04                  _PrintBuildInfo
+                  0x003796                  _ResetParmeters
+                  0x001bea                  _Scope_Main_GetAddress
+                  0x000fd0                  _Scope_Main_Init
+                  0x001380                  _Scope_Main_Load
+                  0x001434                  _Scope_Main_Save
+                  0x00104a                  _Scope_Main_Update
+                  0x0035a4                  _SetMotorSpeed
+                  0x0056cc                  _SetupGPIOPorts
+                  0x00278a                  _SingleShunt_CalculateSpaceVectorPhaseShifted
+                  0x002758                  _SingleShunt_InitializeParameters
+                  0x002b4c                  _SingleShunt_PhaseCurrentReconstruction
+                  0x0050f8                  _Status_LED
+                  0x005124                  _Status_LED_Control
+                  0x0035bc                  _Timer1_Init
+                  0x00578e                  _UART1_Initialize
+                  0x003fe8                  _UART2_AutoBaudEventEnableGet
+                  0x003fd0                  _UART2_AutoBaudQuery
+                  0x003faa                  _UART2_AutoBaudSet
+                  0x004016                  _UART2_BRGCountGet
+                  0x004000                  _UART2_BRGCountSet
+                  0x0040c4                  _UART2_BaudRateGet
+                  0x004032                  _UART2_BaudRateSet
+                  0x003ea6                  _UART2_Deinitialize
+                  0x000b96                  _UART2_Drv
+                  0x004134                  _UART2_ErrorGet
+                  0x00418a                  _UART2_FramingErrorCallbackRegister
+                  0x003e46                  _UART2_Initialize
+                  0x003f22                  _UART2_IsRxReady
+                  0x003f6a                  _UART2_IsTxDone
+                  0x003f38                  _UART2_IsTxReady
+                  0x0041a2                  _UART2_OverrunErrorCallbackRegister
+                  0x0041ba                  _UART2_ParityErrorCallbackRegister
+                  0x003ecc                  _UART2_Read
+                  0x002162                  _UART2_RxCompleteCallback
+                  0x004142                  _UART2_RxCompleteCallbackRegister
+                  0x003fa2                  _UART2_TransmitDisable
+                  0x003f9a                  _UART2_TransmitEnable
+                  0x0020fa                  _UART2_TransmitString
+                  0x004172                  _UART2_TxCollisionCallbackRegister
+                  0x00415a                  _UART2_TxCompleteCallbackRegister
+                  0x003ef6                  _UART2_Write
+                  0x0020a4                  _UARTSend_1
+                  0x0020d6                  _UARTSend_2
+                  0x005952                  _X2CScope_Communicate
+                  0x00595a                  _X2CScope_HookUARTFunctions
+                  0x00543c                  _X2CScope_Init
+                  0x0058fc                  _X2CScope_Initialise
+                  0x005958                  _X2CScope_Update
+                  0x005b0e                  _X2C_Init
+                  0x005b12                  _X2C_Update
+                  0x000598                  __ADCAN1Interrupt
+                  0x0006ea                  __DefaultInterrupt
                   0x02bf00                  __FSEC.sec
-                  0x0006cc                  __PWM1Interrupt
-                  0x00072c                  __Q15abs
-                  0x000736                  __Q15sqrt
-                  0x000576                  __T1Interrupt
-                  0x0004d8                  __U2EInterrupt
-                  0x00056c                  __U2EVTInterrupt
-                  0x000454                  __U2RXInterrupt
-                  0x0003ee                  __U2TXInterrupt
-                  0x0007dc                  ___divsi3
-                  0x0007c8                  ___eqdf2
-                  0x0007fa                  ___eqsf2
-                  0x0008f6                  ___floatundisf
-                  0x000802                  ___floatunsisf
-                  0x0007d2                  ___gedf2
-                  0x0007fe                  ___gesf2
-                  0x0007d2                  ___gtdf2
-                  0x0007fe                  ___gtsf2
-                  0x0007c8                  ___ledf2
-                  0x0007fa                  ___lesf2
-                  0x0007c8                  ___ltdf2
-                  0x0007fa                  ___ltsf2
-                  0x000806                  ___modsi3
-                  0x000824                  ___udivsi3
-                  0x000844                  ___umodsi3
+                  0x0006c8                  __PWM1Interrupt
+                  0x000728                  __Q15abs
+                  0x000732                  __Q15sqrt
+                  0x000572                  __T1Interrupt
+                  0x0004d4                  __U2EInterrupt
+                  0x000568                  __U2EVTInterrupt
+                  0x000450                  __U2RXInterrupt
+                  0x0003ea                  __U2TXInterrupt
+                  0x0007d8                  ___divsi3
+                  0x0007c4                  ___eqdf2
+                  0x0007f6                  ___eqsf2
+                  0x0008f2                  ___floatundisf
+                  0x0007fe                  ___floatunsisf
+                  0x0007ce                  ___gedf2
+                  0x0007fa                  ___gesf2
+                  0x0007ce                  ___gtdf2
+                  0x0007fa                  ___gtsf2
+                  0x0007c4                  ___ledf2
+                  0x0007f6                  ___lesf2
+                  0x0007c4                  ___ltdf2
+                  0x0007f6                  ___ltsf2
+                  0x000802                  ___modsi3
+                  0x000820                  ___udivsi3
+                  0x000840                  ___umodsi3
                   0x000248                  __data_init
                   0x000248                  __data_init_extended
-                  0x00084a                  __dcompare
-                  0x00089c                  __dtype
-                  0x0008c0                  __fcompare
-                  0x000954                  __fpack
-                  0x0009b0                  __funpack
-                  0x0009a0                  __funpack2
+                  0x000846                  __dcompare
+                  0x000898                  __dtype
+                  0x0008bc                  __fcompare
+                  0x000950                  __fpack
+                  0x0009ac                  __funpack
+                  0x00099c                  __funpack2
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0047ac                  _addBlockServices
-                  0x002724                  _addCoreServices
-                  0x0047bc                  _addExtendedBlockServices
-                  0x005a1a                  _addTableStructProtocol
-                  0x001e58                  _ascii_to_hex
-                  0x000bca                  _blockFunctionTable
-                  0x0020f8                  _calculate_checksum
-                  0x001cfa                  _communication
-                  0x000bea                  _compilationDate
-                  0x005454                  _getAbsValI16
-                  0x005466                  _getAbsValI32
-                  0x00548a                  _getAbsValI64
-                  0x005442                  _getAbsValI8
-                  0x0054d2                  _getAbsValR32
-                  0x0054ec                  _getAbsValR64
-                  0x004504                  _getBlockData
-                  0x0045fa                  _getRAMBlock
-                  0x003e14                  _initLNet
-                  0x005948                  _initSerial
-                  0x005a3e                  _initSerialGeneric
-                  0x002710                  _initServiceTable
-                  0x0059f6                  _initTableStruct
-                  0x005aea                  _initVersionInfo
-                  0x0058d8                  _isReceiveDataAvailableWrapper
-                  0x0058dc                  _isSendReadyWrapper
-                  0x005a58                  _linkSerial
-                  0x0035e2                  _main
-                  0x0009e8                  _mcSineTableInFlash
-                  0x0009da                  _memcpy
-                  0x000be2                  _parameterIdTable
-                  0x004576                  _putBlockData
-                  0x0046c0                  _putRAMBlock
-                  0x0049b8                  _pwmDutyCycleLimitCheck
-                  0x0058d4                  _receiveSerialWrapper
-                  0x001e7a                  _rx_data_process
-                  0x002704                  _sendError
-                  0x0058ce                  _sendSerialWrapper
-                  0x0021cc                  _sendSvNotAvailable
-                  0x0021b8                  _timer1ms_communication
-                  0x001f38                  _tx_data_process
-                  0x0035c8                  _uart2_setting
-                  0x00369c                  _update_speed_command_lowlimit
-                  0x0036c2                  _update_speed_target
-                  0x0006f2                  _write
-                  0x00540a                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isReceiveDataAvailable
-                  0x005412                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isSendReady
-                  0x0053ee                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_receiveSerial
-                  0x0053e2                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_sendSerial
-                  0x0009e8                  mcSineTableInFlash
+                  0x0047c8                  _addBlockServices
+                  0x002740                  _addCoreServices
+                  0x0047d8                  _addExtendedBlockServices
+                  0x005a36                  _addTableStructProtocol
+                  0x001e52                  _ascii_to_hex
+                  0x000bc8                  _blockFunctionTable
+                  0x002114                  _calculate_checksum
+                  0x001cf8                  _communication
+                  0x000be8                  _compilationDate
+                  0x005470                  _getAbsValI16
+                  0x005482                  _getAbsValI32
+                  0x0054a6                  _getAbsValI64
+                  0x00545e                  _getAbsValI8
+                  0x0054ee                  _getAbsValR32
+                  0x005508                  _getAbsValR64
+                  0x004520                  _getBlockData
+                  0x004616                  _getRAMBlock
+                  0x003e30                  _initLNet
+                  0x005964                  _initSerial
+                  0x005a5a                  _initSerialGeneric
+                  0x00272c                  _initServiceTable
+                  0x005a12                  _initTableStruct
+                  0x005b06                  _initVersionInfo
+                  0x0058f4                  _isReceiveDataAvailableWrapper
+                  0x0058f8                  _isSendReadyWrapper
+                  0x005a74                  _linkSerial
+                  0x0035fe                  _main
+                  0x0009e4                  _mcSineTableInFlash
+                  0x0009d6                  _memcpy
+                  0x000be0                  _parameterIdTable
+                  0x004592                  _putBlockData
+                  0x0046dc                  _putRAMBlock
+                  0x0049d4                  _pwmDutyCycleLimitCheck
+                  0x0058f0                  _receiveSerialWrapper
+                  0x001e74                  _rx_data_process
+                  0x002720                  _sendError
+                  0x0058ea                  _sendSerialWrapper
+                  0x0021e8                  _sendSvNotAvailable
+                  0x0021d4                  _timer1ms_communication
+                  0x001f32                  _tx_data_process
+                  0x0035e4                  _uart2_setting
+                  0x0036b8                  _update_speed_command_lowlimit
+                  0x0036de                  _update_speed_target
+                  0x0006ee                  _write
+                  0x005426                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isReceiveDataAvailable
+                  0x00542e                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isSendReady
+                  0x00540a                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_receiveSerial
+                  0x0053fe                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_sendSerial
+                  0x0009e4                  mcSineTableInFlash
 
 Memory Configuration
 
@@ -890,7 +890,7 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x7e8
+.text             0x000200        0x7e4
  *(.init)
  .init            0x000200         0x48 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_extendedch.o)
                   0x000200                  __resetPRI
@@ -901,78 +901,78 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                   0x000248                  __data_init_extended
  *(.user_init)
  *(.handle)
- .handle          0x0002fa         0xf4 jump_table
+ .handle          0x0002fa         0xf0 jump_table
  *(.isr*)
- .isr.text        0x0003ee        0x188 build/default/production/_ext/1360926148/uart2.o
-                  0x0003ee                  __U2TXInterrupt
-                  0x000454                  __U2RXInterrupt
-                  0x0004d8                  __U2EInterrupt
-                  0x00056c                  __U2EVTInterrupt
- .isr.text        0x000576        0x178 build/default/production/_ext/1472/pmsm.o
-                  0x000576                  __T1Interrupt
-                  0x00059c                  __ADCAN1Interrupt
-                  0x0006cc                  __PWM1Interrupt
- .isr             0x0006ee          0x4 default_isr
-                  0x0006ee                  __DefaultInterrupt
+ .isr.text        0x0003ea        0x188 build/default/production/_ext/1360926148/uart2.o
+                  0x0003ea                  __U2TXInterrupt
+                  0x000450                  __U2RXInterrupt
+                  0x0004d4                  __U2EInterrupt
+                  0x000568                  __U2EVTInterrupt
+ .isr.text        0x000572        0x178 build/default/production/_ext/1472/pmsm.o
+                  0x000572                  __T1Interrupt
+                  0x000598                  __ADCAN1Interrupt
+                  0x0006c8                  __PWM1Interrupt
+ .isr             0x0006ea          0x4 default_isr
+                  0x0006ea                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
- .libc.write      0x0006f2         0x3a build/default/production/_ext/1360926148/uart2.o
-                  0x0006f2                  _write
- .libq            0x00072c          0xa c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libq-elf.a(PIC_Abs_1_15.cheo)
-                  0x00072c                  __Q15abs
- .libq            0x000736         0x90 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libq-elf.a(PIC_Sqrt_1_15.cheo)
-                  0x000736                  __Q15sqrt
+ .libc.write      0x0006ee         0x3a build/default/production/_ext/1360926148/uart2.o
+                  0x0006ee                  _write
+ .libq            0x000728          0xa c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libq-elf.a(PIC_Abs_1_15.cheo)
+                  0x000728                  __Q15abs
+ .libq            0x000732         0x90 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libq-elf.a(PIC_Sqrt_1_15.cheo)
+                  0x000732                  __Q15sqrt
  .libpic30_crt_start_mode
-                  0x0007c6          0x2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normalch.Meo)
-                  0x0007c6                  __crt_start_mode
-                  0x0007c6                  __crt_start_mode_normal
- .libm.eqdf2      0x0007c8          0xa c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
-                  0x0007c8                  ___eqdf2
-                  0x0007c8                  ___ltdf2
-                  0x0007c8                  ___ledf2
- .libm.gtdf2      0x0007d2          0xa c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
-                  0x0007d2                  ___gtdf2
-                  0x0007d2                  ___gedf2
- .libm.divsi3     0x0007dc         0x1e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
-                  0x0007dc                  ___divsi3
- .libm.eqsf2      0x0007fa          0x4 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
-                  0x0007fa                  ___eqsf2
-                  0x0007fa                  ___ltsf2
-                  0x0007fa                  ___lesf2
- .libm.gtsf2      0x0007fe          0x4 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
-                  0x0007fe                  ___gesf2
-                  0x0007fe                  ___gtsf2
+                  0x0007c2          0x2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normalch.Meo)
+                  0x0007c2                  __crt_start_mode
+                  0x0007c2                  __crt_start_mode_normal
+ .libm.eqdf2      0x0007c4          0xa c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
+                  0x0007c4                  ___eqdf2
+                  0x0007c4                  ___ltdf2
+                  0x0007c4                  ___ledf2
+ .libm.gtdf2      0x0007ce          0xa c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
+                  0x0007ce                  ___gtdf2
+                  0x0007ce                  ___gedf2
+ .libm.divsi3     0x0007d8         0x1e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
+                  0x0007d8                  ___divsi3
+ .libm.eqsf2      0x0007f6          0x4 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
+                  0x0007f6                  ___eqsf2
+                  0x0007f6                  ___ltsf2
+                  0x0007f6                  ___lesf2
+ .libm.gtsf2      0x0007fa          0x4 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
+                  0x0007fa                  ___gesf2
+                  0x0007fa                  ___gtsf2
  .libm.floatunsisf
-                  0x000802          0x4 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
-                  0x000802                  ___floatunsisf
- .libm.modsi3     0x000806         0x1e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
-                  0x000806                  ___modsi3
- .libm.udivsi3    0x000824         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
-                  0x000824                  ___udivsi3
- .libm.umodsi3    0x000844          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
-                  0x000844                  ___umodsi3
+                  0x0007fe          0x4 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+                  0x0007fe                  ___floatunsisf
+ .libm.modsi3     0x000802         0x1e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
+                  0x000802                  ___modsi3
+ .libm.udivsi3    0x000820         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
+                  0x000820                  ___udivsi3
+ .libm.umodsi3    0x000840          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
+                  0x000840                  ___umodsi3
  .libm.dcompare
-                  0x00084a         0x52 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
-                  0x00084a                  __dcompare
- .libm.dtype      0x00089c         0x24 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
-                  0x00089c                  __dtype
+                  0x000846         0x52 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
+                  0x000846                  __dcompare
+ .libm.dtype      0x000898         0x24 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
+                  0x000898                  __dtype
  .libm.fcompare
-                  0x0008c0         0x36 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
-                  0x0008c0                  __fcompare
+                  0x0008bc         0x36 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
+                  0x0008bc                  __fcompare
  .libm.floatundisf
-                  0x0008f6         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
-                  0x0008f6                  ___floatundisf
- .libm.fpack      0x000954         0x4c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
-                  0x000954                  __fpack
+                  0x0008f2         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+                  0x0008f2                  ___floatundisf
+ .libm.fpack      0x000950         0x4c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+                  0x000950                  __fpack
  .libm.funpack2
-                  0x0009a0         0x10 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
-                  0x0009a0                  __funpack2
- .libm.funpack    0x0009b0         0x2a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
-                  0x0009b0                  __funpack
- .libc.memcpy     0x0009da          0xe c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a(memcpy.CH_o)
-                  0x0009da                  _memcpy
+                  0x00099c         0x10 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
+                  0x00099c                  __funpack2
+ .libm.funpack    0x0009ac         0x2a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+                  0x0009ac                  __funpack
+ .libc.memcpy     0x0009d6          0xe c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a(memcpy.CH_o)
+                  0x0009d6                  _memcpy
 
 usercode
  *(usercode)
@@ -1033,7 +1033,7 @@ __FBTSEQ
 .comment
  *(.comment)
 
-.debug_info       0x000000      0x1c1e4
+.debug_info       0x000000      0x1c1e0
  *(.debug_info)
  .debug_info      0x000000       0x2cad build/default/production/_ext/1360926148/adc.o
  .debug_info      0x002cad        0xf90 build/default/production/_ext/1360926148/board_service.o
@@ -1057,38 +1057,38 @@ __FBTSEQ
  .debug_info      0x00dac4       0x2dd6 build/default/production/_ext/1472/pmsm.o
  .debug_info      0x01089a        0xef7 build/default/production/_ext/1472/diagnostics_x2cscope.o
  .debug_info      0x011791        0x5cc build/default/production/_ext/1472/singleshunt.o
- .debug_info      0x011d5d       0x16ac build/default/production/_ext/1472/Communication.o
- .debug_info      0x013409        0x5ae build/default/production/_ext/1472/Status_LED.o
- .debug_info      0x0139b7        0x722 build/default/production/_ext/589590699/Build_info.o
- .debug_info      0x0140d9       0x1038 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
- .debug_info      0x015111        0xd93 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
- .debug_info      0x015ea4       0x1091 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
- .debug_info      0x016f35        0x4ea ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
- .debug_info      0x01741f        0xf40 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
- .debug_info      0x01835f        0xade ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
- .debug_info      0x018e3d        0xafc ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
- .debug_info      0x019939        0x6ef ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
- .debug_info      0x01a028       0x1439 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
- .debug_info      0x01b461        0x4b2 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
- .debug_info      0x01b913         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
- .debug_info      0x01b9a0         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
- .debug_info      0x01ba2b         0x8c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
- .debug_info      0x01bab7         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
- .debug_info      0x01bb44         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
- .debug_info      0x01bbcf         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_info      0x01bc60         0x8c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
- .debug_info      0x01bcec         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
- .debug_info      0x01bd79         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
- .debug_info      0x01be06         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
- .debug_info      0x01be94         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
- .debug_info      0x01bf1f         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
- .debug_info      0x01bfad         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_info      0x01c03e         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
- .debug_info      0x01c0c9         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
- .debug_info      0x01c157         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_info      0x011d5d       0x16a8 build/default/production/_ext/1472/Communication.o
+ .debug_info      0x013405        0x5ae build/default/production/_ext/1472/Status_LED.o
+ .debug_info      0x0139b3        0x722 build/default/production/_ext/589590699/Build_info.o
+ .debug_info      0x0140d5       0x1038 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
+ .debug_info      0x01510d        0xd93 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
+ .debug_info      0x015ea0       0x1091 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
+ .debug_info      0x016f31        0x4ea ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
+ .debug_info      0x01741b        0xf40 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
+ .debug_info      0x01835b        0xade ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
+ .debug_info      0x018e39        0xafc ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
+ .debug_info      0x019935        0x6ef ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
+ .debug_info      0x01a024       0x1439 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
+ .debug_info      0x01b45d        0x4b2 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
+ .debug_info      0x01b90f         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
+ .debug_info      0x01b99c         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
+ .debug_info      0x01ba27         0x8c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
+ .debug_info      0x01bab3         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
+ .debug_info      0x01bb40         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
+ .debug_info      0x01bbcb         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_info      0x01bc5c         0x8c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
+ .debug_info      0x01bce8         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
+ .debug_info      0x01bd75         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
+ .debug_info      0x01be02         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
+ .debug_info      0x01be90         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
+ .debug_info      0x01bf1b         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
+ .debug_info      0x01bfa9         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_info      0x01c03a         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_info      0x01c0c5         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
+ .debug_info      0x01c153         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000       0x27b5
+.debug_abbrev     0x000000       0x2788
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xda build/default/production/_ext/1360926148/adc.o
  .debug_abbrev    0x0000da        0x1c9 build/default/production/_ext/1360926148/board_service.o
@@ -1113,37 +1113,37 @@ __FBTSEQ
  .debug_abbrev    0x000d19        0x23f build/default/production/_ext/1472/pmsm.o
  .debug_abbrev    0x000f58        0x19b build/default/production/_ext/1472/diagnostics_x2cscope.o
  .debug_abbrev    0x0010f3        0x134 build/default/production/_ext/1472/singleshunt.o
- .debug_abbrev    0x001227        0x2cb build/default/production/_ext/1472/Communication.o
- .debug_abbrev    0x0014f2        0x129 build/default/production/_ext/1472/Status_LED.o
- .debug_abbrev    0x00161b        0x13f build/default/production/_ext/589590699/Build_info.o
- .debug_abbrev    0x00175a        0x1d8 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
- .debug_abbrev    0x001932        0x199 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
- .debug_abbrev    0x001acb        0x218 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
- .debug_abbrev    0x001ce3        0x12b ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
- .debug_abbrev    0x001e0e        0x241 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
- .debug_abbrev    0x00204f        0x109 ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
- .debug_abbrev    0x002158        0x10d ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
- .debug_abbrev    0x002265         0xd9 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
- .debug_abbrev    0x00233e        0x27d ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
- .debug_abbrev    0x0025bb         0xba ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
- .debug_abbrev    0x002675         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
- .debug_abbrev    0x002689         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
- .debug_abbrev    0x00269d         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
- .debug_abbrev    0x0026b1         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
- .debug_abbrev    0x0026c5         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
- .debug_abbrev    0x0026d9         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_abbrev    0x0026ed         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
- .debug_abbrev    0x002701         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
- .debug_abbrev    0x002715         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
- .debug_abbrev    0x002729         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
- .debug_abbrev    0x00273d         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
- .debug_abbrev    0x002751         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
- .debug_abbrev    0x002765         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_abbrev    0x002779         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
- .debug_abbrev    0x00278d         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
- .debug_abbrev    0x0027a1         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_abbrev    0x001227        0x29e build/default/production/_ext/1472/Communication.o
+ .debug_abbrev    0x0014c5        0x129 build/default/production/_ext/1472/Status_LED.o
+ .debug_abbrev    0x0015ee        0x13f build/default/production/_ext/589590699/Build_info.o
+ .debug_abbrev    0x00172d        0x1d8 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
+ .debug_abbrev    0x001905        0x199 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
+ .debug_abbrev    0x001a9e        0x218 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
+ .debug_abbrev    0x001cb6        0x12b ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
+ .debug_abbrev    0x001de1        0x241 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
+ .debug_abbrev    0x002022        0x109 ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
+ .debug_abbrev    0x00212b        0x10d ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
+ .debug_abbrev    0x002238         0xd9 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
+ .debug_abbrev    0x002311        0x27d ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
+ .debug_abbrev    0x00258e         0xba ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
+ .debug_abbrev    0x002648         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
+ .debug_abbrev    0x00265c         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
+ .debug_abbrev    0x002670         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
+ .debug_abbrev    0x002684         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
+ .debug_abbrev    0x002698         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
+ .debug_abbrev    0x0026ac         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_abbrev    0x0026c0         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
+ .debug_abbrev    0x0026d4         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
+ .debug_abbrev    0x0026e8         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
+ .debug_abbrev    0x0026fc         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
+ .debug_abbrev    0x002710         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
+ .debug_abbrev    0x002724         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
+ .debug_abbrev    0x002738         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_abbrev    0x00274c         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_abbrev    0x002760         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
+ .debug_abbrev    0x002774         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
 
-.debug_line       0x000000       0x35da
+.debug_line       0x000000       0x35e0
  *(.debug_line)
  .debug_line      0x000000        0x15f build/default/production/_ext/1360926148/adc.o
  .debug_line      0x00015f        0x1bf build/default/production/_ext/1360926148/board_service.o
@@ -1170,35 +1170,35 @@ __FBTSEQ
  .debug_line      0x0014a7        0x2f2 build/default/production/_ext/1472/pmsm.o
  .debug_line      0x001799        0x180 build/default/production/_ext/1472/diagnostics_x2cscope.o
  .debug_line      0x001919        0x1db build/default/production/_ext/1472/singleshunt.o
- .debug_line      0x001af4        0x205 build/default/production/_ext/1472/Communication.o
- .debug_line      0x001cf9        0x162 build/default/production/_ext/1472/Status_LED.o
- .debug_line      0x001e5b        0x1a2 build/default/production/_ext/589590699/Build_info.o
- .debug_line      0x001ffd        0x133 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
- .debug_line      0x002130        0x19e ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
- .debug_line      0x0022ce        0x266 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
- .debug_line      0x002534         0xea ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
- .debug_line      0x00261e        0x257 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
- .debug_line      0x002875         0xd3 ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
- .debug_line      0x002948         0xc7 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
- .debug_line      0x002a0f         0xbe ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
- .debug_line      0x002acd        0x5c3 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
- .debug_line      0x003090         0xe9 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
- .debug_line      0x003179         0x3a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
- .debug_line      0x0031b3         0x38 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
- .debug_line      0x0031eb         0x43 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
- .debug_line      0x00322e         0x37 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
- .debug_line      0x003265         0x35 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
- .debug_line      0x00329a         0x3b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_line      0x0032d5         0x43 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
- .debug_line      0x003318         0x45 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
- .debug_line      0x00335d         0x38 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
- .debug_line      0x003395         0x5f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
- .debug_line      0x0033f4         0x45 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
- .debug_line      0x003439         0x53 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
- .debug_line      0x00348c         0x6c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_line      0x0034f8         0x5a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
- .debug_line      0x003552         0x3e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
- .debug_line      0x003590         0x4a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_line      0x001af4        0x20b build/default/production/_ext/1472/Communication.o
+ .debug_line      0x001cff        0x162 build/default/production/_ext/1472/Status_LED.o
+ .debug_line      0x001e61        0x1a2 build/default/production/_ext/589590699/Build_info.o
+ .debug_line      0x002003        0x133 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
+ .debug_line      0x002136        0x19e ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
+ .debug_line      0x0022d4        0x266 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
+ .debug_line      0x00253a         0xea ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
+ .debug_line      0x002624        0x257 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
+ .debug_line      0x00287b         0xd3 ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
+ .debug_line      0x00294e         0xc7 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
+ .debug_line      0x002a15         0xbe ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
+ .debug_line      0x002ad3        0x5c3 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
+ .debug_line      0x003096         0xe9 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
+ .debug_line      0x00317f         0x3a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(deqltle.CH_o)
+ .debug_line      0x0031b9         0x38 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dgtge.CH_o)
+ .debug_line      0x0031f1         0x43 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(divsi3.CH_o)
+ .debug_line      0x003234         0x37 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
+ .debug_line      0x00326b         0x35 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fgtge.CH_o)
+ .debug_line      0x0032a0         0x3b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_line      0x0032db         0x43 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(modsi3.CH_o)
+ .debug_line      0x00331e         0x45 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(udivsi3.CH_o)
+ .debug_line      0x003363         0x38 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(umodsi3.CH_o)
+ .debug_line      0x00339b         0x5f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dcompare.CH_o)
+ .debug_line      0x0033fa         0x45 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dtype.CH_o)
+ .debug_line      0x00343f         0x53 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
+ .debug_line      0x003492         0x6c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_line      0x0034fe         0x5a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_line      0x003558         0x3e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
+ .debug_line      0x003596         0x4a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
 
 .debug_frame      0x000000       0x16de
  *(.debug_frame)
@@ -1231,7 +1231,7 @@ __FBTSEQ
  .debug_frame     0x001532         0xcc ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
  .debug_frame     0x0015fe         0xe0 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
 
-.debug_str        0x000000       0x1078
+.debug_str        0x000000       0x1069
  *(.debug_str)
  .debug_str       0x000000        0x1b3 build/default/production/_ext/1360926148/adc.o
  .debug_str       0x0001b3         0xf6 build/default/production/_ext/1360926148/board_service.o
@@ -1248,18 +1248,18 @@ __FBTSEQ
  .debug_str       0x000993        0x219 build/default/production/_ext/1472/pmsm.o
  .debug_str       0x000bac         0x3e build/default/production/_ext/1472/diagnostics_x2cscope.o
  .debug_str       0x000bea         0x3b build/default/production/_ext/1472/singleshunt.o
- .debug_str       0x000c25         0xe4 build/default/production/_ext/1472/Communication.o
- .debug_str       0x000d09         0x24 build/default/production/_ext/1472/Status_LED.o
- .debug_str       0x000d2d         0x16 build/default/production/_ext/589590699/Build_info.o
- .debug_str       0x000d43         0xda ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
- .debug_str       0x000e1d         0x50 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
- .debug_str       0x000e6d         0x78 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
- .debug_str       0x000ee5         0x4e ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
- .debug_str       0x000f33         0x4f ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
- .debug_str       0x000f82         0x2e ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
- .debug_str       0x000fb0         0x32 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
- .debug_str       0x000fe2         0x8d ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
- .debug_str       0x00106f          0x9 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
+ .debug_str       0x000c25         0xd5 build/default/production/_ext/1472/Communication.o
+ .debug_str       0x000cfa         0x24 build/default/production/_ext/1472/Status_LED.o
+ .debug_str       0x000d1e         0x16 build/default/production/_ext/589590699/Build_info.o
+ .debug_str       0x000d34         0xda ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
+ .debug_str       0x000e0e         0x50 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
+ .debug_str       0x000e5e         0x78 ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
+ .debug_str       0x000ed6         0x4e ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
+ .debug_str       0x000f24         0x4f ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
+ .debug_str       0x000f73         0x2e ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
+ .debug_str       0x000fa1         0x32 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
+ .debug_str       0x000fd3         0x8d ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
+ .debug_str       0x001060          0x9 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
 
 .debug_loc
  *(.debug_loc)
@@ -5360,241 +5360,241 @@ __c30_signature
  .ivt._PWM1Interrupt
                   0x00009a          0x2 build/default/production/_ext/1472/pmsm.o
 
-.sinetbl            0x89e8        0x100 load address 0x0009e8  
- .sinetbl           0x89e8        0x100 build/default/production/_ext/666432250/mc_sinetable_flash_dspic.o
-                    0x89e8                  mcSineTableInFlash
-                    0x89e8                  _mcSineTableInFlash
+.sinetbl            0x89e4        0x100 load address 0x0009e4  
+ .sinetbl           0x89e4        0x100 build/default/production/_ext/666432250/mc_sinetable_flash_dspic.o
+                    0x89e4                  mcSineTableInFlash
+                    0x89e4                  _mcSineTableInFlash
 
-.const              0x8ae8        0x116 load address 0x000ae8  
- .const             0x8ae8         0xb0 build/default/production/_ext/589590699/Build_info.o
- .const             0x8b98         0x32 build/default/production/_ext/1360926148/uart2.o
-                    0x8b98                  _UART2_Drv
- .const             0x8bca         0x20 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
-                    0x8bca                  _blockFunctionTable
-                    0x8be2                  _parameterIdTable
- .const             0x8bea         0x14 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
-                    0x8bea                  _compilationDate
+.const              0x8ae4        0x118 load address 0x000ae4  
+ .const             0x8ae4         0xb2 build/default/production/_ext/589590699/Build_info.o
+ .const             0x8b96         0x32 build/default/production/_ext/1360926148/uart2.o
+                    0x8b96                  _UART2_Drv
+ .const             0x8bc8         0x20 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
+                    0x8bc8                  _blockFunctionTable
+                    0x8be0                  _parameterIdTable
+ .const             0x8be8         0x14 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
+                    0x8be8                  _compilationDate
 
-.text             0x000bfe       0x439e
- .text            0x000bfe        0xff0 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
-                  0x000fd2                  _Scope_Main_Init
-                  0x00104c                  _Scope_Main_Update
-                  0x001382                  _Scope_Main_Load
-                  0x001436                  _Scope_Main_Save
-                  0x001bec                  _Scope_Main_GetAddress
- .text            0x001bee        0x5de build/default/production/_ext/1472/Communication.o
-                  0x001cfa                  _communication
-                  0x001d5e                  _LogMotorStatus
-                  0x001e58                  _ascii_to_hex
-                  0x001e7a                  _rx_data_process
-                  0x001f38                  _tx_data_process
-                  0x002088                  _UARTSend_1
-                  0x0020ba                  _UARTSend_2
-                  0x0020de                  _UART2_TransmitString
-                  0x0020f8                  _calculate_checksum
-                  0x002146                  _UART2_RxCompleteCallback
-                  0x0021b8                  _timer1ms_communication
-                  0x0021c4                  _Get_Rx_Ccount
- .text            0x0021cc        0x570 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
-                  0x0021cc                  _sendSvNotAvailable
-                  0x0021da                  Services.o:_getDeviceInfo
-                  0x002406                  Services.o:_saveParameter
-                  0x002570                  Services.o:_loadParameter
-                  0x00264e                  Services.o:_setTargetState
-                  0x0026ee                  Services.o:_getTargetState
-                  0x002704                  _sendError
-                  0x002710                  _initServiceTable
-                  0x002724                  _addCoreServices
- .text            0x00273c        0x4f8 build/default/production/_ext/1472/singleshunt.o
-                  0x00273c                  _SingleShunt_InitializeParameters
-                  0x00276e                  _SingleShunt_CalculateSpaceVectorPhaseShifted
-                  0x002b30                  _SingleShunt_PhaseCurrentReconstruction
- .text            0x002c34        0x4b6 build/default/production/_ext/589590699/Build_info.o
-                  0x002c34                  _GetBuildInfo
-                  0x002c3c                  _GetBuildDate
-                  0x002c46                  _GetBuildTime
-                  0x002d74                  _GetBuildInfoString
-                  0x002de8                  _PrintBuildInfo
-                  0x002ed0                  _GetFormattedBuildDateTime
- .text            0x0030ea        0x49e build/default/production/_ext/1360926148/pwm.o
-                  0x0030ea                  _InitPWMGenerators
-                  0x00314a                  _InitDutyPWM124Generators
-                  0x00317a                  _ChargeBootstarpCapacitors
-                  0x003272                  _InitPWMGenerator1
-                  0x003378                  _InitPWMGenerator2
-                  0x003480                  _InitPWMGenerator4
- .text            0x003588        0x484 build/default/production/_ext/1472/pmsm.o
-                  0x003588                  _SetMotorSpeed
-                  0x0035a0                  _Timer1_Init
-                  0x0035c8                  _uart2_setting
-                  0x0035e2                  _main
-                  0x00366e                  _Motor_Speed
-                  0x00369c                  _update_speed_command_lowlimit
-                  0x0036c2                  _update_speed_target
-                  0x00377a                  _ResetParmeters
-                  0x0037b0                  _DoControl
-                  0x003922                  _CalculateParkAngle
-                  0x0039a0                  _InitControlParameters
- .text            0x003a0c        0x41e ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
-                  0x003a0c                  LNet.o:_enableSend
-                  0x003a16                  LNet.o:_communicate
-                  0x003e14                  _initLNet
- .text            0x003e2a        0x38c build/default/production/_ext/1360926148/uart2.o
-                  0x003e2a                  _UART2_Initialize
-                  0x003e8a                  _UART2_Deinitialize
-                  0x003eb0                  _UART2_Read
-                  0x003eda                  _UART2_Write
-                  0x003f06                  _UART2_IsRxReady
-                  0x003f1c                  _UART2_IsTxReady
-                  0x003f4e                  _UART2_IsTxDone
-                  0x003f7e                  _UART2_TransmitEnable
-                  0x003f86                  _UART2_TransmitDisable
-                  0x003f8e                  _UART2_AutoBaudSet
-                  0x003fb4                  _UART2_AutoBaudQuery
-                  0x003fcc                  _UART2_AutoBaudEventEnableGet
-                  0x003fe4                  _UART2_BRGCountSet
-                  0x003ffa                  _UART2_BRGCountGet
-                  0x004016                  _UART2_BaudRateSet
-                  0x0040a8                  _UART2_BaudRateGet
-                  0x004118                  _UART2_ErrorGet
-                  0x004126                  _UART2_RxCompleteCallbackRegister
-                  0x00413e                  _UART2_TxCompleteCallbackRegister
-                  0x004150                  _UART2_TxCompleteCallback
-                  0x004156                  _UART2_TxCollisionCallbackRegister
-                  0x004168                  _UART2_TxCollisionCallback
-                  0x00416e                  _UART2_FramingErrorCallbackRegister
-                  0x004180                  _UART2_FramingErrorCallback
-                  0x004186                  _UART2_OverrunErrorCallbackRegister
-                  0x004198                  _UART2_OverrunErrorCallback
-                  0x00419e                  _UART2_ParityErrorCallbackRegister
-                  0x0041b0                  _UART2_ParityErrorCallback
- .text            0x0041b6        0x34e build/default/production/_ext/1472/estim.o
-                  0x0041b6                  _Estim
-                  0x0044b8                  _InitEstimParm
- .text            0x004504        0x2c0 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
-                  0x004504                  _getBlockData
-                  0x004576                  _putBlockData
-                  0x0045fa                  _getRAMBlock
-                  0x0046c0                  _putRAMBlock
-                  0x0047ac                  _addBlockServices
-                  0x0047bc                  _addExtendedBlockServices
- .text            0x0047c4        0x266 build/default/production/_ext/1360926148/board_service.o
-                  0x0047c4                  _IsPressed_Button1
-                  0x0047de                  _IsPressed_Button2
-                  0x0047f8                  _BoardServiceStepIsr
-                  0x00480a                  _BoardService
-                  0x004848                  _BoardServiceInit
-                  0x0048be                  _InitPeripherals
-                  0x0048f0                  _DisablePWMOutputsInverterA
-                  0x00491a                  _EnablePWMOutputsInverterA
-                  0x00492c                  _ClearPWMPCIFaultInverterA
-                  0x004938                  _PWMDutyCycleSet
-                  0x00496e                  _PWMDutyCycleSetDualEdge
-                  0x0049b8                  _pwmDutyCycleLimitCheck
- .text            0x004a2a        0x20e build/default/production/_ext/1360926148/measure.o
-                  0x004a2a                  _MCAPP_MeasureCurrentInit
-                  0x004a5a                  _MCAPP_MeasureCurrentOffset
-                  0x004b20                  _MCAPP_MeasureCurrentCalibrate
-                  0x004b48                  _MCAPP_MeasureCurrentOffsetStatus
-                  0x004b54                  _MCAPP_MeasureAvgInit
-                  0x004b84                  _MCAPP_MeasureAvg
-                  0x004bf8                  _MCAPP_MeasureTemperature
- .text            0x004c38        0x202 build/default/production/_ext/1472/fdweak.o
-                  0x004c38                  _InitFWParams
-                  0x004d1e                  _FieldWeakening
- .text            0x004e3a        0x162 build/default/production/_ext/1360926148/adc.o
-                  0x004e3a                  _InitializeADCs
+.text             0x000bfc       0x43bc
+ .text            0x000bfc        0xff0 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Scope_Main.o)
+                  0x000fd0                  _Scope_Main_Init
+                  0x00104a                  _Scope_Main_Update
+                  0x001380                  _Scope_Main_Load
+                  0x001434                  _Scope_Main_Save
+                  0x001bea                  _Scope_Main_GetAddress
+ .text            0x001bec        0x5fc build/default/production/_ext/1472/Communication.o
+                  0x001cf8                  _communication
+                  0x001d58                  _LogMotorStatus
+                  0x001e52                  _ascii_to_hex
+                  0x001e74                  _rx_data_process
+                  0x001f32                  _tx_data_process
+                  0x0020a4                  _UARTSend_1
+                  0x0020d6                  _UARTSend_2
+                  0x0020fa                  _UART2_TransmitString
+                  0x002114                  _calculate_checksum
+                  0x002162                  _UART2_RxCompleteCallback
+                  0x0021d4                  _timer1ms_communication
+                  0x0021e0                  _Get_Rx_Ccount
+ .text            0x0021e8        0x570 ../lib/x2c_scope\libx2cscope-33ck-elf.a(Services.o)
+                  0x0021e8                  _sendSvNotAvailable
+                  0x0021f6                  Services.o:_getDeviceInfo
+                  0x002422                  Services.o:_saveParameter
+                  0x00258c                  Services.o:_loadParameter
+                  0x00266a                  Services.o:_setTargetState
+                  0x00270a                  Services.o:_getTargetState
+                  0x002720                  _sendError
+                  0x00272c                  _initServiceTable
+                  0x002740                  _addCoreServices
+ .text            0x002758        0x4f8 build/default/production/_ext/1472/singleshunt.o
+                  0x002758                  _SingleShunt_InitializeParameters
+                  0x00278a                  _SingleShunt_CalculateSpaceVectorPhaseShifted
+                  0x002b4c                  _SingleShunt_PhaseCurrentReconstruction
+ .text            0x002c50        0x4b6 build/default/production/_ext/589590699/Build_info.o
+                  0x002c50                  _GetBuildInfo
+                  0x002c58                  _GetBuildDate
+                  0x002c62                  _GetBuildTime
+                  0x002d90                  _GetBuildInfoString
+                  0x002e04                  _PrintBuildInfo
+                  0x002eec                  _GetFormattedBuildDateTime
+ .text            0x003106        0x49e build/default/production/_ext/1360926148/pwm.o
+                  0x003106                  _InitPWMGenerators
+                  0x003166                  _InitDutyPWM124Generators
+                  0x003196                  _ChargeBootstarpCapacitors
+                  0x00328e                  _InitPWMGenerator1
+                  0x003394                  _InitPWMGenerator2
+                  0x00349c                  _InitPWMGenerator4
+ .text            0x0035a4        0x484 build/default/production/_ext/1472/pmsm.o
+                  0x0035a4                  _SetMotorSpeed
+                  0x0035bc                  _Timer1_Init
+                  0x0035e4                  _uart2_setting
+                  0x0035fe                  _main
+                  0x00368a                  _Motor_Speed
+                  0x0036b8                  _update_speed_command_lowlimit
+                  0x0036de                  _update_speed_target
+                  0x003796                  _ResetParmeters
+                  0x0037cc                  _DoControl
+                  0x00393e                  _CalculateParkAngle
+                  0x0039bc                  _InitControlParameters
+ .text            0x003a28        0x41e ../lib/x2c_scope\libx2cscope-33ck-elf.a(LNet.o)
+                  0x003a28                  LNet.o:_enableSend
+                  0x003a32                  LNet.o:_communicate
+                  0x003e30                  _initLNet
+ .text            0x003e46        0x38c build/default/production/_ext/1360926148/uart2.o
+                  0x003e46                  _UART2_Initialize
+                  0x003ea6                  _UART2_Deinitialize
+                  0x003ecc                  _UART2_Read
+                  0x003ef6                  _UART2_Write
+                  0x003f22                  _UART2_IsRxReady
+                  0x003f38                  _UART2_IsTxReady
+                  0x003f6a                  _UART2_IsTxDone
+                  0x003f9a                  _UART2_TransmitEnable
+                  0x003fa2                  _UART2_TransmitDisable
+                  0x003faa                  _UART2_AutoBaudSet
+                  0x003fd0                  _UART2_AutoBaudQuery
+                  0x003fe8                  _UART2_AutoBaudEventEnableGet
+                  0x004000                  _UART2_BRGCountSet
+                  0x004016                  _UART2_BRGCountGet
+                  0x004032                  _UART2_BaudRateSet
+                  0x0040c4                  _UART2_BaudRateGet
+                  0x004134                  _UART2_ErrorGet
+                  0x004142                  _UART2_RxCompleteCallbackRegister
+                  0x00415a                  _UART2_TxCompleteCallbackRegister
+                  0x00416c                  _UART2_TxCompleteCallback
+                  0x004172                  _UART2_TxCollisionCallbackRegister
+                  0x004184                  _UART2_TxCollisionCallback
+                  0x00418a                  _UART2_FramingErrorCallbackRegister
+                  0x00419c                  _UART2_FramingErrorCallback
+                  0x0041a2                  _UART2_OverrunErrorCallbackRegister
+                  0x0041b4                  _UART2_OverrunErrorCallback
+                  0x0041ba                  _UART2_ParityErrorCallbackRegister
+                  0x0041cc                  _UART2_ParityErrorCallback
+ .text            0x0041d2        0x34e build/default/production/_ext/1472/estim.o
+                  0x0041d2                  _Estim
+                  0x0044d4                  _InitEstimParm
+ .text            0x004520        0x2c0 ../lib/x2c_scope\libx2cscope-33ck-elf.a(BlockServicesX2C.o)
+                  0x004520                  _getBlockData
+                  0x004592                  _putBlockData
+                  0x004616                  _getRAMBlock
+                  0x0046dc                  _putRAMBlock
+                  0x0047c8                  _addBlockServices
+                  0x0047d8                  _addExtendedBlockServices
+ .text            0x0047e0        0x266 build/default/production/_ext/1360926148/board_service.o
+                  0x0047e0                  _IsPressed_Button1
+                  0x0047fa                  _IsPressed_Button2
+                  0x004814                  _BoardServiceStepIsr
+                  0x004826                  _BoardService
+                  0x004864                  _BoardServiceInit
+                  0x0048da                  _InitPeripherals
+                  0x00490c                  _DisablePWMOutputsInverterA
+                  0x004936                  _EnablePWMOutputsInverterA
+                  0x004948                  _ClearPWMPCIFaultInverterA
+                  0x004954                  _PWMDutyCycleSet
+                  0x00498a                  _PWMDutyCycleSetDualEdge
+                  0x0049d4                  _pwmDutyCycleLimitCheck
+ .text            0x004a46        0x20e build/default/production/_ext/1360926148/measure.o
+                  0x004a46                  _MCAPP_MeasureCurrentInit
+                  0x004a76                  _MCAPP_MeasureCurrentOffset
+                  0x004b3c                  _MCAPP_MeasureCurrentCalibrate
+                  0x004b64                  _MCAPP_MeasureCurrentOffsetStatus
+                  0x004b70                  _MCAPP_MeasureAvgInit
+                  0x004ba0                  _MCAPP_MeasureAvg
+                  0x004c14                  _MCAPP_MeasureTemperature
+ .text            0x004c54        0x202 build/default/production/_ext/1472/fdweak.o
+                  0x004c54                  _InitFWParams
+                  0x004d3a                  _FieldWeakening
+ .text            0x004e56        0x162 build/default/production/_ext/1360926148/adc.o
+                  0x004e56                  _InitializeADCs
 
-.dinit            0x004f9c        0x140
- .dinit           0x004f9c        0x140 data_init
+.dinit            0x004fb8        0x140
+ .dinit           0x004fb8        0x140 data_init
 
-.text             0x0050dc        0xa1e
- .text            0x0050dc        0x138 build/default/production/_ext/1472/Status_LED.o
-                  0x0050dc                  _Status_LED
-                  0x005108                  _Status_LED_Control
-                  0x0051dc                  _Communication_Check
-                  0x005202                  _Interrupt_Timer1ms_Status_LED
- .text            0x005214        0x116 build/default/production/_ext/666432250/mc_svgen_dspic.o
-                  0x005214                  _MC_CalculateSpaceVectorPhaseShifted_Assembly
-                  0x005214                  MC_CalculateSpaceVectorPhaseShifted_Assembly
- .text            0x00532a        0x108 build/default/production/_ext/1472/diagnostics_x2cscope.o
-                  0x0053b8                  _DiagnosticsInit
-                  0x0053d2                  _DiagnosticsStepMain
-                  0x0053da                  _DiagnosticsStepIsr
-                  0x0053e2                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_sendSerial
-                  0x0053ee                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_receiveSerial
-                  0x00540a                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isReceiveDataAvailable
-                  0x005412                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isSendReady
-                  0x005420                  _X2CScope_Init
- .text            0x005432         0xe4 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
-                  0x005432                  _Common_Init
-                  0x005434                  _Common_Update
-                  0x005436                  _Common_Load
-                  0x005438                  _Common_Save
-                  0x005440                  _Common_GetAddress
-                  0x005442                  _getAbsValI8
-                  0x005454                  _getAbsValI16
-                  0x005466                  _getAbsValI32
-                  0x00548a                  _getAbsValI64
-                  0x0054d2                  _getAbsValR32
-                  0x0054ec                  _getAbsValR64
- .text            0x005516         0xd6 build/default/production/_ext/1360926148/interrupt.o
-                  0x005516                  _INTERRUPT_Initialize
-                  0x005582                  _INTERRUPT_Deinitialize
- .text            0x0055ec         0xc4 build/default/production/_ext/1360926148/cmp.o
-                  0x0055ec                  _CMP_Initialize
-                  0x00568a                  _CMP1_ReferenceSet
-                  0x005696                  _CMP1_ModuleEnable
- .text            0x0056b0         0xc2 build/default/production/_ext/1360926148/port_config.o
-                  0x0056b0                  _SetupGPIOPorts
-                  0x0056e0                  _MapGPIOHWFunction
- .text            0x005772         0xba build/default/production/_ext/1360926148/uart1.o
-                  0x005772                  _UART1_Initialize
- .text            0x00582c         0xa2 build/default/production/_ext/1360926148/clock.o
-                  0x00582c                  _InitOscillator
-                  0x0058a2                  _EnableREFCLKOutput
- .text            0x0058ce         0x8c ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
-                  0x0058ce                  _sendSerialWrapper
-                  0x0058d4                  _receiveSerialWrapper
-                  0x0058d8                  _isReceiveDataAvailableWrapper
-                  0x0058dc                  _isSendReadyWrapper
-                  0x0058e0                  _X2CScope_Initialise
-                  0x005936                  _X2CScope_Communicate
-                  0x00593c                  _X2CScope_Update
-                  0x00593e                  _X2CScope_HookUARTFunctions
-                  0x005948                  _initSerial
- .text            0x00595a         0x4e build/default/production/_ext/666432250/mc_piupdate_dspic.o
-                  0x00595a                  MC_ControllerPIUpdate_Assembly
-                  0x00595a                  _MC_ControllerPIUpdate_Assembly
- .text            0x0059a8         0x4e build/default/production/_ext/666432250/mc_sinecos_ram_dspic.o
-                  0x0059a8                  MC_CalculateSineCosine_Assembly_Ram
-                  0x0059a8                  _MC_CalculateSineCosine_Assembly_Ram
- .text            0x0059f6         0x3c ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
-                  0x0059f6                  _initTableStruct
-                  0x005a1a                  _addTableStructProtocol
- .text            0x005a32         0x2a ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
-                  0x005a32                  SerialGeneric.o:_sendSerial
-                  0x005a34                  SerialGeneric.o:_receiveSerial
-                  0x005a36                  SerialGeneric.o:_isReceiveDataAvailable
-                  0x005a38                  SerialGeneric.o:_isSendReady
-                  0x005a3a                  SerialGeneric.o:_getTxFifoFree
-                  0x005a3c                  SerialGeneric.o:_flush
-                  0x005a3e                  _initSerialGeneric
-                  0x005a58                  _linkSerial
- .text            0x005a5c         0x28 build/default/production/_ext/666432250/mc_invclarke_dspic.o
-                  0x005a5c                  MC_TransformClarkeInverseSwappedInput_Assembly
-                  0x005a5c                  _MC_TransformClarkeInverseSwappedInput_Assembly
- .text            0x005a84         0x24 build/default/production/_ext/666432250/mc_invpark_dspic.o
-                  0x005a84                  MC_TransformParkInverse_Assembly
-                  0x005a84                  _MC_TransformParkInverse_Assembly
- .text            0x005aa8         0x24 build/default/production/_ext/666432250/mc_park_dspic.o
-                  0x005aa8                  MC_TransformPark_Assembly
-                  0x005aa8                  _MC_TransformPark_Assembly
- .text            0x005acc         0x1e build/default/production/_ext/666432250/mc_clarke_dspic.o
-                  0x005acc                  MC_TransformClarke_Assembly
-                  0x005acc                  _MC_TransformClarke_Assembly
- .text            0x005aea          0x8 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
-                  0x005aea                  _initVersionInfo
- .text            0x005af2          0x8 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
-                  0x005af2                  _X2C_Init
-                  0x005af6                  _X2C_Update
+.text             0x0050f8        0xa1e
+ .text            0x0050f8        0x138 build/default/production/_ext/1472/Status_LED.o
+                  0x0050f8                  _Status_LED
+                  0x005124                  _Status_LED_Control
+                  0x0051f8                  _Communication_Check
+                  0x00521e                  _Interrupt_Timer1ms_Status_LED
+ .text            0x005230        0x116 build/default/production/_ext/666432250/mc_svgen_dspic.o
+                  0x005230                  _MC_CalculateSpaceVectorPhaseShifted_Assembly
+                  0x005230                  MC_CalculateSpaceVectorPhaseShifted_Assembly
+ .text            0x005346        0x108 build/default/production/_ext/1472/diagnostics_x2cscope.o
+                  0x0053d4                  _DiagnosticsInit
+                  0x0053ee                  _DiagnosticsStepMain
+                  0x0053f6                  _DiagnosticsStepIsr
+                  0x0053fe                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_sendSerial
+                  0x00540a                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_receiveSerial
+                  0x005426                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isReceiveDataAvailable
+                  0x00542e                  build/default/production/_ext/1472/diagnostics_x2cscope.o:_X2CScope_isSendReady
+                  0x00543c                  _X2CScope_Init
+ .text            0x00544e         0xe4 ../lib/x2c_scope\libx2cscope-33ck-elf.a(CommonFcts.o)
+                  0x00544e                  _Common_Init
+                  0x005450                  _Common_Update
+                  0x005452                  _Common_Load
+                  0x005454                  _Common_Save
+                  0x00545c                  _Common_GetAddress
+                  0x00545e                  _getAbsValI8
+                  0x005470                  _getAbsValI16
+                  0x005482                  _getAbsValI32
+                  0x0054a6                  _getAbsValI64
+                  0x0054ee                  _getAbsValR32
+                  0x005508                  _getAbsValR64
+ .text            0x005532         0xd6 build/default/production/_ext/1360926148/interrupt.o
+                  0x005532                  _INTERRUPT_Initialize
+                  0x00559e                  _INTERRUPT_Deinitialize
+ .text            0x005608         0xc4 build/default/production/_ext/1360926148/cmp.o
+                  0x005608                  _CMP_Initialize
+                  0x0056a6                  _CMP1_ReferenceSet
+                  0x0056b2                  _CMP1_ModuleEnable
+ .text            0x0056cc         0xc2 build/default/production/_ext/1360926148/port_config.o
+                  0x0056cc                  _SetupGPIOPorts
+                  0x0056fc                  _MapGPIOHWFunction
+ .text            0x00578e         0xba build/default/production/_ext/1360926148/uart1.o
+                  0x00578e                  _UART1_Initialize
+ .text            0x005848         0xa2 build/default/production/_ext/1360926148/clock.o
+                  0x005848                  _InitOscillator
+                  0x0058be                  _EnableREFCLKOutput
+ .text            0x0058ea         0x8c ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2CScopeWrapper.o)
+                  0x0058ea                  _sendSerialWrapper
+                  0x0058f0                  _receiveSerialWrapper
+                  0x0058f4                  _isReceiveDataAvailableWrapper
+                  0x0058f8                  _isSendReadyWrapper
+                  0x0058fc                  _X2CScope_Initialise
+                  0x005952                  _X2CScope_Communicate
+                  0x005958                  _X2CScope_Update
+                  0x00595a                  _X2CScope_HookUARTFunctions
+                  0x005964                  _initSerial
+ .text            0x005976         0x4e build/default/production/_ext/666432250/mc_piupdate_dspic.o
+                  0x005976                  MC_ControllerPIUpdate_Assembly
+                  0x005976                  _MC_ControllerPIUpdate_Assembly
+ .text            0x0059c4         0x4e build/default/production/_ext/666432250/mc_sinecos_ram_dspic.o
+                  0x0059c4                  MC_CalculateSineCosine_Assembly_Ram
+                  0x0059c4                  _MC_CalculateSineCosine_Assembly_Ram
+ .text            0x005a12         0x3c ../lib/x2c_scope\libx2cscope-33ck-elf.a(TableStruct.o)
+                  0x005a12                  _initTableStruct
+                  0x005a36                  _addTableStructProtocol
+ .text            0x005a4e         0x2a ../lib/x2c_scope\libx2cscope-33ck-elf.a(SerialGeneric.o)
+                  0x005a4e                  SerialGeneric.o:_sendSerial
+                  0x005a50                  SerialGeneric.o:_receiveSerial
+                  0x005a52                  SerialGeneric.o:_isReceiveDataAvailable
+                  0x005a54                  SerialGeneric.o:_isSendReady
+                  0x005a56                  SerialGeneric.o:_getTxFifoFree
+                  0x005a58                  SerialGeneric.o:_flush
+                  0x005a5a                  _initSerialGeneric
+                  0x005a74                  _linkSerial
+ .text            0x005a78         0x28 build/default/production/_ext/666432250/mc_invclarke_dspic.o
+                  0x005a78                  MC_TransformClarkeInverseSwappedInput_Assembly
+                  0x005a78                  _MC_TransformClarkeInverseSwappedInput_Assembly
+ .text            0x005aa0         0x24 build/default/production/_ext/666432250/mc_invpark_dspic.o
+                  0x005aa0                  MC_TransformParkInverse_Assembly
+                  0x005aa0                  _MC_TransformParkInverse_Assembly
+ .text            0x005ac4         0x24 build/default/production/_ext/666432250/mc_park_dspic.o
+                  0x005ac4                  MC_TransformPark_Assembly
+                  0x005ac4                  _MC_TransformPark_Assembly
+ .text            0x005ae8         0x1e build/default/production/_ext/666432250/mc_clarke_dspic.o
+                  0x005ae8                  MC_TransformClarke_Assembly
+                  0x005ae8                  _MC_TransformClarke_Assembly
+ .text            0x005b06          0x8 ../lib/x2c_scope\libx2cscope-33ck-elf.a(VersionInfo.o)
+                  0x005b06                  _initVersionInfo
+ .text            0x005b0e          0x8 ../lib/x2c_scope\libx2cscope-33ck-elf.a(X2C.o)
+                  0x005b0e                  _X2C_Init
+                  0x005b12                  _X2C_Update

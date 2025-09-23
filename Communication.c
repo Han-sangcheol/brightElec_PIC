@@ -33,7 +33,7 @@
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
-#define dVersion_FW 100
+#define dVersion_FW 104
 
 
 #define dSTX 0x40
@@ -181,7 +181,8 @@ void communication(MotorData* motorData_cmd, MotorData* motorData_now)
     
     // 주기적인 로그 전송 로직 제거
     // now_rpm(motorData_now, motorData_cmd);
-    LogMotorStatus(motorData_now, motorData_cmd);
+    //LogMotorStatus(motorData_now, motorData_cmd);
+    tx_data_process(&stCommandData);
 }
 
 /**
@@ -315,28 +316,42 @@ void rx_data_process(CommandData* pcommandData)
  */
 void tx_data_process(CommandData* pCommandData)
 {
-    pCommandData->command_tx_buffer[3] = (pCommandData->status_data >> 8) / 16 + '0';
-    pCommandData->command_tx_buffer[4] = (pCommandData->status_data >> 8) % 16 + '0';
-    pCommandData->command_tx_buffer[5] = (pCommandData->status_data & 0x00ff) / 16 + '0';
-    pCommandData->command_tx_buffer[6] = (pCommandData->status_data & 0x00ff) % 16 + '0';
 
-    pCommandData->command_tx_buffer[7] = (pCommandData->present_bldc_rpm >> 8) / 16 + '0';
-    pCommandData->command_tx_buffer[8] = (pCommandData->present_bldc_rpm >> 8) % 16 + '0';
-    pCommandData->command_tx_buffer[9] = (pCommandData->present_bldc_rpm & 0x00ff) / 16 + '0';
-    pCommandData->command_tx_buffer[10] = (pCommandData->present_bldc_rpm & 0x00ff) % 16 + '0';
+    // 전송 주기를 100ms로 변경하여 부하 감소
+    if (g_timer1ms_comm >= 100) 
+    {
+        g_timer1ms_comm = 0;    
 
-    pCommandData->command_tx_buffer[11] = (pCommandData->bldc_torque >> 8) / 16 + '0';
-    pCommandData->command_tx_buffer[12] = (pCommandData->bldc_torque >> 8) % 16 + '0';
-    pCommandData->command_tx_buffer[13] = (pCommandData->bldc_torque & 0x00ff) / 16 + '0';
-    pCommandData->command_tx_buffer[14] = (pCommandData->bldc_torque & 0x00ff) % 16 + '0';
+        pCommandData->version_fw = dVersion_FW;
 
-    pCommandData->command_tx_buffer[15] = '[';
-    pCommandData->command_tx_buffer[16] = (pCommandData->version_fw / 100) + '0';
-    pCommandData->command_tx_buffer[17] = ((pCommandData->version_fw % 100) / 10) + '0';
-    pCommandData->command_tx_buffer[18] = ((pCommandData->version_fw % 100) % 10) + '0';
-    pCommandData->command_tx_buffer[19] = ']';
+        pCommandData->command_tx_buffer[0] = 0x40;
+        pCommandData->command_tx_buffer[1] = '4';
+        pCommandData->command_tx_buffer[2] = '0';
 
-    UARTSend_2(pCommandData->command_tx_buffer, 20);
+        pCommandData->command_tx_buffer[3] = (pCommandData->status_data >> 8) / 16 + '0';
+        pCommandData->command_tx_buffer[4] = (pCommandData->status_data >> 8) % 16 + '0';
+        pCommandData->command_tx_buffer[5] = (pCommandData->status_data & 0x00ff) / 16 + '0';
+        pCommandData->command_tx_buffer[6] = (pCommandData->status_data & 0x00ff) % 16 + '0';
+
+        pCommandData->command_tx_buffer[7] = (pCommandData->present_bldc_rpm >> 8) / 16 + '0';
+        pCommandData->command_tx_buffer[8] = (pCommandData->present_bldc_rpm >> 8) % 16 + '0';
+        pCommandData->command_tx_buffer[9] = (pCommandData->present_bldc_rpm & 0x00ff) / 16 + '0';
+        pCommandData->command_tx_buffer[10] = (pCommandData->present_bldc_rpm & 0x00ff) % 16 + '0';
+
+        pCommandData->command_tx_buffer[11] = (pCommandData->bldc_torque >> 8) / 16 + '0';
+        pCommandData->command_tx_buffer[12] = (pCommandData->bldc_torque >> 8) % 16 + '0';
+        pCommandData->command_tx_buffer[13] = (pCommandData->bldc_torque & 0x00ff) / 16 + '0';
+        pCommandData->command_tx_buffer[14] = (pCommandData->bldc_torque & 0x00ff) % 16 + '0';
+
+        //pCommandData->command_tx_buffer[15] = 0x2a;
+        pCommandData->command_tx_buffer[15] = '[';
+        pCommandData->command_tx_buffer[16] = (pCommandData->version_fw / 100) + '0';
+        pCommandData->command_tx_buffer[17] = ((pCommandData->version_fw % 100) / 10) + '0';
+        pCommandData->command_tx_buffer[18] = ((pCommandData->version_fw % 100) % 10) + '0';
+        pCommandData->command_tx_buffer[19] = ']';
+
+        UARTSend_2(pCommandData->command_tx_buffer, 20);
+    }
 }
 
 /**
