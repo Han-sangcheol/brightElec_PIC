@@ -62,6 +62,10 @@
 
 #define target_speed 800
 
+/* 50us 속도 램프 설정값 */
+#define SPEED_RAMP_ACCEL    2    // 가속: +2rpm / 50us (감속의 1/5)
+#define SPEED_RAMP_DECEL    10   // 감속: -10rpm / 50us (가속의 5배)
+
 #include "uart1.h"
 #include "uart2.h"
 #include "uart_interface.h"
@@ -103,6 +107,7 @@ int32_t targetSPD;
 uint16_t g_speed_delay = 0;
 
 volatile uint16_t g_u16Timer1ms_TargetSpeed = 0;
+volatile uint16_t g_u16Timer50us_SpeedRamp = 0;
 
 MotorData MotorData_cmd;
 MotorData MotorData_now;
@@ -163,22 +168,21 @@ void SetMotorSpeed(uint16_t speed)
 
 
 //=================================================================================================
-// 타이머 1 초기화 함수
+// 타이머 1 초기화 함수 (50us 주기 - 속도 램프 제어용)
 //=================================================================================================
 void Timer1_Init(void)
 {
     T1CONbits.TON = 0;      // 타이머 1 끄기
     T1CONbits.TCS = 0;      // 내부 클록 소스 사용
     T1CONbits.TGATE = 0;    // 게이트 모드 비활성화
-    T1CONbits.TCKPS = 0b11; // 프리스케일러 1:256 설정
+    T1CONbits.TCKPS = 0b01; // 프리스케일러 1:8 설정
 
-    // 타이머 주기 계산
-    // Fcy = 100 MHz (예시)
-    // 타이머 주기 = (1 / Fcy) * 프리스케일러 * PR1
-    // 1ms = (1 / 100,000,000) * 256 * PR1
-    // PR1 = (1ms * 100,000,000) / 256
-    // PR1 = 390.625 -> 391로 설정
-    PR1 = 391;              // 타이머 주기 레지스터 설정
+    // 타이머 주기 계산 (50us)
+    // Fcy = 100 MHz
+    // 50us = (1 / 100,000,000) * 8 * (PR1 + 1)
+    // PR1 = (50us * 100,000,000) / 8 - 1
+    // PR1 = 625 - 1 = 624
+    PR1 = 624;              // 타이머 주기 레지스터 설정 (50us)
 
     IPC0bits.T1IP = 1;      // 타이머 1 인터럽트 우선순위 설정
     IFS0bits.T1IF = 0;      // 타이머 1 인터럽트 플래그 초기화
@@ -189,11 +193,20 @@ void Timer1_Init(void)
 
 void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void)
 {
-	g_u16Timer1ms_TargetSpeed++;
+    static uint16_t timer1ms_cnt = 0;
 
-    Interrupt_Timer1ms_Status_LED();
+    // 50us 마다 속도 램프 플래그 증가
+    g_u16Timer50us_SpeedRamp++;
 
-    timer1ms_communication();
+    // 1ms 카운터 (50us * 20 = 1ms)
+    timer1ms_cnt++;
+    if(timer1ms_cnt >= 20)
+    {
+        timer1ms_cnt = 0;
+        g_u16Timer1ms_TargetSpeed++;
+        Interrupt_Timer1ms_Status_LED();
+        timer1ms_communication();
+    }
 
     IFS0bits.T1IF = 0; // 타이머 1 인터럽트 플래그 초기화
 }
@@ -383,18 +396,18 @@ void Motor_Speed(void)
 {
 	MotorData_cmd.speed_command = MotorData_cmd.speed / 2;
 
-	if (g_u16Timer1ms_TargetSpeed >= 1)
+	// 50us 간격으로 속도 램프 제어
+	if (g_u16Timer50us_SpeedRamp >= 1)
 	{
-	 	g_u16Timer1ms_TargetSpeed = 0;
+	 	g_u16Timer50us_SpeedRamp = 0;
 
-        update_speed_command_lowlimit();
+    update_speed_command_lowlimit();
 
-		// 속도 목표 업데이트
+		// 속도 목표 업데이트 (50us 마다 +2rpm 가속 / -10rpm 감속)
 		update_speed_target();
 
 		// 목표 속도 전달
-		// ctrlParm.inputSpeed = MotorData_cmd.speed_target;	
-        X2C_VelRef = MotorData_cmd.speed_target;
+    X2C_VelRef = MotorData_cmd.speed_target;
 	}
 }
 
@@ -408,7 +421,8 @@ void update_speed_command_lowlimit(void)
 	}
 }
 
-// 속도 목표 업데이트 함수
+// 속도 목표 업데이트 함수 (50us 주기 호출)
+// 가속: +2rpm/50us (느리게), 감속: -10rpm/50us (빠르게, 가속의 5배)
 void update_speed_target(void)
 {
 	static uint8_t control_step = 0; // 0: 완전 정지, 1: 정지 명령, 2: 구동중, 3: 재기동 준비 상태
@@ -436,22 +450,61 @@ void update_speed_target(void)
 	// 재기동 준비 상태
 	else if( (MotorData_cmd.speed_command != 0)
  	&& (now_speed <= SPEED_STOP_LIMIT) )
-	// && (control_step == 0) )
 	{
 		control_step = 3;
 	}
 
-	if(control_step == 1)
+	// 완전 정지: 타겟 속도 0 유지
+	if(control_step == 0)
 	{
 		MotorData_cmd.speed_target = 0;
 	}
+	// 정지 명령: 빠른 감속 (-10rpm/50us)
+	else if(control_step == 1)
+	{
+		if(MotorData_cmd.speed_target > SPEED_RAMP_DECEL)
+		{
+			MotorData_cmd.speed_target -= SPEED_RAMP_DECEL;
+		}
+		else
+		{
+			MotorData_cmd.speed_target = 0;
+		}
+	}
+	// 구동중: 목표속도와 타겟속도 비교하여 램프
 	else if(control_step == 2)
 	{
-		MotorData_cmd.speed_target = MotorData_cmd.speed_command;
+		if(MotorData_cmd.speed_command > MotorData_cmd.speed_target)
+		{
+			// 가속: +2rpm/50us
+			MotorData_cmd.speed_target += SPEED_RAMP_ACCEL;
+			if(MotorData_cmd.speed_target > MotorData_cmd.speed_command)
+			{
+				MotorData_cmd.speed_target = MotorData_cmd.speed_command;
+			}
+		}
+		else if(MotorData_cmd.speed_command < MotorData_cmd.speed_target)
+		{
+			// 감속: -10rpm/50us
+			if((MotorData_cmd.speed_target - MotorData_cmd.speed_command) >= SPEED_RAMP_DECEL)
+			{
+				MotorData_cmd.speed_target -= SPEED_RAMP_DECEL;
+			}
+			else
+			{
+				MotorData_cmd.speed_target = MotorData_cmd.speed_command;
+			}
+		}
+		// speed_command == speed_target 이면 유지
 	}
+	// 재기동 준비: 가속 시작 (+2rpm/50us)
 	else if(control_step == 3 && now_speed <= SPEED_STOP_LIMIT)
 	{
-		MotorData_cmd.speed_target = MotorData_cmd.speed_command;
+		MotorData_cmd.speed_target += SPEED_RAMP_ACCEL;
+		if(MotorData_cmd.speed_target > MotorData_cmd.speed_command)
+		{
+			MotorData_cmd.speed_target = MotorData_cmd.speed_command;
+		}
 	}
 }
 
