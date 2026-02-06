@@ -107,7 +107,6 @@ int32_t targetSPD;
 uint16_t g_speed_delay = 0;
 
 volatile uint16_t g_u16Timer1ms_TargetSpeed = 0;
-volatile uint16_t g_u16Timer50us_SpeedRamp = 0;
 
 MotorData MotorData_cmd;
 MotorData MotorData_now;
@@ -195,8 +194,9 @@ void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void)
 {
     static uint16_t timer1ms_cnt = 0;
 
-    // 50us 마다 속도 램프 플래그 증가
-    g_u16Timer50us_SpeedRamp++;
+    // 50us 마다 타겟속도 램프 직접 실행 (메인루프 의존 제거)
+    update_speed_target();
+    X2C_VelRef = MotorData_cmd.speed_target;
 
     // 1ms 카운터 (50us * 20 = 1ms)
     timer1ms_cnt++;
@@ -323,23 +323,14 @@ int main ( void )
                 {
                     // 모터 정역 반영
                     if(MotorData_cmd.direction == DIRECTION_FORWARD)
-                    {
-                        // ctrlParm.rotationSign = 1;
                         CW_CCW = 0;
-                        //estimator.qRhoOffset = estimator.qRhoOffset;                
-                    }
                     else
-                    {
-                        // ctrlParm.rotationSign = -1;
                         CW_CCW = 1;
-                        //estimator.qRhoOffset = -estimator.qRhoOffset;                
-                    }
                     
                     EnablePWMOutputsInverterA();
                     uGF.bits.RunMotor = 1;
                 }
                 Motor_Speed();
-                
             }
             else
             {
@@ -351,38 +342,8 @@ int main ( void )
 
             }
 
-            
-
             MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
-
             Status_LED();
-
-
-
-
-            // if(X2C_START_STOP)
-            // {
-            //     if  (uGF.bits.RunMotor == 1)
-            //     {
-            //         ResetParmeters();
-            //     }
-            //     else
-            //     {
-            //         EnablePWMOutputsInverterA();
-            //         uGF.bits.RunMotor = 1;
-            //         LED1 = 0;
-            //     }
-            //     X2C_START_STOP=0;
-
-            // }
-            // // Monitoring for Button 2 press in LVMC
-            // if (IsPressed_Button2())
-            // {
-            //     if ((uGF.bits.RunMotor == 1) && (uGF.bits.OpenLoop == 0))
-            //     {
-            //         uGF.bits.ChangeSpeed = !uGF.bits.ChangeSpeed;
-            //     }
-            // }
 
         }
 
@@ -392,23 +353,12 @@ int main ( void )
 }
 
 
+// 속도 명령 변환 함수 (메인루프에서 호출)
+// 타겟속도 램프는 Timer1 ISR(50us)에서 직접 처리
 void Motor_Speed(void)
 {
 	MotorData_cmd.speed_command = MotorData_cmd.speed / 2;
-
-	// 50us 간격으로 속도 램프 제어
-	if (g_u16Timer50us_SpeedRamp >= 1)
-	{
-	 	g_u16Timer50us_SpeedRamp = 0;
-
-    update_speed_command_lowlimit();
-
-		// 속도 목표 업데이트 (50us 마다 +2rpm 가속 / -10rpm 감속)
-		update_speed_target();
-
-		// 목표 속도 전달
-    X2C_VelRef = MotorData_cmd.speed_target;
-	}
+	update_speed_command_lowlimit();
 }
 
 // 속도 명령 업데이트 함수(현재 모터 드라이버는 300rpm도 가능하여 사용하지 않음)
@@ -691,36 +641,10 @@ void DoControl( void )
 //            
 //        }
         
+        /* 외부 50us 램프(Timer1 ISR)에서 이미 부드러운 가감속 처리 완료
+           내부 2차 램프 바이패스 - targetSpeed를 qVelRef에 직접 반영 */
         ctrlParm.targetSpeed = X2C_VelRef;
-        if  (ctrlParm.speedRampCount < SPEEDREFRAMP_COUNT)
-        {
-           ctrlParm.speedRampCount++; 
-        }
-        else
-        {
-            /* Ramp generator to limit the change of the speed reference
-              the rate of change is defined by CtrlParm.qRefRamp */
-            ctrlParm.qDiff = ctrlParm.qVelRef - ctrlParm.targetSpeed;
-            /* Speed Ref Ramp */
-            if (ctrlParm.qDiff < 0)
-            {
-                /* Set this cycle reference as the sum of
-                previously calculated one plus the reference ramp value */
-                ctrlParm.qVelRef = ctrlParm.qVelRef+ctrlParm.qRefRamp;
-            }
-            else
-            {
-                /* Same as above for speed decrease */
-                ctrlParm.qVelRef = ctrlParm.qVelRef-ctrlParm.qRefRamp;
-            }
-            /* If difference less than half of ref ramp, set reference
-            directly from the pot */
-            if (_Q15abs(ctrlParm.qDiff) < (ctrlParm.qRefRamp << 1))
-            {
-                ctrlParm.qVelRef = ctrlParm.targetSpeed;
-            }
-            ctrlParm.speedRampCount = 0;
-        }
+        ctrlParm.qVelRef = ctrlParm.targetSpeed;
         /* Tuning is generating a software ramp
         with sufficiently slow ramp defined by 
         TUNING_DELAY_RAMPUP constant */
