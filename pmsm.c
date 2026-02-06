@@ -336,8 +336,16 @@ int main ( void )
             {
                 if(uGF.bits.RunMotor == 1) 
                 {
-                    uGF.bits.RunMotor = 0;
-                    ResetParmeters();
+                    // 감속 제어: speed_command = 0으로 설정하여 램프 감속 동작
+                    MotorData_cmd.speed_command = 0;
+
+                    // 속도가 충분히 낮아지면 PWM OFF
+                    if(abs(MotorData_now.speed) <= SPEED_STOP_LIMIT
+                    && MotorData_cmd.speed_target == 0)
+                    {
+                        uGF.bits.RunMotor = 0;
+                        ResetParmeters();
+                    }
                 }              
 
             }
