@@ -33,7 +33,7 @@
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
-#define dVersion_FW 104
+#define dVersion_FW 105
 
 
 #define dSTX 0x40
