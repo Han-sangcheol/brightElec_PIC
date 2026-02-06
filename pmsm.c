@@ -77,7 +77,6 @@
 #include "Communication.h"
 #include "Status_LED.h"
 
-
 volatile UGF_T uGF;
 
 CTRL_PARM_T ctrlParm;
@@ -119,11 +118,9 @@ MotorData MotorData_now;
  * the limit for current controllers PI Output */
 #define MAX_VOLTAGE_VECTOR                      0.98
 
-
 #define STALL_STOP
 
 #ifdef STALL_STOP
-
 extern MC_DQ_T bemfdq;
 int32_t bemf_q_sum, bemf_d_sum;
 int16_t bemf_q_flt, bemf_d_flt, STALL_CNT;
@@ -143,13 +140,10 @@ int CNT_offset;
 
 void AdjustAndMonitorCloseLoopParameters(void);
 
-
 void Motor_Speed(void);
 void update_driving_sequence(void);
 void update_speed_command_lowlimit(void);
 void update_speed_target(void);
-
-
 
 //=================================================================================================
 // 제어 동작이 되는 것이 아님_ 연동이 안되어 있음
@@ -347,12 +341,10 @@ int main ( void )
                         ResetParmeters();
                     }
                 }              
-
             }
 
             MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
             Status_LED();
-
         }
 
     } // End of Main loop
@@ -626,29 +618,6 @@ void DoControl( void )
     else
     /* Closed Loop Vector Control */
     {
-        /* if change speed indication, double the speed */
-//        if (uGF.bits.ChangeSpeed)
-//        {
-//            
-//            /* Potentiometer value is scaled between NOMINALSPEED_ELECTR and 
-//             * MAXIMUMSPEED_ELECTR to set the speed reference*/
-//            ctrlParm.targetSpeed = (__builtin_mulss(measureInputs.potValue,
-//                    MAXIMUMSPEED_ELECTR-NOMINALSPEED_ELECTR)>>15)+
-//                    NOMINALSPEED_ELECTR;  
-//
-//        }
-//        else
-//        {
-//
-//            /* Potentiometer value is scaled between ENDSPEED_ELECTR 
-//             * and NOMINALSPEED_ELECTR to set the speed reference*/
-//            
-//            ctrlParm.targetSpeed = (__builtin_mulss(measureInputs.potValue,
-//                    NOMINALSPEED_ELECTR-ENDSPEED_ELECTR)>>15) +
-//                    ENDSPEED_ELECTR;  
-//            
-//        }
-        
         /* 외부 50us 램프(Timer1 ISR)에서 이미 부드러운 가감속 처리 완료
            내부 2차 램프 바이패스 - targetSpeed를 qVelRef에 직접 반영 */
         ctrlParm.targetSpeed = X2C_VelRef;
@@ -795,12 +764,7 @@ void __attribute__((__interrupt__,no_auto_psv)) _ADCInterrupt()
         break;  
     }
 #endif
-    
-    // if(CW_CCW!=CW_CCW_OLD){
-    //     uGF.bits.RunMotor = 0;
-    // }
-    // CW_CCW_OLD = CW_CCW;
-    
+   
     if (uGF.bits.RunMotor)
     {
 
@@ -818,8 +782,7 @@ void __attribute__((__interrupt__,no_auto_psv)) _ADCInterrupt()
             iabc.b = singleShuntParam.Ib;
 #else
             MCAPP_MeasureCurrentCalibrate(&measureInputs);
-//            iabc.a = measureInputs.current.Ia;
-//            iabc.b = measureInputs.current.Ib;
+
             
             if(CW_CCW){
                 iabc.a = measureInputs.current.Ib;      // CW
@@ -893,27 +856,6 @@ void __attribute__((__interrupt__,no_auto_psv)) _ADCInterrupt()
     } 
 
   #ifdef STALL_STOP
-    //  if (!uGF.bits.OpenLoop) {
-    //   bemf_d_sum += bemfdq.d;
-    //   bemf_d_sum -= bemf_d_flt;
-    //   bemf_d_flt = (bemf_d_sum >> 8);
-
-    //   bemf_q_sum += bemfdq.q;
-    //   bemf_q_sum -= bemf_q_flt;
-    //   bemf_q_flt = (bemf_q_sum >> 8);
-
-    //   if (bemf_d_flt < 0) {
-    //     STALL_CNT++;
-    //   } else {
-    //     STALL_CNT = 0;
-    //   }
-
-    //   if (STALL_CNT > 2) {
-    //     ResetParmeters();
-    //     g_stall_stop_flag = 1;
-    //   }
-    // }
-
     if(measureInputs.current.Ia > 8000
      || measureInputs.current.Ib > 8000)
     {
@@ -930,8 +872,6 @@ void __attribute__((__interrupt__,no_auto_psv)) _ADCInterrupt()
     }
 
   #endif
-
-
 
     if (singleShuntParam.adcSamplePoint == 0)
     {
