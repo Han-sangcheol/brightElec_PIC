@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../hal/adc.c ../hal/board_service.c ../hal/clock.c ../hal/port_config.c ../hal/pwm.c ../hal/uart1.c ../hal/measure.c ../hal/cmp.c ../hal/device_config.c ../hal/interrupt.c ../hal/uart2.c ../lib/motor_control/mc_clarke_dspic.s ../lib/motor_control/mc_invclarke_dspic.s ../lib/motor_control/mc_invpark_dspic.s ../lib/motor_control/mc_park_dspic.s ../lib/motor_control/mc_piupdate_dspic.s ../lib/motor_control/mc_sinecos_ram_dspic.s ../lib/motor_control/mc_sinetable_flash_dspic.s ../lib/motor_control/mc_sinetable_ram_dspic.s ../lib/motor_control/mc_svgen_dspic.s ../estim.c ../fdweak.c ../pmsm.c ../diagnostics_x2cscope.c ../singleshunt.c ../Communication.c ../Status_LED.c D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c
+SOURCEFILES_QUOTED_IF_SPACED=../src/comm/Communication.c ../src/comm/command_handler.c ../src/comm/protocol_adapter.c ../src/comm/uart_wrapper.c ../src/diag/diagnostics_x2cscope.c ../src/foc/estim.c ../src/foc/fdweak.c ../src/foc/singleshunt.c ../src/hal/adc.c ../src/hal/board_service.c ../src/hal/clock.c ../src/hal/port_config.c ../src/hal/pwm.c ../src/hal/uart1.c ../src/hal/measure.c ../src/hal/cmp.c ../src/hal/device_config.c ../src/hal/interrupt.c ../src/hal/uart2.c ../src/hal/timer1.c ../lib/motor_control/mc_clarke_dspic.s ../lib/motor_control/mc_invclarke_dspic.s ../lib/motor_control/mc_invpark_dspic.s ../lib/motor_control/mc_park_dspic.s ../lib/motor_control/mc_piupdate_dspic.s ../lib/motor_control/mc_sinecos_ram_dspic.s ../lib/motor_control/mc_sinetable_flash_dspic.s ../lib/motor_control/mc_sinetable_ram_dspic.s ../lib/motor_control/mc_svgen_dspic.s ../src/motor/motor_control.c ../src/motor/motor_speed.c ../src/motor/motor_statemachine.c ../src/ui/Status_LED.c ../src/util/ring_buffer.c ../src/pmsm.c D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360926148/adc.o ${OBJECTDIR}/_ext/1360926148/board_service.o ${OBJECTDIR}/_ext/1360926148/clock.o ${OBJECTDIR}/_ext/1360926148/port_config.o ${OBJECTDIR}/_ext/1360926148/pwm.o ${OBJECTDIR}/_ext/1360926148/uart1.o ${OBJECTDIR}/_ext/1360926148/measure.o ${OBJECTDIR}/_ext/1360926148/cmp.o ${OBJECTDIR}/_ext/1360926148/device_config.o ${OBJECTDIR}/_ext/1360926148/interrupt.o ${OBJECTDIR}/_ext/1360926148/uart2.o ${OBJECTDIR}/_ext/666432250/mc_clarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invclarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invpark_dspic.o ${OBJECTDIR}/_ext/666432250/mc_park_dspic.o ${OBJECTDIR}/_ext/666432250/mc_piupdate_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinecos_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_flash_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_svgen_dspic.o ${OBJECTDIR}/_ext/1472/estim.o ${OBJECTDIR}/_ext/1472/fdweak.o ${OBJECTDIR}/_ext/1472/pmsm.o ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o ${OBJECTDIR}/_ext/1472/singleshunt.o ${OBJECTDIR}/_ext/1472/Communication.o ${OBJECTDIR}/_ext/1472/Status_LED.o ${OBJECTDIR}/_ext/589590699/Build_info.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360926148/adc.o.d ${OBJECTDIR}/_ext/1360926148/board_service.o.d ${OBJECTDIR}/_ext/1360926148/clock.o.d ${OBJECTDIR}/_ext/1360926148/port_config.o.d ${OBJECTDIR}/_ext/1360926148/pwm.o.d ${OBJECTDIR}/_ext/1360926148/uart1.o.d ${OBJECTDIR}/_ext/1360926148/measure.o.d ${OBJECTDIR}/_ext/1360926148/cmp.o.d ${OBJECTDIR}/_ext/1360926148/device_config.o.d ${OBJECTDIR}/_ext/1360926148/interrupt.o.d ${OBJECTDIR}/_ext/1360926148/uart2.o.d ${OBJECTDIR}/_ext/666432250/mc_clarke_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_invclarke_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_invpark_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_park_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_piupdate_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_sinecos_ram_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_sinetable_flash_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_sinetable_ram_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_svgen_dspic.o.d ${OBJECTDIR}/_ext/1472/estim.o.d ${OBJECTDIR}/_ext/1472/fdweak.o.d ${OBJECTDIR}/_ext/1472/pmsm.o.d ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o.d ${OBJECTDIR}/_ext/1472/singleshunt.o.d ${OBJECTDIR}/_ext/1472/Communication.o.d ${OBJECTDIR}/_ext/1472/Status_LED.o.d ${OBJECTDIR}/_ext/589590699/Build_info.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1019403322/Communication.o ${OBJECTDIR}/_ext/1019403322/command_handler.o ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o ${OBJECTDIR}/_ext/659855552/estim.o ${OBJECTDIR}/_ext/659855552/fdweak.o ${OBJECTDIR}/_ext/659855552/singleshunt.o ${OBJECTDIR}/_ext/659857049/adc.o ${OBJECTDIR}/_ext/659857049/board_service.o ${OBJECTDIR}/_ext/659857049/clock.o ${OBJECTDIR}/_ext/659857049/port_config.o ${OBJECTDIR}/_ext/659857049/pwm.o ${OBJECTDIR}/_ext/659857049/uart1.o ${OBJECTDIR}/_ext/659857049/measure.o ${OBJECTDIR}/_ext/659857049/cmp.o ${OBJECTDIR}/_ext/659857049/device_config.o ${OBJECTDIR}/_ext/659857049/interrupt.o ${OBJECTDIR}/_ext/659857049/uart2.o ${OBJECTDIR}/_ext/659857049/timer1.o ${OBJECTDIR}/_ext/666432250/mc_clarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invclarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invpark_dspic.o ${OBJECTDIR}/_ext/666432250/mc_park_dspic.o ${OBJECTDIR}/_ext/666432250/mc_piupdate_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinecos_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_flash_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_svgen_dspic.o ${OBJECTDIR}/_ext/1527489797/motor_control.o ${OBJECTDIR}/_ext/1527489797/motor_speed.o ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o ${OBJECTDIR}/_ext/809997874/Status_LED.o ${OBJECTDIR}/_ext/1018862404/ring_buffer.o ${OBJECTDIR}/_ext/1360937237/pmsm.o ${OBJECTDIR}/_ext/616499158/Build_info.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1019403322/Communication.o.d ${OBJECTDIR}/_ext/1019403322/command_handler.o.d ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o.d ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o.d ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o.d ${OBJECTDIR}/_ext/659855552/estim.o.d ${OBJECTDIR}/_ext/659855552/fdweak.o.d ${OBJECTDIR}/_ext/659855552/singleshunt.o.d ${OBJECTDIR}/_ext/659857049/adc.o.d ${OBJECTDIR}/_ext/659857049/board_service.o.d ${OBJECTDIR}/_ext/659857049/clock.o.d ${OBJECTDIR}/_ext/659857049/port_config.o.d ${OBJECTDIR}/_ext/659857049/pwm.o.d ${OBJECTDIR}/_ext/659857049/uart1.o.d ${OBJECTDIR}/_ext/659857049/measure.o.d ${OBJECTDIR}/_ext/659857049/cmp.o.d ${OBJECTDIR}/_ext/659857049/device_config.o.d ${OBJECTDIR}/_ext/659857049/interrupt.o.d ${OBJECTDIR}/_ext/659857049/uart2.o.d ${OBJECTDIR}/_ext/659857049/timer1.o.d ${OBJECTDIR}/_ext/666432250/mc_clarke_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_invclarke_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_invpark_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_park_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_piupdate_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_sinecos_ram_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_sinetable_flash_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_sinetable_ram_dspic.o.d ${OBJECTDIR}/_ext/666432250/mc_svgen_dspic.o.d ${OBJECTDIR}/_ext/1527489797/motor_control.o.d ${OBJECTDIR}/_ext/1527489797/motor_speed.o.d ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o.d ${OBJECTDIR}/_ext/809997874/Status_LED.o.d ${OBJECTDIR}/_ext/1018862404/ring_buffer.o.d ${OBJECTDIR}/_ext/1360937237/pmsm.o.d ${OBJECTDIR}/_ext/616499158/Build_info.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360926148/adc.o ${OBJECTDIR}/_ext/1360926148/board_service.o ${OBJECTDIR}/_ext/1360926148/clock.o ${OBJECTDIR}/_ext/1360926148/port_config.o ${OBJECTDIR}/_ext/1360926148/pwm.o ${OBJECTDIR}/_ext/1360926148/uart1.o ${OBJECTDIR}/_ext/1360926148/measure.o ${OBJECTDIR}/_ext/1360926148/cmp.o ${OBJECTDIR}/_ext/1360926148/device_config.o ${OBJECTDIR}/_ext/1360926148/interrupt.o ${OBJECTDIR}/_ext/1360926148/uart2.o ${OBJECTDIR}/_ext/666432250/mc_clarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invclarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invpark_dspic.o ${OBJECTDIR}/_ext/666432250/mc_park_dspic.o ${OBJECTDIR}/_ext/666432250/mc_piupdate_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinecos_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_flash_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_svgen_dspic.o ${OBJECTDIR}/_ext/1472/estim.o ${OBJECTDIR}/_ext/1472/fdweak.o ${OBJECTDIR}/_ext/1472/pmsm.o ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o ${OBJECTDIR}/_ext/1472/singleshunt.o ${OBJECTDIR}/_ext/1472/Communication.o ${OBJECTDIR}/_ext/1472/Status_LED.o ${OBJECTDIR}/_ext/589590699/Build_info.o
+OBJECTFILES=${OBJECTDIR}/_ext/1019403322/Communication.o ${OBJECTDIR}/_ext/1019403322/command_handler.o ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o ${OBJECTDIR}/_ext/659855552/estim.o ${OBJECTDIR}/_ext/659855552/fdweak.o ${OBJECTDIR}/_ext/659855552/singleshunt.o ${OBJECTDIR}/_ext/659857049/adc.o ${OBJECTDIR}/_ext/659857049/board_service.o ${OBJECTDIR}/_ext/659857049/clock.o ${OBJECTDIR}/_ext/659857049/port_config.o ${OBJECTDIR}/_ext/659857049/pwm.o ${OBJECTDIR}/_ext/659857049/uart1.o ${OBJECTDIR}/_ext/659857049/measure.o ${OBJECTDIR}/_ext/659857049/cmp.o ${OBJECTDIR}/_ext/659857049/device_config.o ${OBJECTDIR}/_ext/659857049/interrupt.o ${OBJECTDIR}/_ext/659857049/uart2.o ${OBJECTDIR}/_ext/659857049/timer1.o ${OBJECTDIR}/_ext/666432250/mc_clarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invclarke_dspic.o ${OBJECTDIR}/_ext/666432250/mc_invpark_dspic.o ${OBJECTDIR}/_ext/666432250/mc_park_dspic.o ${OBJECTDIR}/_ext/666432250/mc_piupdate_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinecos_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_flash_dspic.o ${OBJECTDIR}/_ext/666432250/mc_sinetable_ram_dspic.o ${OBJECTDIR}/_ext/666432250/mc_svgen_dspic.o ${OBJECTDIR}/_ext/1527489797/motor_control.o ${OBJECTDIR}/_ext/1527489797/motor_speed.o ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o ${OBJECTDIR}/_ext/809997874/Status_LED.o ${OBJECTDIR}/_ext/1018862404/ring_buffer.o ${OBJECTDIR}/_ext/1360937237/pmsm.o ${OBJECTDIR}/_ext/616499158/Build_info.o
 
 # Source Files
-SOURCEFILES=../hal/adc.c ../hal/board_service.c ../hal/clock.c ../hal/port_config.c ../hal/pwm.c ../hal/uart1.c ../hal/measure.c ../hal/cmp.c ../hal/device_config.c ../hal/interrupt.c ../hal/uart2.c ../lib/motor_control/mc_clarke_dspic.s ../lib/motor_control/mc_invclarke_dspic.s ../lib/motor_control/mc_invpark_dspic.s ../lib/motor_control/mc_park_dspic.s ../lib/motor_control/mc_piupdate_dspic.s ../lib/motor_control/mc_sinecos_ram_dspic.s ../lib/motor_control/mc_sinetable_flash_dspic.s ../lib/motor_control/mc_sinetable_ram_dspic.s ../lib/motor_control/mc_svgen_dspic.s ../estim.c ../fdweak.c ../pmsm.c ../diagnostics_x2cscope.c ../singleshunt.c ../Communication.c ../Status_LED.c D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c
+SOURCEFILES=../src/comm/Communication.c ../src/comm/command_handler.c ../src/comm/protocol_adapter.c ../src/comm/uart_wrapper.c ../src/diag/diagnostics_x2cscope.c ../src/foc/estim.c ../src/foc/fdweak.c ../src/foc/singleshunt.c ../src/hal/adc.c ../src/hal/board_service.c ../src/hal/clock.c ../src/hal/port_config.c ../src/hal/pwm.c ../src/hal/uart1.c ../src/hal/measure.c ../src/hal/cmp.c ../src/hal/device_config.c ../src/hal/interrupt.c ../src/hal/uart2.c ../src/hal/timer1.c ../lib/motor_control/mc_clarke_dspic.s ../lib/motor_control/mc_invclarke_dspic.s ../lib/motor_control/mc_invpark_dspic.s ../lib/motor_control/mc_park_dspic.s ../lib/motor_control/mc_piupdate_dspic.s ../lib/motor_control/mc_sinecos_ram_dspic.s ../lib/motor_control/mc_sinetable_flash_dspic.s ../lib/motor_control/mc_sinetable_ram_dspic.s ../lib/motor_control/mc_svgen_dspic.s ../src/motor/motor_control.c ../src/motor/motor_speed.c ../src/motor/motor_statemachine.c ../src/ui/Status_LED.c ../src/util/ring_buffer.c ../src/pmsm.c D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c
 
 
 
@@ -89,234 +89,330 @@ MP_LINKER_FILE_OPTION=,--script=p33CK256MP508.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1360926148/adc.o: ../hal/adc.c  .generated_files/flags/default/60c29f6c313dbd4b91e28f09dafa886357778c19 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/adc.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/adc.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/adc.c  -o ${OBJECTDIR}/_ext/1360926148/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/adc.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/Communication.o: ../src/comm/Communication.c  .generated_files/flags/default/8cbb27a63f83954a800598297847810e96bd9a0b .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/Communication.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/Communication.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/Communication.c  -o ${OBJECTDIR}/_ext/1019403322/Communication.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/Communication.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/board_service.o: ../hal/board_service.c  .generated_files/flags/default/498dee12087ce3d603571f700a45eee605afff4f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/board_service.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/board_service.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/board_service.c  -o ${OBJECTDIR}/_ext/1360926148/board_service.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/board_service.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/command_handler.o: ../src/comm/command_handler.c  .generated_files/flags/default/e0d539486d48ee633f92259a986733ccf513c46a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/command_handler.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/command_handler.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/command_handler.c  -o ${OBJECTDIR}/_ext/1019403322/command_handler.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/command_handler.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/clock.o: ../hal/clock.c  .generated_files/flags/default/a46c70909939886368ce247f90afe4ec23ccee6b .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/clock.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/clock.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/clock.c  -o ${OBJECTDIR}/_ext/1360926148/clock.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/clock.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/protocol_adapter.o: ../src/comm/protocol_adapter.c  .generated_files/flags/default/eb5021ebf488dedf6f4ffecaec3d731fedbe7f7 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/protocol_adapter.c  -o ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/protocol_adapter.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/port_config.o: ../hal/port_config.c  .generated_files/flags/default/d8d09d1d9f5f307cf5d3714d6a29049f802cc970 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/port_config.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/port_config.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/port_config.c  -o ${OBJECTDIR}/_ext/1360926148/port_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/port_config.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/uart_wrapper.o: ../src/comm/uart_wrapper.c  .generated_files/flags/default/4dc005cf8cab09d9c4e835c1a012f93c48cc36e0 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/uart_wrapper.c  -o ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/uart_wrapper.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/pwm.o: ../hal/pwm.c  .generated_files/flags/default/453c368b72bd50444c0a890b5a9218bb8f4946c7 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/pwm.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/pwm.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/pwm.c  -o ${OBJECTDIR}/_ext/1360926148/pwm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/pwm.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o: ../src/diag/diagnostics_x2cscope.c  .generated_files/flags/default/edb1459dbb5823e79f1ddb252dc50f27c302ad36 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019379675" 
+	@${RM} ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/diag/diagnostics_x2cscope.c  -o ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/uart1.o: ../hal/uart1.c  .generated_files/flags/default/383138186443e602ee86623d6e7aaa6e6d4bdadd .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart1.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/uart1.c  -o ${OBJECTDIR}/_ext/1360926148/uart1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/uart1.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659855552/estim.o: ../src/foc/estim.c  .generated_files/flags/default/85f7c581f4ab996d2e7cfd783461b168b1c52b59 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659855552" 
+	@${RM} ${OBJECTDIR}/_ext/659855552/estim.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659855552/estim.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/foc/estim.c  -o ${OBJECTDIR}/_ext/659855552/estim.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659855552/estim.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/measure.o: ../hal/measure.c  .generated_files/flags/default/36d1f741b21085d5640eb81a1ff8fabafa4194ee .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/measure.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/measure.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/measure.c  -o ${OBJECTDIR}/_ext/1360926148/measure.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/measure.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659855552/fdweak.o: ../src/foc/fdweak.c  .generated_files/flags/default/1f2794c8372ff8697a64a09bbddc491daf150b50 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659855552" 
+	@${RM} ${OBJECTDIR}/_ext/659855552/fdweak.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659855552/fdweak.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/foc/fdweak.c  -o ${OBJECTDIR}/_ext/659855552/fdweak.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659855552/fdweak.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/cmp.o: ../hal/cmp.c  .generated_files/flags/default/2c4cb78202974540749f77e24d6721c343338f7a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/cmp.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/cmp.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/cmp.c  -o ${OBJECTDIR}/_ext/1360926148/cmp.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/cmp.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659855552/singleshunt.o: ../src/foc/singleshunt.c  .generated_files/flags/default/9c0659da2490df594348141eef1128a54dc3a293 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659855552" 
+	@${RM} ${OBJECTDIR}/_ext/659855552/singleshunt.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659855552/singleshunt.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/foc/singleshunt.c  -o ${OBJECTDIR}/_ext/659855552/singleshunt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659855552/singleshunt.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/device_config.o: ../hal/device_config.c  .generated_files/flags/default/d08b21539a252b4a2267d9b406c831d145c6ee16 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/device_config.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/device_config.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/device_config.c  -o ${OBJECTDIR}/_ext/1360926148/device_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/device_config.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/adc.o: ../src/hal/adc.c  .generated_files/flags/default/9266658653cfac70cacd656e039c786fc7180c90 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/adc.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/adc.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/adc.c  -o ${OBJECTDIR}/_ext/659857049/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/adc.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/interrupt.o: ../hal/interrupt.c  .generated_files/flags/default/59a715a5156ecaaeb2753f10ed30d0098d6323ef .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/interrupt.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/interrupt.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/interrupt.c  -o ${OBJECTDIR}/_ext/1360926148/interrupt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/interrupt.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/board_service.o: ../src/hal/board_service.c  .generated_files/flags/default/f07ffad7c822ee8f6ff5d020bf79d62112260b6d .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/board_service.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/board_service.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/board_service.c  -o ${OBJECTDIR}/_ext/659857049/board_service.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/board_service.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/uart2.o: ../hal/uart2.c  .generated_files/flags/default/1296dc6c8e1a0a06262ab21ae4237e341d7eacc6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart2.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart2.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/uart2.c  -o ${OBJECTDIR}/_ext/1360926148/uart2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/uart2.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/clock.o: ../src/hal/clock.c  .generated_files/flags/default/b5a00dec12c521201480355465e2f9905ea29180 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/clock.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/clock.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/clock.c  -o ${OBJECTDIR}/_ext/659857049/clock.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/clock.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/estim.o: ../estim.c  .generated_files/flags/default/c1bba50c765c4957572bbb96e5261c87294b8ba .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/estim.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/estim.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../estim.c  -o ${OBJECTDIR}/_ext/1472/estim.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/estim.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/port_config.o: ../src/hal/port_config.c  .generated_files/flags/default/ec1ff0ed133241afd09a7e150409997c6d3fd858 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/port_config.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/port_config.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/port_config.c  -o ${OBJECTDIR}/_ext/659857049/port_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/port_config.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/fdweak.o: ../fdweak.c  .generated_files/flags/default/b28dce45185235ba580340800b4d8aa81c63934e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/fdweak.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/fdweak.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../fdweak.c  -o ${OBJECTDIR}/_ext/1472/fdweak.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/fdweak.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/pwm.o: ../src/hal/pwm.c  .generated_files/flags/default/42ca7650e141b505fafd3d4694604e394ca11012 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/pwm.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/pwm.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/pwm.c  -o ${OBJECTDIR}/_ext/659857049/pwm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/pwm.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/pmsm.o: ../pmsm.c  .generated_files/flags/default/6f75e8070b02e03f7000af99361393bacd140462 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/pmsm.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/pmsm.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../pmsm.c  -o ${OBJECTDIR}/_ext/1472/pmsm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pmsm.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/uart1.o: ../src/hal/uart1.c  .generated_files/flags/default/652bf150a3f6047e3b5fe3acf385c18a2b396bbf .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart1.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/uart1.c  -o ${OBJECTDIR}/_ext/659857049/uart1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/uart1.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o: ../diagnostics_x2cscope.c  .generated_files/flags/default/bd33da576d21d8ed6ba03ab639dba9baa00f6a1 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../diagnostics_x2cscope.c  -o ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/measure.o: ../src/hal/measure.c  .generated_files/flags/default/943a884b88cb5d1914cb446498244c666c7c3286 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/measure.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/measure.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/measure.c  -o ${OBJECTDIR}/_ext/659857049/measure.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/measure.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/singleshunt.o: ../singleshunt.c  .generated_files/flags/default/e92b0a695365534e0a57cbe2d8df3a6aeb0b44d8 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/singleshunt.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/singleshunt.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../singleshunt.c  -o ${OBJECTDIR}/_ext/1472/singleshunt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/singleshunt.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/cmp.o: ../src/hal/cmp.c  .generated_files/flags/default/66ad18e4127cc3bb247a276a77c7104c8b9c97b2 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/cmp.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/cmp.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/cmp.c  -o ${OBJECTDIR}/_ext/659857049/cmp.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/cmp.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/Communication.o: ../Communication.c  .generated_files/flags/default/84d73180099fc7170519cfd8aec4c1126040020a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/Communication.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/Communication.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Communication.c  -o ${OBJECTDIR}/_ext/1472/Communication.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/Communication.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/device_config.o: ../src/hal/device_config.c  .generated_files/flags/default/762b8154692dbd4d3b97192cb76c437463374c3a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/device_config.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/device_config.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/device_config.c  -o ${OBJECTDIR}/_ext/659857049/device_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/device_config.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/Status_LED.o: ../Status_LED.c  .generated_files/flags/default/300e2bbba09316aa2b442574c8a6444f91b22747 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/Status_LED.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/Status_LED.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Status_LED.c  -o ${OBJECTDIR}/_ext/1472/Status_LED.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/Status_LED.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/interrupt.o: ../src/hal/interrupt.c  .generated_files/flags/default/2e47cb6f36e7c1d599f1c04939f249e889966550 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/interrupt.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/interrupt.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/interrupt.c  -o ${OBJECTDIR}/_ext/659857049/interrupt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/interrupt.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/589590699/Build_info.o: D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c  .generated_files/flags/default/4919e14b3883b482ea97f628e451a343ab829fdb .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/589590699" 
-	@${RM} ${OBJECTDIR}/_ext/589590699/Build_info.o.d 
-	@${RM} ${OBJECTDIR}/_ext/589590699/Build_info.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c  -o ${OBJECTDIR}/_ext/589590699/Build_info.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/589590699/Build_info.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/uart2.o: ../src/hal/uart2.c  .generated_files/flags/default/65de00ea205b03f33d6388388ecb17f799a52955 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart2.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart2.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/uart2.c  -o ${OBJECTDIR}/_ext/659857049/uart2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/uart2.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/659857049/timer1.o: ../src/hal/timer1.c  .generated_files/flags/default/42158467827dd77865245bcc742b88acd4b12559 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/timer1.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/timer1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/timer1.c  -o ${OBJECTDIR}/_ext/659857049/timer1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/timer1.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1527489797/motor_control.o: ../src/motor/motor_control.c  .generated_files/flags/default/d61b8b9d50669725dba0e289e9044b72f60f810e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1527489797" 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_control.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_control.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/motor/motor_control.c  -o ${OBJECTDIR}/_ext/1527489797/motor_control.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1527489797/motor_control.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1527489797/motor_speed.o: ../src/motor/motor_speed.c  .generated_files/flags/default/7a233c81df1d8105285de2d3f7da321ed454062 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1527489797" 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_speed.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_speed.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/motor/motor_speed.c  -o ${OBJECTDIR}/_ext/1527489797/motor_speed.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1527489797/motor_speed.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1527489797/motor_statemachine.o: ../src/motor/motor_statemachine.c  .generated_files/flags/default/a2a73ba7c31776bc73ef5ac2fe16320ab20b5b41 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1527489797" 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/motor/motor_statemachine.c  -o ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1527489797/motor_statemachine.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/809997874/Status_LED.o: ../src/ui/Status_LED.c  .generated_files/flags/default/83daade689f8da886936d7ee18c2cc5d307d913c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/809997874" 
+	@${RM} ${OBJECTDIR}/_ext/809997874/Status_LED.o.d 
+	@${RM} ${OBJECTDIR}/_ext/809997874/Status_LED.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/ui/Status_LED.c  -o ${OBJECTDIR}/_ext/809997874/Status_LED.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/809997874/Status_LED.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1018862404/ring_buffer.o: ../src/util/ring_buffer.c  .generated_files/flags/default/6dcdda70e207ce0472c96d135454df50bc6e7c27 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1018862404" 
+	@${RM} ${OBJECTDIR}/_ext/1018862404/ring_buffer.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1018862404/ring_buffer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/util/ring_buffer.c  -o ${OBJECTDIR}/_ext/1018862404/ring_buffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1018862404/ring_buffer.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1360937237/pmsm.o: ../src/pmsm.c  .generated_files/flags/default/d295a8dc1619e0268b605da6e87e4c63860c0bf2 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/pmsm.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/pmsm.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/pmsm.c  -o ${OBJECTDIR}/_ext/1360937237/pmsm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/pmsm.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/616499158/Build_info.o: D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c  .generated_files/flags/default/76afe4dc4013066b331566e1045125944560e537 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/616499158" 
+	@${RM} ${OBJECTDIR}/_ext/616499158/Build_info.o.d 
+	@${RM} ${OBJECTDIR}/_ext/616499158/Build_info.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c  -o ${OBJECTDIR}/_ext/616499158/Build_info.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/616499158/Build_info.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/_ext/1360926148/adc.o: ../hal/adc.c  .generated_files/flags/default/dedbe26199ac4566a8e9fd3a46a07f6edc33bc5d .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/adc.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/adc.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/adc.c  -o ${OBJECTDIR}/_ext/1360926148/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/adc.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/Communication.o: ../src/comm/Communication.c  .generated_files/flags/default/8851f720db8b7b899f8c98ff6f1745c90b74f30c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/Communication.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/Communication.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/Communication.c  -o ${OBJECTDIR}/_ext/1019403322/Communication.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/Communication.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/board_service.o: ../hal/board_service.c  .generated_files/flags/default/efa5879084a26b17ee783df4b3ea090736b7dcd0 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/board_service.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/board_service.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/board_service.c  -o ${OBJECTDIR}/_ext/1360926148/board_service.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/board_service.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/command_handler.o: ../src/comm/command_handler.c  .generated_files/flags/default/b043b0dbe05ce93c1b89b1f749624a3bfae10d0f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/command_handler.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/command_handler.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/command_handler.c  -o ${OBJECTDIR}/_ext/1019403322/command_handler.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/command_handler.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/clock.o: ../hal/clock.c  .generated_files/flags/default/76bcd84abced44e0cf1a6ef9f782b81c851f284a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/clock.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/clock.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/clock.c  -o ${OBJECTDIR}/_ext/1360926148/clock.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/clock.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/protocol_adapter.o: ../src/comm/protocol_adapter.c  .generated_files/flags/default/4fa72c748b294c10ee9c4bef671d45306d59bf32 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/protocol_adapter.c  -o ${OBJECTDIR}/_ext/1019403322/protocol_adapter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/protocol_adapter.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/port_config.o: ../hal/port_config.c  .generated_files/flags/default/f5b7dc77b234f7c05040b001cc9b2fd2f73eded6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/port_config.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/port_config.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/port_config.c  -o ${OBJECTDIR}/_ext/1360926148/port_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/port_config.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019403322/uart_wrapper.o: ../src/comm/uart_wrapper.c  .generated_files/flags/default/e00ab9a5b458b5addefca0313743f248788eafc8 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019403322" 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/comm/uart_wrapper.c  -o ${OBJECTDIR}/_ext/1019403322/uart_wrapper.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019403322/uart_wrapper.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/pwm.o: ../hal/pwm.c  .generated_files/flags/default/e0ff175f1e04c2715e7a57974d58d85e9214aeaa .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/pwm.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/pwm.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/pwm.c  -o ${OBJECTDIR}/_ext/1360926148/pwm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/pwm.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o: ../src/diag/diagnostics_x2cscope.c  .generated_files/flags/default/e79bf199b490c558bc880ca157dfca97069ae62 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1019379675" 
+	@${RM} ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/diag/diagnostics_x2cscope.c  -o ${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1019379675/diagnostics_x2cscope.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/uart1.o: ../hal/uart1.c  .generated_files/flags/default/8ed380196841a517fbce09b0ba5bcad6f2f6d355 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart1.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/uart1.c  -o ${OBJECTDIR}/_ext/1360926148/uart1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/uart1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659855552/estim.o: ../src/foc/estim.c  .generated_files/flags/default/14bc4381dfb213af3236856936117b4ba940521 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659855552" 
+	@${RM} ${OBJECTDIR}/_ext/659855552/estim.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659855552/estim.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/foc/estim.c  -o ${OBJECTDIR}/_ext/659855552/estim.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659855552/estim.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/measure.o: ../hal/measure.c  .generated_files/flags/default/1a9c29d2a233c7c6e69cd82617176db96659601e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/measure.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/measure.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/measure.c  -o ${OBJECTDIR}/_ext/1360926148/measure.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/measure.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659855552/fdweak.o: ../src/foc/fdweak.c  .generated_files/flags/default/872700695bbe0328e10172587aa4aa5f30b03314 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659855552" 
+	@${RM} ${OBJECTDIR}/_ext/659855552/fdweak.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659855552/fdweak.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/foc/fdweak.c  -o ${OBJECTDIR}/_ext/659855552/fdweak.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659855552/fdweak.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/cmp.o: ../hal/cmp.c  .generated_files/flags/default/9e337e6a49a82493b1bb67f9690fa475b3f2cb4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/cmp.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/cmp.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/cmp.c  -o ${OBJECTDIR}/_ext/1360926148/cmp.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/cmp.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659855552/singleshunt.o: ../src/foc/singleshunt.c  .generated_files/flags/default/73a9b18f28415c749ce85e6676e22c33a1fad00a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659855552" 
+	@${RM} ${OBJECTDIR}/_ext/659855552/singleshunt.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659855552/singleshunt.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/foc/singleshunt.c  -o ${OBJECTDIR}/_ext/659855552/singleshunt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659855552/singleshunt.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/device_config.o: ../hal/device_config.c  .generated_files/flags/default/6cadc9d854a2f9b807ce30092be1ff2dba269da2 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/device_config.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/device_config.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/device_config.c  -o ${OBJECTDIR}/_ext/1360926148/device_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/device_config.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/adc.o: ../src/hal/adc.c  .generated_files/flags/default/16a4a683de2b743aafedf19896bb7e5c93513ca6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/adc.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/adc.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/adc.c  -o ${OBJECTDIR}/_ext/659857049/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/adc.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/interrupt.o: ../hal/interrupt.c  .generated_files/flags/default/7ff64282657d9eda957f902a81bf9bbf8fe3411c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/interrupt.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/interrupt.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/interrupt.c  -o ${OBJECTDIR}/_ext/1360926148/interrupt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/interrupt.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/board_service.o: ../src/hal/board_service.c  .generated_files/flags/default/71c0dd86fc8df1ae3f6dd7cc019529762583fe75 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/board_service.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/board_service.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/board_service.c  -o ${OBJECTDIR}/_ext/659857049/board_service.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/board_service.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1360926148/uart2.o: ../hal/uart2.c  .generated_files/flags/default/51016eb7a6799ba84c2b37666cd8ee869c7576f4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1360926148" 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart2.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360926148/uart2.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../hal/uart2.c  -o ${OBJECTDIR}/_ext/1360926148/uart2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360926148/uart2.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/clock.o: ../src/hal/clock.c  .generated_files/flags/default/f11c5c348d6edbf4fd3394475bd16a1665f68249 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/clock.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/clock.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/clock.c  -o ${OBJECTDIR}/_ext/659857049/clock.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/clock.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/estim.o: ../estim.c  .generated_files/flags/default/e0ec68ca1e090eaec4ad3d23d9e73ff3789c3c2b .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/estim.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/estim.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../estim.c  -o ${OBJECTDIR}/_ext/1472/estim.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/estim.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/port_config.o: ../src/hal/port_config.c  .generated_files/flags/default/7128fb6fa5c52f1879fc1d1b5700e6751da4b467 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/port_config.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/port_config.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/port_config.c  -o ${OBJECTDIR}/_ext/659857049/port_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/port_config.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/fdweak.o: ../fdweak.c  .generated_files/flags/default/f74efff51032d2ee8bd1fe5f553daa4ba58049dc .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/fdweak.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/fdweak.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../fdweak.c  -o ${OBJECTDIR}/_ext/1472/fdweak.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/fdweak.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/pwm.o: ../src/hal/pwm.c  .generated_files/flags/default/7a44aa5a88530d663f9fc228facb671e66145ef4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/pwm.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/pwm.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/pwm.c  -o ${OBJECTDIR}/_ext/659857049/pwm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/pwm.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/pmsm.o: ../pmsm.c  .generated_files/flags/default/e55953096c39af3ea49d2d35ed986e0438d3ce4c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/pmsm.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/pmsm.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../pmsm.c  -o ${OBJECTDIR}/_ext/1472/pmsm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pmsm.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/uart1.o: ../src/hal/uart1.c  .generated_files/flags/default/d3a6ed183e2d340ccb728ef78706e57320a6be43 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart1.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/uart1.c  -o ${OBJECTDIR}/_ext/659857049/uart1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/uart1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o: ../diagnostics_x2cscope.c  .generated_files/flags/default/dc2870cabae7ff5791725717efb676261150e1b .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../diagnostics_x2cscope.c  -o ${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/diagnostics_x2cscope.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/measure.o: ../src/hal/measure.c  .generated_files/flags/default/42253ef6e3dfdcc72af73451003cff379cbac4ac .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/measure.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/measure.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/measure.c  -o ${OBJECTDIR}/_ext/659857049/measure.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/measure.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/singleshunt.o: ../singleshunt.c  .generated_files/flags/default/f2457d81a138208b52631cba583c020743ff77a3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/singleshunt.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/singleshunt.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../singleshunt.c  -o ${OBJECTDIR}/_ext/1472/singleshunt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/singleshunt.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/cmp.o: ../src/hal/cmp.c  .generated_files/flags/default/d0ae3136399b373f52fa069ad838fb1dc9be4458 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/cmp.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/cmp.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/cmp.c  -o ${OBJECTDIR}/_ext/659857049/cmp.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/cmp.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/Communication.o: ../Communication.c  .generated_files/flags/default/df3d4f2dd41632300072f99c83c722fde5f90d5d .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/Communication.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/Communication.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Communication.c  -o ${OBJECTDIR}/_ext/1472/Communication.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/Communication.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/device_config.o: ../src/hal/device_config.c  .generated_files/flags/default/c333c1e32a651e0e3f5ac067d4a539323fd6b198 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/device_config.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/device_config.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/device_config.c  -o ${OBJECTDIR}/_ext/659857049/device_config.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/device_config.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/1472/Status_LED.o: ../Status_LED.c  .generated_files/flags/default/4cc650f097d41da23fc67ed0d42f826f668d5c02 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/Status_LED.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/Status_LED.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Status_LED.c  -o ${OBJECTDIR}/_ext/1472/Status_LED.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1472/Status_LED.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/interrupt.o: ../src/hal/interrupt.c  .generated_files/flags/default/5a813f8585cef3c50fa5b75cb16d4c68c702fa3f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/interrupt.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/interrupt.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/interrupt.c  -o ${OBJECTDIR}/_ext/659857049/interrupt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/interrupt.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/_ext/589590699/Build_info.o: D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c  .generated_files/flags/default/583035789da557f167a5d17f01e651d68f689da4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}/_ext/589590699" 
-	@${RM} ${OBJECTDIR}/_ext/589590699/Build_info.o.d 
-	@${RM} ${OBJECTDIR}/_ext/589590699/Build_info.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c  -o ${OBJECTDIR}/_ext/589590699/Build_info.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/589590699/Build_info.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../" -I"../hal" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+${OBJECTDIR}/_ext/659857049/uart2.o: ../src/hal/uart2.c  .generated_files/flags/default/34da0607e9803a5d028ca58636f3e5214e16f82a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart2.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/uart2.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/uart2.c  -o ${OBJECTDIR}/_ext/659857049/uart2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/uart2.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/659857049/timer1.o: ../src/hal/timer1.c  .generated_files/flags/default/b3977a6b2c8e64c7990c4c34920b61f49146d143 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/659857049" 
+	@${RM} ${OBJECTDIR}/_ext/659857049/timer1.o.d 
+	@${RM} ${OBJECTDIR}/_ext/659857049/timer1.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/hal/timer1.c  -o ${OBJECTDIR}/_ext/659857049/timer1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/659857049/timer1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1527489797/motor_control.o: ../src/motor/motor_control.c  .generated_files/flags/default/8f42ab81d6e30f762ceb18ca6f5b0e5a7090b33e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1527489797" 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_control.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_control.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/motor/motor_control.c  -o ${OBJECTDIR}/_ext/1527489797/motor_control.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1527489797/motor_control.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1527489797/motor_speed.o: ../src/motor/motor_speed.c  .generated_files/flags/default/4591b39893b9bd3716a93560cabd71c8cf856b81 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1527489797" 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_speed.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_speed.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/motor/motor_speed.c  -o ${OBJECTDIR}/_ext/1527489797/motor_speed.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1527489797/motor_speed.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1527489797/motor_statemachine.o: ../src/motor/motor_statemachine.c  .generated_files/flags/default/48dc7b59be46a6a02f9a0511717b1486b9019ae6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1527489797" 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/motor/motor_statemachine.c  -o ${OBJECTDIR}/_ext/1527489797/motor_statemachine.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1527489797/motor_statemachine.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/809997874/Status_LED.o: ../src/ui/Status_LED.c  .generated_files/flags/default/f1439cb76fb3b308fe013b3c029658a967c220a5 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/809997874" 
+	@${RM} ${OBJECTDIR}/_ext/809997874/Status_LED.o.d 
+	@${RM} ${OBJECTDIR}/_ext/809997874/Status_LED.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/ui/Status_LED.c  -o ${OBJECTDIR}/_ext/809997874/Status_LED.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/809997874/Status_LED.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1018862404/ring_buffer.o: ../src/util/ring_buffer.c  .generated_files/flags/default/a5cda7d8bc9ea9fb66a49727faa1e61ca3d82820 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1018862404" 
+	@${RM} ${OBJECTDIR}/_ext/1018862404/ring_buffer.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1018862404/ring_buffer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/util/ring_buffer.c  -o ${OBJECTDIR}/_ext/1018862404/ring_buffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1018862404/ring_buffer.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/1360937237/pmsm.o: ../src/pmsm.c  .generated_files/flags/default/783b556b407655d8eab5777d688f02259cc225dc .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/pmsm.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/pmsm.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/pmsm.c  -o ${OBJECTDIR}/_ext/1360937237/pmsm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/pmsm.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/_ext/616499158/Build_info.o: D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c  .generated_files/flags/default/c938e0048fd5ab1f348e0a07bfd73187b2c2b320 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/_ext/616499158" 
+	@${RM} ${OBJECTDIR}/_ext/616499158/Build_info.o.d 
+	@${RM} ${OBJECTDIR}/_ext/616499158/Build_info.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c  -o ${OBJECTDIR}/_ext/616499158/Build_info.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/_ext/616499158/Build_info.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -I"../src" -I"../src/hal" -I"../src/foc" -I"../src/motor" -I"../src/comm" -I"../src/util" -I"../src/ui" -I"../src/diag" -I"../lib/motor_control" -I"../lib/x2c_scope" -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

@@ -189,7 +189,7 @@ t.end = 0x5fff
 t.data = "write_Pgm_st_0x0_op1_0.dat"
 t.type = "Pgm"
 t.mask = 0x0
-t.crc = 0x541d
+t.crc = 0xe261
 o.addTI(t)
 t = Tinfo()
 t.start = 0x2b800

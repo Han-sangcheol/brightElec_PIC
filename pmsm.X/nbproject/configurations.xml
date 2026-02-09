@@ -4,16 +4,35 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="comm" displayName="comm" projectFiles="true">
+        <itemPath>../src/comm/Communication.h</itemPath>
+        <itemPath>../src/comm/command_handler.h</itemPath>
+        <itemPath>../src/comm/protocol_adapter.h</itemPath>
+        <itemPath>../src/comm/uart_wrapper.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="diag" displayName="diag" projectFiles="true">
+        <itemPath>../src/diag/diagnostics.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="foc" displayName="foc" projectFiles="true">
+        <itemPath>../src/foc/control.h</itemPath>
+        <itemPath>../src/foc/estim.h</itemPath>
+        <itemPath>../src/foc/fdweak.h</itemPath>
+        <itemPath>../src/foc/general.h</itemPath>
+        <itemPath>../src/foc/motor_control_noinline.h</itemPath>
+        <itemPath>../src/foc/userparms.h</itemPath>
+        <itemPath>../src/foc/singleshunt.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
-        <itemPath>../hal/adc.h</itemPath>
-        <itemPath>../hal/board_service.h</itemPath>
-        <itemPath>../hal/clock.h</itemPath>
-        <itemPath>../hal/delay.h</itemPath>
-        <itemPath>../hal/port_config.h</itemPath>
-        <itemPath>../hal/pwm.h</itemPath>
-        <itemPath>../hal/uart1.h</itemPath>
-        <itemPath>../hal/measure.h</itemPath>
-        <itemPath>../hal/cmp.h</itemPath>
+        <itemPath>../src/hal/adc.h</itemPath>
+        <itemPath>../src/hal/board_service.h</itemPath>
+        <itemPath>../src/hal/clock.h</itemPath>
+        <itemPath>../src/hal/delay.h</itemPath>
+        <itemPath>../src/hal/port_config.h</itemPath>
+        <itemPath>../src/hal/pwm.h</itemPath>
+        <itemPath>../src/hal/uart1.h</itemPath>
+        <itemPath>../src/hal/measure.h</itemPath>
+        <itemPath>../src/hal/cmp.h</itemPath>
+        <itemPath>../src/hal/timer1.h</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
         <logicalFolder name="f1" displayName="motor_control" projectFiles="true">
@@ -28,21 +47,23 @@
           <itemPath>../lib/x2c_scope/x2cscope.h</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../control.h</itemPath>
-      <itemPath>../diagnostics.h</itemPath>
-      <itemPath>../estim.h</itemPath>
-      <itemPath>../fdweak.h</itemPath>
-      <itemPath>../general.h</itemPath>
-      <itemPath>../motor_control_noinline.h</itemPath>
-      <itemPath>../userparms.h</itemPath>
-      <itemPath>../singleshunt.h</itemPath>
-      <itemPath>../hal/interrupt.h</itemPath>
-      <itemPath>../hal/interrupt_types.h</itemPath>
-      <itemPath>../hal/uart2.h</itemPath>
-      <itemPath>../hal/uart_interface.h</itemPath>
-      <itemPath>../hal/uart_types.h</itemPath>
-      <itemPath>../Status_LED.h</itemPath>
-      <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.h</itemPath>
+      <logicalFolder name="motor" displayName="motor" projectFiles="true">
+        <itemPath>../src/motor/motor_control.h</itemPath>
+        <itemPath>../src/motor/motor_speed.h</itemPath>
+        <itemPath>../src/motor/motor_statemachine.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="ui" displayName="ui" projectFiles="true">
+        <itemPath>../src/ui/Status_LED.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="util" displayName="util" projectFiles="true">
+        <itemPath>../src/util/ring_buffer.h</itemPath>
+      </logicalFolder>
+      <itemPath>../src/hal/interrupt.h</itemPath>
+      <itemPath>../src/hal/interrupt_types.h</itemPath>
+      <itemPath>../src/hal/uart2.h</itemPath>
+      <itemPath>../src/hal/uart_interface.h</itemPath>
+      <itemPath>../src/hal/uart_types.h</itemPath>
+      <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -56,18 +77,33 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="comm" projectFiles="true">
+        <itemPath>../src/comm/Communication.c</itemPath>
+        <itemPath>../src/comm/command_handler.c</itemPath>
+        <itemPath>../src/comm/protocol_adapter.c</itemPath>
+        <itemPath>../src/comm/uart_wrapper.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="diag" projectFiles="true">
+        <itemPath>../src/diag/diagnostics_x2cscope.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="foc" projectFiles="true">
+        <itemPath>../src/foc/estim.c</itemPath>
+        <itemPath>../src/foc/fdweak.c</itemPath>
+        <itemPath>../src/foc/singleshunt.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
-        <itemPath>../hal/adc.c</itemPath>
-        <itemPath>../hal/board_service.c</itemPath>
-        <itemPath>../hal/clock.c</itemPath>
-        <itemPath>../hal/port_config.c</itemPath>
-        <itemPath>../hal/pwm.c</itemPath>
-        <itemPath>../hal/uart1.c</itemPath>
-        <itemPath>../hal/measure.c</itemPath>
-        <itemPath>../hal/cmp.c</itemPath>
-        <itemPath>../hal/device_config.c</itemPath>
-        <itemPath>../hal/interrupt.c</itemPath>
-        <itemPath>../hal/uart2.c</itemPath>
+        <itemPath>../src/hal/adc.c</itemPath>
+        <itemPath>../src/hal/board_service.c</itemPath>
+        <itemPath>../src/hal/clock.c</itemPath>
+        <itemPath>../src/hal/port_config.c</itemPath>
+        <itemPath>../src/hal/pwm.c</itemPath>
+        <itemPath>../src/hal/uart1.c</itemPath>
+        <itemPath>../src/hal/measure.c</itemPath>
+        <itemPath>../src/hal/cmp.c</itemPath>
+        <itemPath>../src/hal/device_config.c</itemPath>
+        <itemPath>../src/hal/interrupt.c</itemPath>
+        <itemPath>../src/hal/uart2.c</itemPath>
+        <itemPath>../src/hal/timer1.c</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
         <logicalFolder name="f1" displayName="motor_control" projectFiles="true">
@@ -83,18 +119,23 @@
           <itemPath>../lib/motor_control/mc_svgen_dspic.s</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../estim.c</itemPath>
-      <itemPath>../fdweak.c</itemPath>
-      <itemPath>../pmsm.c</itemPath>
-      <itemPath>../diagnostics_x2cscope.c</itemPath>
-      <itemPath>../singleshunt.c</itemPath>
-      <itemPath>../Communication.c</itemPath>
-      <itemPath>../Status_LED.c</itemPath>
-      <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/Build_info.c</itemPath>
+      <logicalFolder name="f3" displayName="motor" projectFiles="true">
+        <itemPath>../src/motor/motor_control.c</itemPath>
+        <itemPath>../src/motor/motor_speed.c</itemPath>
+        <itemPath>../src/motor/motor_statemachine.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="ui" projectFiles="true">
+        <itemPath>../src/ui/Status_LED.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="util" projectFiles="true">
+        <itemPath>../src/util/ring_buffer.c</itemPath>
+      </logicalFolder>
+      <itemPath>../src/pmsm.c</itemPath>
+      <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>..</Elem>
+    <Elem>../src</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -139,20 +180,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../diagnostics_x2cscope.c" ex="false" overriding="false">
-        <C30>
-        </C30>
-        <C30-AR>
-        </C30-AR>
-        <C30-AS>
-        </C30-AS>
-        <C30-CO>
-        </C30-CO>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <C30>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
@@ -171,7 +198,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="expand-pragma-config" value="false"/>
         <property key="extra-include-directories"
-                  value="..\;..\hal;..\lib\motor_control;..\lib\x2c_scope"/>
+                  value="..\src;..\src\hal;..\src\foc;..\src\motor;..\src\comm;..\src\util;..\src\ui;..\src\diag;..\lib\motor_control;..\lib\x2c_scope"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
