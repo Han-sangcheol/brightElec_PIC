@@ -34,7 +34,7 @@ typedef struct {
 } RingBuffer_t;
 
 /* 함수 프로토타입 */
-void     RingBuffer_Init(RingBuffer_t* rb);
+void     RingBuffer_Init(RingBuffer_t* rb);                     /* rb = Ring Buffer */
 bool     RingBuffer_Put(RingBuffer_t* rb, uint8_t data);
 bool     RingBuffer_Get(RingBuffer_t* rb, uint8_t* data);
 bool     RingBuffer_Peek(const RingBuffer_t* rb, uint8_t* data);

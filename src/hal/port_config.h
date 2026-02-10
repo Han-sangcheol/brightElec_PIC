@@ -77,8 +77,6 @@
 
 
 // Debug LEDs
-// LED2(LD11) : (RE7)
-#define LED2                    LATEbits.LATE7
 // LED1(LD10) : (RE6)
 #define LED1                    LATEbits.LATE6
 

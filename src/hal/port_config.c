@@ -242,8 +242,6 @@ void MapGPIOHWFunction(void)
     TRISDbits.TRISD0 = 0 ;         
     
     // Debug LEDs
-    // LED2 : 
-    TRISEbits.TRISE7 = 0;           // PIN:39 - RE7
     // LED1 : 
     TRISEbits.TRISE6 = 0;           // PIN:37 - RE6
 

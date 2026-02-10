@@ -26,10 +26,6 @@ typedef struct {
 extern const UART_TX_WRAPPER UartTx1;   /* UART1 전송 래퍼 */
 extern const UART_TX_WRAPPER UartTx2;   /* UART2 전송 래퍼 */
 
-/* 레거시 호환 함수 프로토타입 */
-void UARTSend_1(uint8_t* data, uint8_t length);
-void UARTSend_2(uint8_t* data, uint8_t length);
-
 #ifdef __cplusplus
 }
 #endif

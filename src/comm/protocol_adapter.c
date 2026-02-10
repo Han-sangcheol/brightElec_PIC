@@ -25,9 +25,9 @@
 #include "protocol_adapter.h"
 
 /* 프로토콜 상수 -----------------------------------------------------------*/
-#define dVersion_FW     105
-#define dSTX            0x40
-#define dETX            0x2A
+#define dVersion_FW     105     /* FW = Firmware */
+#define dSTX            0x40    /* STX = Start of Text */
+#define dETX            0x2A    /* ETX = End of Text */
 #define PACKET_MIN_LEN  4       /* 최소 패킷 길이 (STX + cmd + ETX + checksum) */
 
 /*=============================================================================
@@ -67,13 +67,13 @@ typedef struct {
 /*=============================================================================
  * 정적 변수 - CommandData (이 모듈이 소유)
  *===========================================================================*/
-static CommandData stCommandData;
+static CommandData stCommandData;       /* st = Static (prefix) */
 
 /*=============================================================================
  * 내부 함수 프로토타입 (Adapter 구현)
  *===========================================================================*/
-static bool    Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len);
-static uint8_t Protocol_FormatResponse_Impl(uint8_t* outBuf);
+static bool    Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len);  /* Impl = Implementation, len = Length */
+static uint8_t Protocol_FormatResponse_Impl(uint8_t* outBuf);              /* Buf = Buffer */
 static uint8_t Protocol_AsciiToHex_Impl(uint8_t ascii);
 static uint8_t Protocol_CalcChecksum_Impl(const uint8_t* data, uint8_t len);
 static PacketValidation_e Protocol_ValidatePacket_Impl(const uint8_t* data, uint8_t len);

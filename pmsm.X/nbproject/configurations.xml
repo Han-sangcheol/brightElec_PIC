@@ -53,7 +53,9 @@
         <itemPath>../src/motor/motor_statemachine.h</itemPath>
       </logicalFolder>
       <logicalFolder name="ui" displayName="ui" projectFiles="true">
-        <itemPath>../src/ui/Status_LED.h</itemPath>
+        <itemPath>../src/ui/led_blinker.h</itemPath>
+        <itemPath>../src/ui/led_blinker_cfg.h</itemPath>
+        <itemPath>../src/ui/led_blinker_drv.h</itemPath>
       </logicalFolder>
       <logicalFolder name="util" displayName="util" projectFiles="true">
         <itemPath>../src/util/ring_buffer.h</itemPath>
@@ -125,7 +127,9 @@
         <itemPath>../src/motor/motor_statemachine.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="ui" projectFiles="true">
-        <itemPath>../src/ui/Status_LED.c</itemPath>
+        <itemPath>../src/ui/led_blinker.c</itemPath>
+        <itemPath>../src/ui/led_blinker_cfg.c</itemPath>
+        <itemPath>../src/ui/led_blinker_drv.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="util" projectFiles="true">
         <itemPath>../src/util/ring_buffer.c</itemPath>

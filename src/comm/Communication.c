@@ -43,17 +43,17 @@
  * 정적 변수 (오케스트레이션 전용)
  *===========================================================================*/
 static uint8_t g_uart2_rx_flag;
-static uint8_t command_rx_buffer[20];
+static uint8_t command_rx_buffer[20];   /* rx = Receive */
 
 static uint8_t g_uart2_tx_flag;
 static uint16_t g_timer1ms_comm;
 
 static uint16_t g_u16UartRXCounter;     /* 통신 수신 카운트 */
 
-/* Ring Buffer - UART RX 링 버퍼 */
+/* Ring Buffer - UART RX(Receive) 링 버퍼 */
 static RingBuffer_t rxRingBuffer;
 
-/* TX 응답 버퍼 */
+/* TX(Transmit) 응답 버퍼 */
 static uint8_t txBuffer[20];
 
 /*=============================================================================
@@ -82,7 +82,7 @@ void communication(MotorData* motorData_cmd, MotorData* motorData_now)
             Protocol.ParsePacket(command_rx_buffer, 18);
 
             /* Command - 명령 ID 추출 및 디스패치 (command_handler) */
-            uint8_t cmdId = (Protocol.AsciiToHex(command_rx_buffer[1]) << 4)
+            uint8_t cmdId = (Protocol.AsciiToHex(command_rx_buffer[1]) << 4)  /* cmd = Command */
                           |  Protocol.AsciiToHex(command_rx_buffer[2]);
             CommandHandler_Dispatch(cmdId, motorData_cmd);
 
@@ -107,9 +107,9 @@ void communication(MotorData* motorData_cmd, MotorData* motorData_now)
  *===========================================================================*/
 void UART2_RxCompleteCallback(void)
 {
-    static uint8_t rxAssemblyBuf[256];
-    static uint8_t rxIndex = 0;
-    uint8_t rxByte;
+    static uint8_t rxAssemblyBuf[256];  /* rx = Receive, Buf = Buffer */
+    static uint8_t rxIndex = 0;        /* rx = Receive */
+    uint8_t rxByte;                    /* rx = Receive */
 
     /* 오버런 에러 클리어 */
     if (U2STAbits.OERR)

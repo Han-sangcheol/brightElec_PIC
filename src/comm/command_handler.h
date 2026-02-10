@@ -24,12 +24,12 @@ extern "C" {
  * 명령 디스패치 인터페이스
  *===========================================================================*/
 void CommandHandler_Init(void);
-void CommandHandler_Dispatch(uint8_t cmdId, MotorData* motorData);
+void CommandHandler_Dispatch(uint8_t cmdId, MotorData* motorData);  /* cmd = Command */
 
 /*=============================================================================
  * Callback - RX 이벤트 콜백 등록/실행
  *===========================================================================*/
-void CommandHandler_RegisterRxCallback(CommEventCallback_t cb);
+void CommandHandler_RegisterRxCallback(CommEventCallback_t cb);  /* cb = Callback */
 void CommandHandler_NotifyRx(void);
 
 #ifdef __cplusplus

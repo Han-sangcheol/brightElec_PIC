@@ -3,7 +3,8 @@
  *
  * 기능:
  *   - main(): 시스템 초기화 + 메인루프
- *   - uart2_setting(): UART2 인터페이스 초기화
+ *   - UART2_Setup(): UART2 인터페이스 초기화
+ *   - Timer1_Setup(): Timer1 초기화 + 콜백 등록 (상태머신 연동)
  *   - _ADCInterrupt(): ADC ISR - 전류 샘플링, FOC 제어 실행
  *   - _PWMInterrupt(): PWM 폴트 ISR
  *
@@ -12,6 +13,8 @@
  *   - motor_speed.c/h:   속도 램프 제어 (+2/-10 rpm)
  *   - motor_statemachine.c/h: 상태머신 디스패치 패턴
  *   - hal/timer1.c/h:    Timer1 콜백 등록 패턴
+ *   - led_blinker.c/h:   LED 점멸 제어 (HW 독립, 재사용)
+ *   - led_blinker_drv.c/h: LED HW 바인딩 (프로젝트별)
  *   - uart_wrapper.c/h:  UART 전송 래퍼 (Wrapper)
  *   - protocol_adapter.c/h: 프로토콜 어댑터 (Adapter)
  *   - command_handler.c/h: 명령 디스패치 (Command)
@@ -54,7 +57,9 @@
 #include "interrupt_types.h"
 
 #include "Communication.h"
-#include "Status_LED.h"
+#include "led_blinker.h"        /* Core: LedBlinker 인스턴스 */
+#include "led_blinker_cfg.h"    /* 설정: LED_STRATEGY_NORMAL 등 전략 상수 */
+#include "led_blinker_drv.h"    /* 드라이버: LedBlinker_Drv_Init() */
 
 /* 새로 분리된 모듈 */
 #include "motor_control.h"
@@ -76,40 +81,29 @@ MotorData MotorData_cmd;
 MotorData MotorData_now;
 
 /* 전역 변수: 모터 방향 (ADC ISR, 상태머신에서 참조) */
-unsigned int CW_CCW, CW_CCW_OLD;
+unsigned int CW_CCW, CW_CCW_OLD;       /* CW = Clockwise, CCW = Counter-Clockwise */
 unsigned int X2C_START_STOP;
-
-/* 타이머 1ms 카운터 (레거시 호환) */
-volatile uint16_t g_u16Timer1ms_TargetSpeed = 0;
 
 /* Stall 감지 관련 */
 #define STALL_STOP
 
 #ifdef STALL_STOP
-extern MC_DQ_T bemfdq;
+extern MC_DQ_T bemfdq;                 /* bemf = Back EMF (역기전력) */
 int32_t bemf_q_sum, bemf_d_sum;
-int16_t bemf_q_flt, bemf_d_flt, STALL_CNT;
+int16_t bemf_q_flt, bemf_d_flt, STALL_CNT;  /* flt = Filtered, CNT = Count */
 volatile uint8_t g_stall_stop_flag;
 #endif
 
 /*=============================================================================
- * uart2_setting - UART2 인터페이스 초기화
+ * UART2_Setup - UART2 인터페이스 초기화
  * UART_INTERFACE 함수포인터 패턴 활용
  *===========================================================================*/
-void uart2_setting(void)
+static void UART2_Setup(void)
 {
     UART2_Drv.Deinitialize();
     UART2_Drv.Initialize();
     UART2_Drv.BaudRateSet(19200);
     UART2_Drv.TransmitEnable();
-}
-
-/*=============================================================================
- * Timer1 콜백 함수: 1ms 카운터 업데이트 (레거시 호환)
- *===========================================================================*/
-static void Timer1ms_Counter_Callback(void)
-{
-    g_u16Timer1ms_TargetSpeed++;
 }
 
 /*=============================================================================
@@ -124,6 +118,36 @@ static bool CommunicationStatusProvider(void)
     bool isHealthy = (currentRxCount != lastRxCount);
     lastRxCount = currentRxCount;
     return isHealthy;
+}
+
+/*=============================================================================
+ * LED_Setup - LED 초기화 (수평 분리 패턴)
+ * 1) 드라이버: HW ops 주입
+ * 2) 전략: 정상/에러 자동 전환 설정
+ * 3) Core: Singleton 초기화
+ * 4) 통신 상태 제공자 콜백 등록
+ *===========================================================================*/
+static void LED_Setup(void)
+{
+    LedBlinker_Drv_Init();
+    LedBlinker_SetAutoStrategies(&LED_STRATEGY_NORMAL, &LED_STRATEGY_ERROR);
+    LedBlinker.Init();
+    LedBlinker.RegisterProvider(CommunicationStatusProvider);
+}
+
+/*=============================================================================
+ * Timer1_Setup - Timer1 초기화 + 콜백 등록 (상태머신 연동)
+ * 등록 실패 시 ERROR 상태 → while(1) 정지
+ *===========================================================================*/
+static void Timer1_Setup(void)
+{
+    Timer1_Init();
+    Timer1_RegisterTask(SpeedRamp_50us_Callback, 1);    /* 50us: 속도 램프 */
+    Timer1_RegisterTask(LedBlinker.TimerISR,     20);   /* 1ms: LED 타이머 */
+    Timer1_RegisterTask(timer1ms_communication,  20);   /* 1ms: 통신 타이머 */
+
+    /* 등록 실패 검출 → 에러 상태 시 무한루프 (디버그용) */
+    if (Timer1_GetState() == TIMER1_ERROR)  { while(1); }
 }
 
 /*=============================================================================
@@ -146,27 +170,19 @@ int main(void)
 {
     InitOscillator();
     SetupGPIOPorts();
-    LED2 = 1;
     InitPeripherals();
     DiagnosticsInit();
     BoardServiceInit();
     CORCONbits.SATA = 0;
 
     /* UART2 초기화 */
-    uart2_setting();
+    UART2_Setup();
 
-    /* StatusLED 초기화 (Singleton) */
-    StatusLED.Init();
+    /* LED 초기화 (drv + cfg + Core + Callback) */
+    LED_Setup();
 
-    /* 통신 상태 제공자 등록 (Callback) */
-    StatusLED.RegisterProvider(CommunicationStatusProvider);
-
-    /* Timer1 초기화 + 콜백 등록 (콜백 등록 패턴) */
-    Timer1_Init();
-    Timer1_RegisterTask(0, SpeedRamp_50us_Callback,          1);  /* 50us: 속도 램프 */
-    Timer1_RegisterTask(1, StatusLED.TimerISR,               20);  /* 1ms: LED 타이머 (인터페이스) */
-    Timer1_RegisterTask(2, timer1ms_communication,           20);  /* 1ms: 통신 타이머 */
-    Timer1_RegisterTask(3, Timer1ms_Counter_Callback,        20);  /* 1ms: 레거시 카운터 */
+    /* Timer1 초기화 + 콜백 등록 (상태머신 연동) */
+    Timer1_Setup();
 
     /* 인터럽트 초기화 */
     INTERRUPT_Initialize();
@@ -191,12 +207,9 @@ int main(void)
         /* 현재 속도 업데이트 */
         MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
 
-        /* LED 상태 업데이트 (Singleton 인터페이스) */
-        StatusLED.Update();
+        /* LED 상태 업데이트 (Core) */
+        LedBlinker.Update();
     }
-
-    /* should never get here */
-    while (1) {}
 }
 
 /*=============================================================================
@@ -376,6 +389,5 @@ void __attribute__((__interrupt__, no_auto_psv)) _PWMInterrupt()
 {
     MotorControl.Reset();
     ClearPWMPCIFaultInverterA();
-    LED1 = 1;
     ClearPWMIF();
 }
