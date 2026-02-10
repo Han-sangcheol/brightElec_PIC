@@ -7,9 +7,9 @@
  *   - 속도 목표 업데이트 (4-상태: 정지/감속/구동/재기동)
  *
  * 호출 관계:
- *   - Motor_Speed()              ← 메인루프 (속도 명령 변환)
- *   - update_speed_target()      ← Timer1 ISR (50us 주기 램프)
- *   - SpeedRamp_50us_Callback()  ← Timer1 콜백 (램프 + VelRef 설정)
+ *   - Motor_Speed()              ← Motor Task (속도 명령 변환)
+ *   - update_speed_target()      ← Timer2 ISR (50us 주기 램프)
+ *   - SpeedRamp_50us_Callback()  ← Timer2 콜백 (램프 + VelRef 설정)
  ******************************************************************************/
 #ifndef MOTOR_SPEED_H
 #define MOTOR_SPEED_H
@@ -26,8 +26,8 @@ extern "C" {
 #define SPEED_RAMP_DECEL    10      /* 감속: -10rpm / 50us (가속의 5배) */
 #define SPEED_STOP_LIMIT    200     /* 정지 판정 속도 한계값 */
 
-/* 전역 변수 (motor_speed.c에서 정의) */
-extern int X2C_VelRef;
+/* 전역 변수 (motor_speed.c에서 정의, Timer2 ISR 쓰기 → ADC ISR 읽기) */
+extern volatile int X2C_VelRef;
 
 /* 전역 변수 (pmsm.c에서 정의, 여기서 참조) */
 extern MotorData MotorData_cmd;

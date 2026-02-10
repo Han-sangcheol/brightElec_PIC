@@ -24,6 +24,8 @@
 #include "motor_speed.h"
 #include "Communication.h"
 #include "board_service.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /* STALL_STOP 기능 (pmsm.c의 ADC ISR에서 g_stall_stop_flag 설정) */
 #define STALL_STOP
@@ -32,8 +34,8 @@
 extern volatile uint8_t g_stall_stop_flag;
 #endif
 
-/* 외부 변수 (pmsm.c에서 정의) */
-extern unsigned int CW_CCW;
+/* 외부 변수 (pmsm.c에서 정의, volatile - Task 쓰기, ADC ISR 읽기) */
+extern volatile unsigned int CW_CCW;
 
 /* 현재 상태 */
 static MotorState_e currentState = MOTOR_STATE_STOPPED;
@@ -171,7 +173,11 @@ static void State_Stopping(void)
      && MotorData_cmd.speed_target == 0)
     {
         uGF.bits.RunMotor = 0;
+        /* Critical Section: ResetParmeters()는 ADC ISR enable/disable을 포함
+           RTOS 태스크 컨텍스트에서 호출 시 선점 방지 필요 */
+        taskENTER_CRITICAL();
         MotorControl.Reset();
+        taskEXIT_CRITICAL();
         currentState = MOTOR_STATE_STOPPED;
     }
 }

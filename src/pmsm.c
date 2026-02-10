@@ -1,23 +1,28 @@
 /*******************************************************************************
- * pmsm.c - 메인 진입점 및 ADC/PWM ISR
+ * pmsm.c - 메인 진입점, RTOS 태스크, ADC/PWM ISR
  *
  * 기능:
- *   - main(): 시스템 초기화 + 메인루프
- *   - UART2_Setup(): UART2 인터페이스 초기화
- *   - Timer1_Setup(): Timer1 초기화 + 콜백 등록 (상태머신 연동)
- *   - _ADCInterrupt(): ADC ISR - 전류 샘플링, FOC 제어 실행
- *   - _PWMInterrupt(): PWM 폴트 ISR
+ *   - main(): 시스템 초기화 + FreeRTOS 태스크 생성 + 스케줄러 시작
+ *   - vMotorTask(): 모터 상태머신 + 속도 업데이트 (10ms 주기)
+ *   - vCommTask(): UART 통신 처리 (10ms 주기)
+ *   - vUITask(): LED 업데이트 + 진단 (100ms 주기)
+ *   - _ADCInterrupt(): ADC ISR - 전류 샘플링, FOC 제어 실행 (변경 없음)
+ *   - _PWMInterrupt(): PWM 폴트 ISR (변경 없음)
+ *   - vApplicationSetupTickTimerInterrupt(): Timer1 RTOS Tick 설정 (timer1.c)
  *
- * 분리된 모듈:
- *   - motor_control.c/h: FOC PI 제어 루프 (MOTOR_CONTROL_INTERFACE 패턴)
- *   - motor_speed.c/h:   속도 램프 제어 (+2/-10 rpm)
- *   - motor_statemachine.c/h: 상태머신 디스패치 패턴
- *   - hal/timer1.c/h:    Timer1 콜백 등록 패턴
- *   - led_blinker.c/h:   LED 점멸 제어 (HW 독립, 재사용)
- *   - led_blinker_drv.c/h: LED HW 바인딩 (프로젝트별)
- *   - uart_wrapper.c/h:  UART 전송 래퍼 (Wrapper)
- *   - protocol_adapter.c/h: 프로토콜 어댑터 (Adapter)
- *   - command_handler.c/h: 명령 디스패치 (Command)
+ * FreeRTOS 태스크 구조:
+ *   - Motor Task (Priority 3): 상태머신, 속도업데이트, 보드서비스
+ *   - Comm Task  (Priority 2): UART 통신 처리
+ *   - UI Task    (Priority 1): LED 업데이트, 진단
+ *
+ * ISR (변경 없음, RTOS 외부):
+ *   - ADC ISR (IPL 7): FOC 벡터 제어 20kHz
+ *   - PWM ISR (IPL 6): PWM 폴트 처리
+ *   - Timer2 ISR (IPL 5): 50us 속도램프 (timer2.c)
+ *
+ * Software Timer (FreeRTOS):
+ *   - LED Timer (1ms): LedBlinker.TimerISR()
+ *   - Comm Timer (1ms): timer1ms_communication()
  *
  * Copyright (c) 2017 released Microchip Technology Inc.  All rights reserved.
  ******************************************************************************/
@@ -66,11 +71,17 @@
 #include "motor_speed.h"
 #include "motor_statemachine.h"
 #include "timer1.h"
+#include "timer2.h"
 
 /* Communication 분리 모듈 */
 #include "uart_wrapper.h"
 #include "protocol_adapter.h"
 #include "command_handler.h"
+
+/* FreeRTOS */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "timers.h"
 
 /* 전역 변수: ADC/측정 관련 (ADC ISR에서 사용) */
 volatile uint16_t adcDataBuffer;
@@ -80,8 +91,8 @@ MCAPP_MEASURE_T measureInputs;
 MotorData MotorData_cmd;
 MotorData MotorData_now;
 
-/* 전역 변수: 모터 방향 (ADC ISR, 상태머신에서 참조) */
-unsigned int CW_CCW, CW_CCW_OLD;       /* CW = Clockwise, CCW = Counter-Clockwise */
+/* 전역 변수: 모터 방향 (ADC ISR 읽기, Task 쓰기 → volatile 필요) */
+volatile unsigned int CW_CCW, CW_CCW_OLD;       /* CW = Clockwise, CCW = Counter-Clockwise */
 unsigned int X2C_START_STOP;
 
 /* Stall 감지 관련 */
@@ -136,35 +147,105 @@ static void LED_Setup(void)
 }
 
 /*=============================================================================
- * Timer1_Setup - Timer1 초기화 + 콜백 등록 (상태머신 연동)
- * 등록 실패 시 ERROR 상태 → while(1) 정지
+ * Timer2_Setup - Timer2 초기화 (50us 속도램프 전용)
+ * Timer1은 FreeRTOS RTOS Tick(1ms)에 사용됨
+ * LED/통신 1ms 콜백은 FreeRTOS Software Timer로 전환
  *===========================================================================*/
-static void Timer1_Setup(void)
+static void Timer2_Setup(void)
 {
-    Timer1_Init();
-    Timer1_RegisterTask(SpeedRamp_50us_Callback, 1);    /* 50us: 속도 램프 */
-    Timer1_RegisterTask(LedBlinker.TimerISR,     20);   /* 1ms: LED 타이머 */
-    Timer1_RegisterTask(timer1ms_communication,  20);   /* 1ms: 통신 타이머 */
-
-    /* 등록 실패 검출 → 에러 상태 시 무한루프 (디버그용) */
-    if (Timer1_GetState() == TIMER1_ERROR)  { while(1); }
+    Timer2_Init();
+    Timer2_RegisterCallback(SpeedRamp_50us_Callback);
 }
 
 /*=============================================================================
- * main - 시스템 초기화 + 메인루프
+ * FreeRTOS Software Timer 콜백 함수
+ * 기존 Timer1 1ms 콜백을 FreeRTOS Software Timer로 이전
+ *===========================================================================*/
+
+/* LED 1ms Software Timer 콜백 */
+static void vLedTimerCallback(TimerHandle_t xTimer)
+{
+    (void)xTimer;
+    LedBlinker.TimerISR();
+}
+
+/* 통신 1ms Software Timer 콜백 */
+static void vCommTimerCallback(TimerHandle_t xTimer)
+{
+    (void)xTimer;
+    timer1ms_communication();
+}
+
+/*=============================================================================
+ * FreeRTOS 태스크 함수
+ *===========================================================================*/
+
+/*--- Motor Task (Priority 3): 상태머신 + 속도업데이트 + 보드서비스 ---*/
+static void vMotorTask(void *pvParameters)
+{
+    (void)pvParameters;
+
+    for (;;)
+    {
+        BoardService();
+
+        /* 상태머신 실행 (함수포인터 디스패치 패턴) */
+        MotorStateMachine_Execute();
+
+        /* 현재 속도 업데이트 */
+        MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
+
+        vTaskDelay(pdMS_TO_TICKS(10));  /* 10ms 주기 */
+    }
+}
+
+/*--- Comm Task (Priority 2): UART 통신 처리 ---*/
+static void vCommTask(void *pvParameters)
+{
+    (void)pvParameters;
+
+    for (;;)
+    {
+        communication(&MotorData_cmd, &MotorData_now);
+
+        vTaskDelay(pdMS_TO_TICKS(10));  /* 10ms 주기 */
+    }
+}
+
+/*--- UI Task (Priority 1): LED 업데이트 + 진단 ---*/
+static void vUITask(void *pvParameters)
+{
+    (void)pvParameters;
+
+    for (;;)
+    {
+        DiagnosticsStepMain();
+
+        /* LED 상태 업데이트 (Core) */
+        LedBlinker.Update();
+
+        vTaskDelay(pdMS_TO_TICKS(100)); /* 100ms 주기 */
+    }
+}
+
+/*=============================================================================
+ * main - 시스템 초기화 + FreeRTOS 태스크 생성 + 스케줄러 시작
  *
  * 초기화 순서:
  *   1) 클록, GPIO, 주변장치
  *   2) UART2 (통신)
- *   3) Timer1 (50us) + 콜백 등록
- *   4) 인터럽트
- *   5) 모터 파라미터 리셋
+ *   3) LED (drv + cfg + Core + Callback)
+ *   4) Timer2 (50us 속도램프 전용, Timer1은 RTOS Tick)
+ *   5) 인터럽트 우선순위 설정
+ *   6) 상태머신 + 모터 파라미터 리셋
+ *   7) FreeRTOS Software Timer 생성 (LED 1ms, 통신 1ms)
+ *   8) FreeRTOS 태스크 생성 (Motor, Comm, UI)
+ *   9) vTaskStartScheduler() → Timer1 RTOS Tick 시작
  *
- * 메인루프:
- *   - 진단 + 보드 서비스
- *   - 통신 처리
- *   - 상태머신 실행 (함수포인터 디스패치)
- *   - 속도 업데이트 + LED 표시
+ * 태스크 구조:
+ *   Motor Task (P3): 상태머신 + 속도업데이트 + 보드서비스 (10ms)
+ *   Comm Task  (P2): UART 통신 처리 (10ms)
+ *   UI Task    (P1): LED + 진단 (100ms)
  *===========================================================================*/
 int main(void)
 {
@@ -181,8 +262,8 @@ int main(void)
     /* LED 초기화 (drv + cfg + Core + Callback) */
     LED_Setup();
 
-    /* Timer1 초기화 + 콜백 등록 (상태머신 연동) */
-    Timer1_Setup();
+    /* Timer2 초기화 (50us 속도램프 전용) */
+    Timer2_Setup();
 
     /* 인터럽트 초기화 */
     INTERRUPT_Initialize();
@@ -193,23 +274,25 @@ int main(void)
     /* 모터 파라미터 리셋 */
     MotorControl.Reset();
 
-    /* 메인루프 */
-    while (1)
+    /* FreeRTOS Software Timer 생성 + 시작 (기존 Timer1 1ms 콜백 대체) */
     {
-        DiagnosticsStepMain();
-        BoardService();
+        TimerHandle_t xLedTimer  = xTimerCreate("LED",  pdMS_TO_TICKS(1), pdTRUE, NULL, vLedTimerCallback);
+        TimerHandle_t xCommTimer = xTimerCreate("Comm", pdMS_TO_TICKS(1), pdTRUE, NULL, vCommTimerCallback);
 
-        communication(&MotorData_cmd, &MotorData_now);
-
-        /* 상태머신 실행 (함수포인터 디스패치 패턴) */
-        MotorStateMachine_Execute();
-
-        /* 현재 속도 업데이트 */
-        MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
-
-        /* LED 상태 업데이트 (Core) */
-        LedBlinker.Update();
+        if (xLedTimer != NULL)  { xTimerStart(xLedTimer,  0); }
+        if (xCommTimer != NULL) { xTimerStart(xCommTimer, 0); }
     }
+
+    /* FreeRTOS 태스크 생성 */
+    xTaskCreate(vMotorTask, "Motor", 512, NULL, 3, NULL);
+    xTaskCreate(vCommTask,  "Comm",  512, NULL, 2, NULL);
+    xTaskCreate(vUITask,    "UI",    256, NULL, 1, NULL);
+
+    /* 스케줄러 시작 (Timer1 RTOS Tick 자동 설정, 여기서 리턴하지 않음) */
+    vTaskStartScheduler();
+
+    /* 도달 불가 */
+    while (1);
 }
 
 /*=============================================================================

@@ -43,48 +43,40 @@
 
 void INTERRUPT_Initialize(void)
 {
+    /*==========================================================================
+     * FreeRTOS 인터럽트 우선순위 배치
+     *
+     * IPL 7: ADC ISR (FOC 벡터 제어 20kHz) - pwm.c에서 설정
+     * IPL 6: PWM Fault ISR - pwm.c에서 설정
+     * IPL 5: SCCP1 Timer ISR (50us 속도램프) - timer2.c에서 설정
+     * ------- configMAX_SYSCALL_INTERRUPT_PRIORITY = 4 (경계) -------
+     * IPL 3: UART ISR (FreeRTOS API 호출 가능)
+     * IPL 2: (여유)
+     * IPL 1: Timer1 RTOS Tick (timer1.c/port.c에서 설정)
+     *
+     * 주의: IPL 4 이상의 ISR에서는 FreeRTOS API (xQueueSendFromISR 등) 호출 불가
+     *========================================================================*/
+
     // DMT: Dead Man Timer
-    // Priority: 1
     IPC11bits.DMTIP = 1;
-    
-    // T1: Timer 1
-    // Priority: 1
-    IPC0bits.T1IP = 2;
-    
-    // U1EVT: UART1 Event
-    // Priority: 1
-    IPC47bits.U1EVTIP = 3;
-    
-    // U1E: UART1 Error
-    // Priority: 1
-    IPC12bits.U1EIP = 4;
-    
-    // U1TX: UART1 TX
-    // Priority: 1
-    IPC3bits.U1TXIP = 5;
-    
-    // U1RX: UART1 RX
-    // Priority: 1
-    IPC2bits.U1RXIP = 6;
-    
-    // U2EVT: UART2 Event
-    // Priority: 1
-    IPC47bits.U2EVTIP =7;
-    
-    // U2E: UART2 Error
-    // Priority: 1
-    IPC12bits.U2EIP = 1;
 
-    // U2RX: UART2 RX
-    // Priority: 1
-    IPC6bits.U2RXIP = 2;
+    // T1: Timer 1 - FreeRTOS RTOS Tick (timer1.c에서 설정, 여기서는 미설정)
+    // IPC0bits.T1IP = 1;  // configKERNEL_INTERRUPT_PRIORITY (timer1.c에서 설정)
 
-    // U2TX: UART2 TX
-    // Priority: 1
-    IPC7bits.U2TXIP = 3;
-    
+    // SCCP1 Timer - 50us 속도램프 (timer2.c에서 IPL 5 설정)
+    // IPC1bits.CCT1IP = 5;  // timer2.c에서 설정
 
-    
+    // UART1 - IPL 3 (FreeRTOS API 호출 가능)
+    IPC47bits.U1EVTIP = 3;  // U1EVT: UART1 Event
+    IPC12bits.U1EIP = 3;    // U1E: UART1 Error
+    IPC3bits.U1TXIP = 3;    // U1TX: UART1 TX
+    IPC2bits.U1RXIP = 3;    // U1RX: UART1 RX
+
+    // UART2 - IPL 3 (FreeRTOS API 호출 가능)
+    IPC47bits.U2EVTIP = 3;  // U2EVT: UART2 Event
+    IPC12bits.U2EIP = 3;    // U2E: UART2 Error
+    IPC6bits.U2RXIP = 3;    // U2RX: UART2 RX
+    IPC7bits.U2TXIP = 3;    // U2TX: UART2 TX
 }
 
 void INTERRUPT_Deinitialize(void)

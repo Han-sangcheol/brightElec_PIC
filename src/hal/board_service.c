@@ -44,7 +44,7 @@
 BUTTON_T buttonStartStop;
 BUTTON_T buttonSpeedHalfDouble;
 
-uint16_t boardServiceISRCounter = 0;
+volatile uint16_t boardServiceISRCounter = 0;  /* ADC ISR 쓰기, Task 읽기 */
 
 void DisablePWMOutputsInverterA(void);
 void EnablePWMOutputsInverterA(void);
@@ -61,7 +61,7 @@ void pwmDutyCycleLimitCheck(MC_DUTYCYCLEOUT_T *,uint16_t,uint16_t);
 static void ButtonGroupInitialize(void);
 static void ButtonScan(BUTTON_T * ,bool);
 
-extern unsigned int CW_CCW;
+extern volatile unsigned int CW_CCW;
 
 bool IsPressed_Button1(void)
 {

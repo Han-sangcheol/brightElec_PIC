@@ -10,6 +10,9 @@
         <itemPath>../src/comm/protocol_adapter.h</itemPath>
         <itemPath>../src/comm/uart_wrapper.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <itemPath>../src/config/FreeRTOSConfig.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="diag" displayName="diag" projectFiles="true">
         <itemPath>../src/diag/diagnostics.h</itemPath>
       </logicalFolder>
@@ -33,8 +36,21 @@
         <itemPath>../src/hal/measure.h</itemPath>
         <itemPath>../src/hal/cmp.h</itemPath>
         <itemPath>../src/hal/timer1.h</itemPath>
+        <itemPath>../src/hal/timer2.h</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
+        <logicalFolder name="freertos" displayName="freertos" projectFiles="true">
+          <itemPath>../lib/freertos/include/FreeRTOS.h</itemPath>
+          <itemPath>../lib/freertos/include/task.h</itemPath>
+          <itemPath>../lib/freertos/include/queue.h</itemPath>
+          <itemPath>../lib/freertos/include/semphr.h</itemPath>
+          <itemPath>../lib/freertos/include/timers.h</itemPath>
+          <itemPath>../lib/freertos/include/event_groups.h</itemPath>
+          <itemPath>../lib/freertos/include/list.h</itemPath>
+          <itemPath>../lib/freertos/include/portable.h</itemPath>
+          <itemPath>../lib/freertos/include/projdefs.h</itemPath>
+          <itemPath>../lib/freertos/portable/MPLAB/PIC24_dsPIC/portmacro.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="motor_control" projectFiles="true">
           <itemPath>../lib/motor_control/motor_control.h</itemPath>
           <itemPath>../lib/motor_control/motor_control_declarations.h</itemPath>
@@ -106,8 +122,20 @@
         <itemPath>../src/hal/interrupt.c</itemPath>
         <itemPath>../src/hal/uart2.c</itemPath>
         <itemPath>../src/hal/timer1.c</itemPath>
+        <itemPath>../src/hal/timer2.c</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
+        <logicalFolder name="f8" displayName="freertos" projectFiles="true">
+          <itemPath>../lib/freertos/tasks.c</itemPath>
+          <itemPath>../lib/freertos/queue.c</itemPath>
+          <itemPath>../lib/freertos/list.c</itemPath>
+          <itemPath>../lib/freertos/timers.c</itemPath>
+          <itemPath>../lib/freertos/event_groups.c</itemPath>
+          <itemPath>../lib/freertos/stream_buffer.c</itemPath>
+          <itemPath>../lib/freertos/portable/MPLAB/PIC24_dsPIC/port.c</itemPath>
+          <itemPath>../lib/freertos/portable/MPLAB/PIC24_dsPIC/portasm_PIC24.S</itemPath>
+          <itemPath>../lib/freertos/portable/MemMang/heap_4.c</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="motor_control" projectFiles="true">
           <itemPath>../lib/motor_control/mc_clarke_dspic.s</itemPath>
           <itemPath>../lib/motor_control/mc_interfaces_dspic.inc</itemPath>
@@ -202,7 +230,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="expand-pragma-config" value="false"/>
         <property key="extra-include-directories"
-                  value="..\src;..\src\hal;..\src\foc;..\src\motor;..\src\comm;..\src\util;..\src\ui;..\src\diag;..\lib\motor_control;..\lib\x2c_scope"/>
+                  value="..\src;..\src\hal;..\src\foc;..\src\motor;..\src\comm;..\src\util;..\src\ui;..\src\diag;..\lib\motor_control;..\lib\x2c_scope;..\lib\freertos\include;..\lib\freertos\portable\MPLAB\PIC24_dsPIC;..\src\config"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
@@ -234,7 +262,7 @@
         <property key="assembler-symbols" value=""/>
         <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler"
-                  value="..\lib\motor_control"/>
+                  value="..\lib\motor_control;..\lib\freertos\include;..\lib\freertos\portable\MPLAB\PIC24_dsPIC;..\src\config"/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="keep-locals" value="false"/>

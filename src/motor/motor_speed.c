@@ -7,22 +7,22 @@
  *     - 가속: +2rpm/50us (느리게)
  *     - 감속: -10rpm/50us (빠르게, 가속의 5배)
  *   - 4-상태 머신: 완전정지(0), 정지명령(1), 구동중(2), 재기동(3)
- *   - SpeedRamp_50us_Callback(): Timer1 콜백용 래퍼 함수
+ *   - SpeedRamp_50us_Callback(): Timer2 콜백용 래퍼 함수
  *
  * 호출 관계:
- *   - Motor_Speed()              ← 메인루프 (속도 명령 변환)
- *   - update_speed_target()      ← Timer1 ISR (50us 주기 램프)
- *   - SpeedRamp_50us_Callback()  ← Timer1 콜백 등록 (램프 + VelRef 설정)
+ *   - Motor_Speed()              ← Motor Task (속도 명령 변환)
+ *   - update_speed_target()      ← Timer2 ISR (50us 주기 램프)
+ *   - SpeedRamp_50us_Callback()  ← Timer2 콜백 등록 (램프 + VelRef 설정)
  ******************************************************************************/
 #include <stdlib.h>
 #include <stdint.h>
 #include "motor_speed.h"
 
-/* X2C_VelRef: 모터 속도 기준값 (Timer1 ISR에서 설정, DoControl에서 참조) */
-int X2C_VelRef;
+/* X2C_VelRef: 모터 속도 기준값 (Timer2 ISR에서 설정, ADC ISR DoControl에서 참조) */
+volatile int X2C_VelRef;
 
 /*=============================================================================
- * SpeedRamp_50us_Callback - Timer1 콜백용 래퍼 함수
+ * SpeedRamp_50us_Callback - Timer2 콜백용 래퍼 함수
  * 50us 마다 속도 램프 실행 + X2C_VelRef 설정
  *===========================================================================*/
 void SpeedRamp_50us_Callback(void)
@@ -32,8 +32,8 @@ void SpeedRamp_50us_Callback(void)
 }
 
 /*=============================================================================
- * Motor_Speed - 속도 명령 변환 함수 (메인루프에서 호출)
- * 타겟속도 램프는 Timer1 ISR(50us)에서 직접 처리
+ * Motor_Speed - 속도 명령 변환 함수 (Motor Task에서 호출)
+ * 타겟속도 램프는 Timer2 ISR(50us)에서 직접 처리
  *===========================================================================*/
 void Motor_Speed(void)
 {

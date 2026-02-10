@@ -42,13 +42,13 @@
 /*=============================================================================
  * 정적 변수 (오케스트레이션 전용)
  *===========================================================================*/
-static uint8_t g_uart2_rx_flag;
-static uint8_t command_rx_buffer[20];   /* rx = Receive */
+static volatile uint8_t g_uart2_rx_flag;           /* UART ISR 쓰기, Task 읽기 */
+static uint8_t command_rx_buffer[20];              /* rx = Receive, 플래그 기반 동기화 */
 
-static uint8_t g_uart2_tx_flag;
-static uint16_t g_timer1ms_comm;
+static volatile uint8_t g_uart2_tx_flag;           /* UART ISR 쓰기, Task 읽기 */
+static volatile uint16_t g_timer1ms_comm;          /* SW Timer 쓰기, Task 읽기 */
 
-static uint16_t g_u16UartRXCounter;     /* 통신 수신 카운트 */
+static volatile uint16_t g_u16UartRXCounter;       /* UART ISR 쓰기, Task 읽기 */
 
 /* Ring Buffer - UART RX(Receive) 링 버퍼 */
 static RingBuffer_t rxRingBuffer;
