@@ -3,6 +3,7 @@
  *
  * 기능:
  *   - LedBlinker_Drv_Init(): HW ops를 Core에 주입
+ *   - LedBlinker_Drv_GetHwOps(): HW ops 포인터 반환 (다른 LED 모듈과 공유)
  *
  * 계층 구조 (수평 분리):
  *   Application(pmsm.c) → Driver(이 파일) : HW 핀 바인딩
@@ -23,6 +24,9 @@ extern "C" {
 
 /* 드라이버 초기화 - HW ops를 Core에 주입 */
 void LedBlinker_Drv_Init(void);
+
+/* HW ops 포인터 반환 - 같은 LED를 사용하는 다른 모듈에 전달 */
+const LED_HW_Ops_t* LedBlinker_Drv_GetHwOps(void);
 
 #ifdef __cplusplus
 }

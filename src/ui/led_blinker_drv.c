@@ -3,6 +3,7 @@
  *
  * 기능:
  *   - LedBlinker_Drv_Init(): HW ops를 Core에 주입
+ *   - LedBlinker_Drv_GetHwOps(): HW ops 포인터 반환 (LED 공유)
  *   - HW 핀 매핑: LED1 (RE6) On/Off 함수
  *
  * 계층 구조:
@@ -22,8 +23,8 @@
  * HW 핀 매핑 (프로젝트별 수정 포인트)
  * LED1 = LATEbits.LATE6 (port_config.h에서 정의)
  *===========================================================================*/
-static void HW_LED_On(void)  { LED1 = 1; }  /* HW = Hardware */
-static void HW_LED_Off(void) { LED1 = 0; }
+static void HW_LED_On(void)  { LED1 = 0; }  /* HW = Hardware */
+static void HW_LED_Off(void) { LED1 = 1; }
 
 static const LED_HW_Ops_t ledHwOps = {      /* HwOps = Hardware Operations */
     .On  = HW_LED_On,
@@ -37,4 +38,13 @@ static const LED_HW_Ops_t ledHwOps = {      /* HwOps = Hardware Operations */
 void LedBlinker_Drv_Init(void)
 {
     LedBlinker_SetHwOps(&ledHwOps);
+}
+
+/*=============================================================================
+ * LedBlinker_Drv_GetHwOps - HW ops 포인터 반환
+ * 같은 LED를 사용하는 다른 모듈(예: led_morse)에 전달
+ *===========================================================================*/
+const LED_HW_Ops_t* LedBlinker_Drv_GetHwOps(void)
+{
+    return &ledHwOps;
 }

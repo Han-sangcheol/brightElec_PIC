@@ -7,6 +7,7 @@
  *   - CommandEntry_t typedef (명령 디스패치 테이블)
  *   - CommEventCallback_t typedef (RX 이벤트 콜백)
  *   - communication() 오케스트레이션 함수
+ *   - Communication_IsHealthy() 통신 건강 상태 판단
  *
  * 분리된 모듈:
  *   - uart_wrapper.h/c:      UART 전송 래퍼 (Wrapper)
@@ -95,6 +96,7 @@ typedef void (*CommEventCallback_t)(void);
 void communication(MotorData* motorData_cmd, MotorData* motorData_now);
 void timer1ms_communication(void);
 uint16_t Get_Rx_Ccount(void);
+bool Communication_IsHealthy(void);
 
 #ifdef __cplusplus
 }

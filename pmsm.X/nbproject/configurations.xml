@@ -72,6 +72,7 @@
         <itemPath>../src/ui/led_blinker.h</itemPath>
         <itemPath>../src/ui/led_blinker_cfg.h</itemPath>
         <itemPath>../src/ui/led_blinker_drv.h</itemPath>
+        <itemPath>../src/ui/led_morse.h</itemPath>
       </logicalFolder>
       <logicalFolder name="util" displayName="util" projectFiles="true">
         <itemPath>../src/util/ring_buffer.h</itemPath>
@@ -158,6 +159,7 @@
         <itemPath>../src/ui/led_blinker.c</itemPath>
         <itemPath>../src/ui/led_blinker_cfg.c</itemPath>
         <itemPath>../src/ui/led_blinker_drv.c</itemPath>
+        <itemPath>../src/ui/led_morse.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f5" displayName="util" projectFiles="true">
         <itemPath>../src/util/ring_buffer.c</itemPath>

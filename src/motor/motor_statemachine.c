@@ -8,6 +8,7 @@
  *   - State_Running():  Motor_Speed() 호출, motor_on=0 시 STOPPING 전환
  *   - State_Stopping(): speed_command=0, 감속 완료 시 ResetParmeters → STOPPED
  *   - State_Fault():    스톨 감지, motor_on=0 입력 대기 후 STOPPED 전환
+ *   - MotorStateMachine_GetSetRPM(): 모터 구동 시 설정 RPM 반환, 정지 시 -1
  *
  * 함수포인터 패턴:
  *   stateHandlers[] 배열에 상태별 핸들러 등록
@@ -180,6 +181,17 @@ static void State_Stopping(void)
         taskEXIT_CRITICAL();
         currentState = MOTOR_STATE_STOPPED;
     }
+}
+
+/*=============================================================================
+ * MotorStateMachine_GetSetRPM - 설정 RPM 반환 (범용 getter)
+ * 모터 구동중: MotorData_cmd.speed (원본 값 그대로)
+ * 모터 정지  : -1 반환
+ *===========================================================================*/
+int32_t MotorStateMachine_GetSetRPM(void)
+{
+    if (!uGF.bits.RunMotor) return -1;
+    return MotorData_cmd.speed;
 }
 
 /*=============================================================================

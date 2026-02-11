@@ -32,22 +32,22 @@
  *===========================================================================*/
 typedef struct {
     bool                          initialized;       /* 초기화 보호 플래그 */
-    const LED_HW_Ops_t*          hwOps;              /* HW 추상화 함수포인터 */
-    LED_State_e                   ledState;           /* 현재 상태머신 상태 */
-    const LED_BlinkStrategy_t*    activeStrategy;     /* 현재 활성 점멸 전략 */
-    const LED_BlinkStrategy_t*    normalStrategy;     /* 자동전환: 정상 전략 */
-    const LED_BlinkStrategy_t*    errorStrategy;      /* 자동전환: 에러 전략 */
-    volatile uint16_t             ledTimer1ms;        /* 타이머 카운터 (1ms 단위) */
-    uint8_t                       repeatCounter;      /* 반복 카운터 */
-    StatusProvider_t              statusProvider;     /* 상태 제공자 콜백 */
-    volatile uint16_t             statusCheckTimer;   /* 상태 확인 타이머 */
+    const LED_HW_Ops_t*           hwOps;             /* HW 추상화 함수포인터 */
+    LED_State_e                   ledState;          /* 현재 상태머신 상태 */
+    const LED_BlinkStrategy_t*    activeStrategy;    /* 현재 활성 점멸 전략 */
+    const LED_BlinkStrategy_t*    normalStrategy;    /* 자동전환: 정상 전략 */
+    const LED_BlinkStrategy_t*    errorStrategy;     /* 자동전환: 에러 전략 */
+    volatile uint16_t             ledTimer1ms;       /* 타이머 카운터 (1ms 단위) */
+    uint8_t                       repeatCounter;     /* 반복 카운터 */
+    StatusProvider_t              statusProvider;    /* 상태 제공자 콜백 */
+    volatile uint16_t             statusCheckTimer;  /* 상태 확인 타이머 */
 } LedBlinker_Context_t;
 
 static LedBlinker_Context_t ctx = {     /* ctx = Context */
-    .initialized      = false,
-    .hwOps            = NULL,
-    .ledState         = LED_STATE_INIT,
-    .activeStrategy   = NULL,
+    .initialized      = false,              /* LED_Setup 후 초기화 : .initialized =true */
+    .hwOps            = NULL,               /* LedBlinker_SetHwOps() 후 초기화 : .hwOps = ledHwOps */
+    .ledState         = LED_STATE_INIT,    
+    .activeStrategy   = NULL,               /* LedBlinker_SetAutoStrategies() 후 초기화 : .activeStrategy = LED_STRATEGY_NORMAL */
     .normalStrategy   = NULL,
     .errorStrategy    = NULL,
     .ledTimer1ms      = 0,
@@ -199,7 +199,8 @@ void LedBlinker_Update(void)
         ctx.statusCheckTimer = 0;
 
         if (ctx.statusProvider != NULL &&
-            ctx.normalStrategy != NULL && ctx.errorStrategy != NULL)
+            ctx.normalStrategy != NULL && 
+            ctx.errorStrategy != NULL)
         {
             bool isHealthy = ctx.statusProvider();
 
@@ -216,7 +217,8 @@ void LedBlinker_Update(void)
 
     /* State Machine - 핸들러 디스패치 */
     if (ctx.activeStrategy != NULL &&
-        ctx.ledState < LED_STATE_COUNT && ledStateHandlers[ctx.ledState] != NULL)
+        ctx.ledState < LED_STATE_COUNT &&
+        ledStateHandlers[ctx.ledState] != NULL)
     {
         ledStateHandlers[ctx.ledState]();
     }
@@ -253,9 +255,9 @@ void LedBlinker_RegisterProvider(StatusProvider_t provider)
 }
 
 /*=============================================================================
- * LedBlinker_SetAutoStrategies - 자동 전략 전환용 정상/에러 전략 설정
- * Update()에서 상태 제공자 결과에 따라 자동 전환할 전략 지정
- * Init() 전에 호출하면 Init 시 normalStrategy가 activeStrategy로 설정됨
+ * LedBlinker_SetAutoStrategies - 자동 패턴 전환용 정상/에러 패턴 설정
+ * Update()에서 상태 제공자 결과에 따라 자동 전환할 점멸 패턴 지정
+ * Init() 전에 호출하면 Init 시 normalPattern이 activePattern으로 설정됨
  *===========================================================================*/
 void LedBlinker_SetAutoStrategies(const LED_BlinkStrategy_t* normal,
                                    const LED_BlinkStrategy_t* error)
@@ -263,8 +265,9 @@ void LedBlinker_SetAutoStrategies(const LED_BlinkStrategy_t* normal,
     ctx.normalStrategy = normal;
     ctx.errorStrategy  = error;
 
-    /* 현재 활성 전략이 없으면 정상 전략으로 설정 */
-    if (ctx.activeStrategy == NULL && normal != NULL)
+    /* 현재 활성 패턴이 없으면 정상 패턴으로 설정 */
+    if (ctx.activeStrategy == NULL &&
+         normal != NULL)
     {
         ctx.activeStrategy = normal;
     }

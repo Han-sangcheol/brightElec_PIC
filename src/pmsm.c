@@ -3,9 +3,9 @@
  *
  * 기능:
  *   - main(): 시스템 초기화 + FreeRTOS 태스크 생성 + 스케줄러 시작
- *   - vMotorTask(): 모터 상태머신 + 속도 업데이트 (10ms 주기)
- *   - vCommTask(): UART 통신 처리 (10ms 주기)
- *   - vUITask(): LED 업데이트 + 진단 (100ms 주기)
+ *   - vMotorTask(): 모터 상태머신 + 속도 업데이트 (1ms 주기, vTaskDelayUntil)
+ *   - vCommTask(): UART 통신 처리 (10ms 주기, vTaskDelay)
+ *   - vUITask(): LED 업데이트 + 진단 (10ms 주기, vTaskDelay)
  *   - _ADCInterrupt(): ADC ISR - 전류 샘플링, FOC 제어 실행 (변경 없음)
  *   - _PWMInterrupt(): PWM 폴트 ISR (변경 없음)
  *   - vApplicationSetupTickTimerInterrupt(): Timer1 RTOS Tick 설정 (timer1.c)
@@ -21,7 +21,7 @@
  *   - Timer2 ISR (IPL 5): 50us 속도램프 (timer2.c)
  *
  * Software Timer (FreeRTOS):
- *   - LED Timer (1ms): LedBlinker.TimerISR()
+ *   - LED Timer (1ms): LedBlinker.TimerISR() + LedMorse.TimerISR()
  *   - Comm Timer (1ms): timer1ms_communication()
  *
  * Copyright (c) 2017 released Microchip Technology Inc.  All rights reserved.
@@ -65,6 +65,7 @@
 #include "led_blinker.h"        /* Core: LedBlinker 인스턴스 */
 #include "led_blinker_cfg.h"    /* 설정: LED_STRATEGY_NORMAL 등 전략 상수 */
 #include "led_blinker_drv.h"    /* 드라이버: LedBlinker_Drv_Init() */
+#include "led_morse.h"          /* Morse: LedMorse 인스턴스 (선택적) */
 
 /* 새로 분리된 모듈 */
 #include "motor_control.h"
@@ -118,32 +119,23 @@ static void UART2_Setup(void)
 }
 
 /*=============================================================================
- * 통신 상태 제공자 (Callback)
- * StatusLED에 등록되어 1초마다 호출됨
- * Communication 모듈의 RX 카운터 변화로 통신 상태 판단
- *===========================================================================*/
-static bool CommunicationStatusProvider(void)
-{
-    static uint16_t lastRxCount = 0;
-    uint16_t currentRxCount = Get_Rx_Ccount();
-    bool isHealthy = (currentRxCount != lastRxCount);
-    lastRxCount = currentRxCount;
-    return isHealthy;
-}
-
-/*=============================================================================
  * LED_Setup - LED 초기화 (수평 분리 패턴)
  * 1) 드라이버: HW ops 주입
  * 2) 전략: 정상/에러 자동 전환 설정
  * 3) Core: Singleton 초기화
- * 4) 통신 상태 제공자 콜백 등록
+ * 4) 통신 건강 상태 콜백 등록 (Communication 모듈 자체 API 사용)
+ * 5) Morse 모듈 초기화 (선택적 - 모터 구동 시 RPM 모르스부호 표시)
  *===========================================================================*/
 static void LED_Setup(void)
 {
     LedBlinker_Drv_Init();
     LedBlinker_SetAutoStrategies(&LED_STRATEGY_NORMAL, &LED_STRATEGY_ERROR);
     LedBlinker.Init();
-    LedBlinker.RegisterProvider(CommunicationStatusProvider);
+    LedBlinker.RegisterProvider(Communication_IsHealthy);
+    /* Morse 초기화 (모터 구동시 수신된 rpm 표시)*/
+    LedMorse_SetHwOps(LedBlinker_Drv_GetHwOps());
+    LedMorse.Init();
+    LedMorse.RegisterProvider(MotorStateMachine_GetSetRPM);
 }
 
 /*=============================================================================
@@ -167,6 +159,7 @@ static void vLedTimerCallback(TimerHandle_t xTimer)
 {
     (void)xTimer;
     LedBlinker.TimerISR();
+    LedMorse.TimerISR();
 }
 
 /* 통신 1ms Software Timer 콜백 */
@@ -184,6 +177,7 @@ static void vCommTimerCallback(TimerHandle_t xTimer)
 static void vMotorTask(void *pvParameters)
 {
     (void)pvParameters;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
 
     for (;;)
     {
@@ -195,7 +189,7 @@ static void vMotorTask(void *pvParameters)
         /* 현재 속도 업데이트 */
         MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
 
-        vTaskDelay(pdMS_TO_TICKS(10));  /* 10ms 주기 */
+        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(1));  /* 정확한 1ms 주기 */
     }
 }
 
@@ -208,7 +202,7 @@ static void vCommTask(void *pvParameters)
     {
         communication(&MotorData_cmd, &MotorData_now);
 
-        vTaskDelay(pdMS_TO_TICKS(10));  /* 10ms 주기 */
+        vTaskDelay(pdMS_TO_TICKS(10));  /* 약 10ms 주기 (정밀 주기 불필요) */
     }
 }
 
@@ -221,10 +215,13 @@ static void vUITask(void *pvParameters)
     {
         DiagnosticsStepMain();
 
-        /* LED 상태 업데이트 (Core) */
-        LedBlinker.Update();
+        /* LED 상태 업데이트: Morse 우선, idle이면 Strategy */
+        if (!LedMorse.Update())
+        {
+            LedBlinker.Update();
+        }
 
-        vTaskDelay(pdMS_TO_TICKS(100)); /* 100ms 주기 */
+        vTaskDelay(pdMS_TO_TICKS(10)); /* 약 10ms 주기 (정밀 주기 불필요) */
     }
 }
 
@@ -243,9 +240,9 @@ static void vUITask(void *pvParameters)
  *   9) vTaskStartScheduler() → Timer1 RTOS Tick 시작
  *
  * 태스크 구조:
- *   Motor Task (P3): 상태머신 + 속도업데이트 + 보드서비스 (10ms)
- *   Comm Task  (P2): UART 통신 처리 (10ms)
- *   UI Task    (P1): LED + 진단 (100ms)
+ *   Motor Task (P3): 상태머신 + 속도업데이트 + 보드서비스 (1ms, vTaskDelayUntil)
+ *   Comm Task  (P2): UART 통신 처리 (10ms, vTaskDelay)
+ *   UI Task    (P1): LED + 진단 (10ms, vTaskDelay)
  *===========================================================================*/
 int main(void)
 {

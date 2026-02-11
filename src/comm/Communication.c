@@ -4,6 +4,7 @@
  * 기능:
  *   - UART2 패킷 수신 ISR (링 버퍼 조립)
  *   - communication() 메인 처리: 수신 → 검증 → 파싱 → 디스패치 → 응답
+ *   - Communication_IsHealthy(): 통신 건강 상태 반환 (1초 주기 자체 판단 결과)
  *   - 타이머 카운터 및 RX 카운터 관리
  *
  * 분리된 모듈 호출:
@@ -49,6 +50,11 @@ static volatile uint8_t g_uart2_tx_flag;           /* UART ISR 쓰기, Task 읽�
 static volatile uint16_t g_timer1ms_comm;          /* SW Timer 쓰기, Task 읽기 */
 
 static volatile uint16_t g_u16UartRXCounter;       /* UART ISR 쓰기, Task 읽기 */
+
+/* 통신 건강 상태 (1초 주기 자체 판단) */
+static uint16_t g_healthCheckTimer;                /* 1ms 카운터 (1초 주기용) */
+static uint16_t g_lastRxCount;                     /* 이전 RX 카운터 (비교 기준) */
+static bool     g_commHealthy;                     /* 건강 상태: true=수신 있음 */
 
 /* Ring Buffer - UART RX(Receive) 링 버퍼 */
 static RingBuffer_t rxRingBuffer;
@@ -147,11 +153,22 @@ void UART2_RxCompleteCallback(void)
 }
 
 /*=============================================================================
- * timer1ms_communication - 1ms 타이머 통신 카운터 (Timer1 콜백)
+ * timer1ms_communication - 1ms 타이머 통신 카운터 (SW Timer 콜백)
+ * 1) TX 응답 타이머 카운터 증가
+ * 2) 1초 주기로 통신 건강 상태 자체 판단 (RX 카운터 변화 감지)
  *===========================================================================*/
 void timer1ms_communication(void)
 {
     g_timer1ms_comm++;
+
+    /* 1초 주기 통신 건강 상태 판단 */
+    g_healthCheckTimer++;
+    if (g_healthCheckTimer >= 1000)
+    {
+        g_healthCheckTimer = 0;
+        g_commHealthy = (g_u16UartRXCounter != g_lastRxCount);
+        g_lastRxCount = g_u16UartRXCounter;
+    }
 }
 
 /*=============================================================================
@@ -160,4 +177,16 @@ void timer1ms_communication(void)
 uint16_t Get_Rx_Ccount(void)
 {
     return g_u16UartRXCounter;
+}
+
+/*=============================================================================
+ * Communication_IsHealthy - 통신 건강 상태 반환 (단순 getter)
+ * timer1ms_communication()에서 1초 주기로 자체 판단한 결과를 반환
+ * LedBlinker의 StatusProvider_t 콜백으로 등록 가능
+ *
+ * return: true=수신 있음(정상), false=수신 없음(이상)
+ *===========================================================================*/
+bool Communication_IsHealthy(void)
+{
+    return g_commHealthy;
 }

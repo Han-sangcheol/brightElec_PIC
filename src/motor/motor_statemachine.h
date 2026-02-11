@@ -5,6 +5,7 @@
  *   - 모터 상태 관리: STOPPED → STARTING → RUNNING → STOPPING → STOPPED
  *   - FAULT 상태: 스톨 감지 시 진입, 복구 대기
  *   - 함수포인터 배열로 상태별 핸들러 디스패치
+ *   - GetSetRPM(): 모터 구동 시 설정 RPM 반환, 정지 시 -1
  *
  * 상태 흐름:
  *   STOPPED  → motor_on=1 → STARTING → RUNNING
@@ -41,6 +42,7 @@ typedef void (*StateHandler_t)(void);
 void MotorStateMachine_Init(void);
 void MotorStateMachine_Execute(void);
 MotorState_e MotorStateMachine_GetState(void);
+int32_t MotorStateMachine_GetSetRPM(void);
 
 #ifdef __cplusplus
 }
