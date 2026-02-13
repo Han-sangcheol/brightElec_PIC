@@ -1,14 +1,14 @@
 /*******************************************************************************
- * protocol.h - ASCII-hex 프로토콜 (Adapter 패턴 적용)
+ * protocol.h - ASCII-hex 프로토콜 파싱/포맷팅/검증
  *
  * 기능:
- *   - ASCII-hex 프로토콜 파싱/포맷팅/검증 구현
- *   - ProtocolOps_t 함수포인터 인스턴스 제공
- *   - CommandData_t 내부 소유, Getter 래퍼로 외부 접근
+ *   - PacketValidation_e: 패킷 유효성 검증 결과 열거형
+ *   - ProtocolOps_t: 프로토콜 동작 인터페이스 (함수포인터 구조체)
+ *   - Protocol 인스턴스 (extern const)
+ *   - CommandData_t 내부 소유, Getter/Setter로 외부 접근
  *
  * 적용 패턴:
  *   02: Adapter   - 프로토콜 인터페이스 변환
- *   01: Wrapper   - CommandData Getter 래퍼
  *   30: Assertion - 패킷 유효성 검증
  *
  * 설정값 참조:
@@ -23,13 +23,31 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "Communication.h"     /* ProtocolOps_t, PacketValidation_e typedef */
 
 /*=============================================================================
- * Protocol 인스턴스 (Communication.h에서 extern 선언됨)
- * 실제 정의는 protocol.c에 위치
+ * 패킷 유효성 검증 결과 (Assertion)
  *===========================================================================*/
-/* extern const ProtocolOps_t Protocol;  -- Communication.h에서 선언 */
+typedef enum {
+    PACKET_OK,              /* 패킷 정상 */
+    PACKET_ERR_STX,         /* STX 오류 */
+    PACKET_ERR_ETX,         /* ETX 오류 */
+    PACKET_ERR_LENGTH,      /* 길이 오류 */
+    PACKET_ERR_CHECKSUM     /* 체크섬 오류 */
+} PacketValidation_e;
+
+/*=============================================================================
+ * 프로토콜 동작 인터페이스 (함수포인터 - LED_HW_Ops_t 패턴)
+ * ASCII-hex 프로토콜 파싱/포맷팅을 추상화
+ *===========================================================================*/
+typedef struct {
+    bool    (*ParsePacket)(const uint8_t* raw, uint8_t len);
+    uint8_t (*FormatResponse)(uint8_t* outBuf);
+    uint8_t (*AsciiToHex)(uint8_t ascii);
+    uint8_t (*CalcChecksum)(const uint8_t* data, uint8_t len);
+    PacketValidation_e (*ValidatePacket)(const uint8_t* data, uint8_t len);
+} ProtocolOps_t;                        /* Ops = Operations */
+
+extern const ProtocolOps_t Protocol;
 
 /*=============================================================================
  * CommandData_t Getter (읽기 전용 접근)
@@ -46,8 +64,6 @@ uint16_t Protocol_GetTorque(void);
 void Protocol_SetStatusData(uint16_t status);
 void Protocol_SetPresentRpm(uint16_t rpm);
 void Protocol_SetBldcTorque(uint16_t torque);
-
-/* 유틸리티 함수 reverse(), long_to_str()은 src/util/str_util.h로 이동됨 */
 
 #ifdef __cplusplus
 }

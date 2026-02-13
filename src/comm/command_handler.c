@@ -20,7 +20,8 @@
  *
  * 의존:
  *   - protocol.h: Protocol_GetMotorOn/Speed 등 Getter
- *   - Communication.h: MotorData_t, CommandEntry_t, CommEvent_cb
+ *   - Communication.h: MotorData_t
+ *   - command_handler.h: CommandEntry_t, CommEvent_cb
  ******************************************************************************/
 
 /* Includes ------------------------------------------------------------------*/
@@ -37,7 +38,7 @@ static void Command_MotorControl(MotorData_t* motorData);
 
 /*=============================================================================
  * Command - 명령 디스패치 테이블
- * commandId: 프로토콜 명령 바이트 (command_rx_buffer[1..2] → "05" = 0x05)
+ * commandId: 프로토콜 명령 바이트 (rxBuffer[1..2] → "05" = 0x05)
  *===========================================================================*/
 #define COMMAND_TABLE_SIZE 1
 

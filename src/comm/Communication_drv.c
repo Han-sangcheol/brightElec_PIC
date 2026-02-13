@@ -3,15 +3,17 @@
  *
  * 기능:
  *   - UART1/UART2 하드웨어 전송 래퍼 (UartTx1, UartTx2)
- *   - UART2 수신 ISR 콜백 (패킷 조립 + Ring Buffer)
+ *   - UART2 수신 ISR 콜백 (패킷 조립)
+ *   - COMM_Drv API: 패킷 수신 여부/데이터/카운터 (캡슐화된 접근)
  *   - HW 레지스터 직접 접근 집중 (U2STAbits, U1STAHbits)
  *
  * 적용 패턴:
- *   01: Wrapper     - 하드웨어 직접 접근을 래퍼 함수로 감쌈
- *   14: Ring Buffer - rxRingBuffer UART RX 링 버퍼
+ *   01: Wrapper    - 하드웨어 직접 접근을 래퍼 함수로 감쌈
+ *   캡슐화         - ISR 내부 변수를 static으로 소유, API 함수로만 외부 제공
  *
  * 호출 관계:
- *   UART2 HW ISR → UART2_RxCompleteCallback() → RingBuffer + 패킷 조립
+ *   UART2 HW ISR → UART2_RxCompleteCallback() → 내부 static 변수에 저장
+ *   Communication.c → COMM_Drv_IsPacketReady/GetPacket/GetRxPacketCount()
  *   Communication.c → UartTx2.Send() → 이 파일
  *
  * HW 의존 (프로젝트 이식 시 수정 포인트):
@@ -23,25 +25,22 @@
 /* Includes ------------------------------------------------------------------*/
 #include <xc.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <string.h>
 
 #include "Communication_drv.h"
 #include "Communication_cfg.h"
-#include "ring_buffer.h"
 
 #include "uart1.h"
 #include "uart2.h"
 
 /*=============================================================================
- * ISR → Core 공유 변수 (이 파일이 소유, Communication_drv.h에서 extern 선언)
+ * ISR 내부 변수 (static 캡슐화 - 외부에서 API 함수로만 접근)
  *===========================================================================*/
-volatile uint8_t  g_uart2_rx_flag;                          /* 패킷 수신 완료 플래그 */
-uint8_t           command_rx_buffer[COMM_TX_PACKET_LEN];    /* 수신 완료된 패킷 데이터 */
-volatile uint8_t  g_uart2_tx_flag;                          /* TX 전송 플래그 */
-volatile uint16_t g_u16UartRXCounter;                       /* RX 바이트 카운터 */
-
-/* Ring Buffer - UART RX(Receive) 링 버퍼 */
-static RingBuffer_t rxRingBuffer;
+static volatile uint8_t  g_rxFlag;                               /* 패킷 수신 완료 플래그 */
+static uint8_t           g_rxPacketBuf[COMM_RX_PACKET_LEN];     /* 수신 완료된 패킷 데이터 */
+static volatile uint8_t  g_rxPacketLen;                          /* 수신 완료된 패킷 길이 */
+static volatile uint16_t g_rxPacketCount;                        /* 수신 패킷 카운터 (건강상태용) */
 
 /*=============================================================================
  * UARTSend_1 - UART1 전송 (레지스터 직접 접근 래핑)
@@ -85,14 +84,14 @@ const COMM_TxOps_t UartTx2 = {
 
 /*=============================================================================
  * UART2_RxCompleteCallback - UART2 수신 ISR 콜백
- * Ring Buffer 사용하여 패킷 조립
+ * STX/ETX 기반 패킷 조립, 완성 시 내부 버퍼에 저장
  * HW 레지스터 직접 접근: U2STAbits.OERR, UART2_Drv_Read()
  *===========================================================================*/
 void UART2_RxCompleteCallback(void)
 {
-    static uint8_t rxAssemblyBuf[COMM_RX_ASSEMBLY_SIZE];  /* rx = Receive, Buf = Buffer */
-    static uint8_t rxIndex = 0;        /* rx = Receive */
-    uint8_t rxByte;                    /* rx = Receive */
+    static uint8_t rxAssemblyBuf[COMM_RX_ASSEMBLY_SIZE];
+    static uint8_t rxIndex = 0;
+    uint8_t rxByte;
 
     /* 오버런 에러 클리어 (HW 레지스터 직접 접근) */
     if (U2STAbits.OERR)
@@ -100,31 +99,66 @@ void UART2_RxCompleteCallback(void)
         U2STAbits.OERR = 0;
     }
 
-    if (rxIndex >= COMM_RX_ASSEMBLY_SIZE) rxIndex = 0;
-
     rxByte = UART2_Drv_Read();
 
-    /* Ring Buffer에도 원시 데이터 저장 (디버그/로그용) */
-    RingBuffer_Put(&rxRingBuffer, rxByte);
+    /* 버퍼 오버플로 방지 */
+    if (rxIndex >= COMM_RX_ASSEMBLY_SIZE) rxIndex = 0;
 
     /* 패킷 조립 */
     rxAssemblyBuf[rxIndex++] = rxByte;
-    rxAssemblyBuf[rxIndex] = 0;
 
-    /* STX 검증 */
-    if ((rxAssemblyBuf[0] & 0xff) != COMM_STX)
+    /* STX 검증 (첫 바이트가 STX가 아니면 리셋) */
+    if (rxAssemblyBuf[0] != COMM_STX)
     {
         rxIndex = 0;
+        return;
     }
 
     /* ETX 감지 → 패킷 완성 */
-    if (rxIndex > 3 && (rxAssemblyBuf[rxIndex - 3] & 0xff) == COMM_ETX)
+    if (rxIndex > 3 && rxAssemblyBuf[rxIndex - 3] == COMM_ETX)
     {
-        memcpy(command_rx_buffer, rxAssemblyBuf, rxIndex);
-        g_uart2_rx_flag = 1;
-        g_uart2_tx_flag = 1;
+        memcpy(g_rxPacketBuf, rxAssemblyBuf, rxIndex);
+        g_rxPacketLen = rxIndex;
+        g_rxFlag = 1;
+        g_rxPacketCount++;
         rxIndex = 0;
     }
+}
 
-    g_u16UartRXCounter++;
+/*=============================================================================
+ * COMM_Drv API - 캡슐화된 접근 함수 (Core에서 호출)
+ *===========================================================================*/
+
+/*-----------------------------------------------------------------------------
+ * COMM_Drv_IsPacketReady - 패킷 수신 완료 여부 반환
+ *---------------------------------------------------------------------------*/
+bool COMM_Drv_IsPacketReady(void)
+{
+    return (g_rxFlag != 0);
+}
+
+/*-----------------------------------------------------------------------------
+ * COMM_Drv_GetPacket - 수신 패킷 복사 + 플래그 클리어
+ * buf:    복사 대상 버퍼 (호출자 소유)
+ * maxLen: 버퍼 최대 크기
+ * return: 실제 복사된 패킷 길이
+ *---------------------------------------------------------------------------*/
+uint8_t COMM_Drv_GetPacket(uint8_t* buf, uint8_t maxLen)
+{
+    uint8_t len = g_rxPacketLen;
+
+    if (len > maxLen) len = maxLen;
+
+    memcpy(buf, g_rxPacketBuf, len);
+    g_rxFlag = 0;
+
+    return len;
+}
+
+/*-----------------------------------------------------------------------------
+ * COMM_Drv_GetRxPacketCount - 수신 패킷 카운터 반환 (건강상태 판단용)
+ *---------------------------------------------------------------------------*/
+uint16_t COMM_Drv_GetRxPacketCount(void)
+{
+    return g_rxPacketCount;
 }
