@@ -19,8 +19,8 @@
  *
  * 적용 패턴:
  *   Strategy     - LED_BlinkStrategy_t 점멸 패턴 전략
- *   State Machine- LED_StateHandler_t 상태별 함수포인터 디스패치
- *   Callback     - StatusProvider_t 상태 제공자 콜백
+ *   State Machine- LED_StateHandler_fn 상태별 함수포인터 디스패치
+ *   Callback     - StatusProvider_cb 상태 제공자 콜백
  *   Singleton    - 초기화 보호 (1회만 실행)
  ******************************************************************************/
 #ifndef LED_BLINKER_H
@@ -63,14 +63,14 @@ typedef enum {
     LED_STATE_COUNT       /* 상태 총 개수 */
 } LED_State_e;
 
-/* 상태 핸들러 함수포인터 타입 */
-typedef void (*LED_StateHandler_t)(void);
+/* 상태 핸들러 함수포인터 타입 (fn = 내부 디스패치용) */
+typedef void (*LED_StateHandler_fn)(void);
 
 /*=============================================================================
  * Callback - 상태 제공자
  * true=정상, false=이상 (통신 끊김 등)
  *===========================================================================*/
-typedef bool (*StatusProvider_t)(void);
+typedef bool (*StatusProvider_cb)(void);
 
 /*=============================================================================
  * 인터페이스 구조체 - 인스턴스 (LedBlinker)
@@ -81,13 +81,13 @@ typedef struct {
     void (*Update)(void);                               /* 메인루프 호출 */
     void (*SetStrategy)(const LED_BlinkStrategy_t*);    /* 점멸 패턴 변경 */
     void (*TimerISR)(void);                             /* 1ms 타이머 ISR */
-    void (*RegisterProvider)(StatusProvider_t);          /* 상태 제공자 등록 */
-} LED_BLINKER_INTERFACE;
+    void (*RegisterProvider)(StatusProvider_cb);          /* 상태 제공자 등록 */
+} LED_BlinkerInterface_t;
 
 /*=============================================================================
  * 인스턴스 - Application에서 직접 사용
  *===========================================================================*/
-extern const LED_BLINKER_INTERFACE LedBlinker;
+extern const LED_BlinkerInterface_t LedBlinker;
 
 /*=============================================================================
  * 함수 프로토타입 - drv 계층에서 HW 주입 시 사용

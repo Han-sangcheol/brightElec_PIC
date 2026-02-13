@@ -21,10 +21,10 @@ extern "C" {
 /* UART 전송 래퍼 인터페이스 (Wrapper + 함수포인터) */
 typedef struct {
     void (*Send)(uint8_t* data, uint8_t length);
-} UART_TX_WRAPPER;
+} UartTxWrapper_t;
 
-extern const UART_TX_WRAPPER UartTx1;   /* UART1 전송 래퍼 */
-extern const UART_TX_WRAPPER UartTx2;   /* UART2 전송 래퍼 */
+extern const UartTxWrapper_t UartTx1;   /* UART1 전송 래퍼 */
+extern const UartTxWrapper_t UartTx2;   /* UART2 전송 래퍼 */
 
 #ifdef __cplusplus
 }

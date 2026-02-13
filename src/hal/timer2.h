@@ -30,12 +30,12 @@ extern "C" {
 #include <stdint.h>
 #include <stdbool.h>
 
-/* 콜백 함수 포인터 타입 (timer1.h와 동일) */
-typedef void (*Timer2Callback_t)(void);
+/* 콜백 함수 포인터 타입 (cb = 외부 등록 콜백) */
+typedef void (*Timer2_cb)(void);
 
 /* 함수 프로토타입 */
 void Timer2_Init(void);
-void Timer2_RegisterCallback(Timer2Callback_t cb);
+void Timer2_RegisterCallback(Timer2_cb cb);
 
 #ifdef __cplusplus
 }

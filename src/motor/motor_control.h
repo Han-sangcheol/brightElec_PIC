@@ -8,7 +8,7 @@
  *   - ResetParmeters(): 모터 파라미터 리셋
  *
  * 함수포인터 패턴:
- *   MOTOR_CONTROL_INTERFACE - UART_INTERFACE와 동일 스타일
+ *   MotorControlInterface_t - UART_INTERFACE와 동일 스타일
  *   MotorControl.Init / .Reset / .Execute / .CalcAngle 으로 호출
  ******************************************************************************/
 #ifndef MOTOR_CONTROL_H
@@ -28,9 +28,9 @@ typedef struct {
     void (*Reset)(void);          /* ResetParmeters */
     void (*Execute)(void);        /* DoControl */
     void (*CalcAngle)(void);      /* CalculateParkAngle */
-} MOTOR_CONTROL_INTERFACE;
+} MotorControlInterface_t;
 
-extern const MOTOR_CONTROL_INTERFACE MotorControl;
+extern const MotorControlInterface_t MotorControl;
 
 /* 전역 변수 extern (motor_control.c에서 정의) */
 extern volatile UGF_T uGF;

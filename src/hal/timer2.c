@@ -31,7 +31,7 @@
 #include "timer2.h"
 
 /* 콜백 함수 포인터 (하나만 등록 가능) */
-static Timer2Callback_t timer2Callback = NULL;
+static Timer2_cb timer2Callback = NULL;
 
 /*=============================================================================
  * Timer2_Init - SCCP1 모듈을 16비트 타이머로 초기화 (50us 주기)
@@ -78,7 +78,7 @@ void Timer2_Init(void)
  * Timer2_RegisterCallback - 콜백 함수 등록
  * cb: 콜백 함수 포인터 (50us마다 호출됨)
  *===========================================================================*/
-void Timer2_RegisterCallback(Timer2Callback_t cb)
+void Timer2_RegisterCallback(Timer2_cb cb)
 {
     timer2Callback = cb;
 }

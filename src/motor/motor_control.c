@@ -8,7 +8,7 @@
  *   - ResetParmeters(): 모터 파라미터 리셋 (PWM, PI, Estimator 등)
  *
  * 함수포인터 패턴:
- *   MOTOR_CONTROL_INTERFACE 구조체로 함수 포인터 제공
+ *   MotorControlInterface_t 구조체로 함수 포인터 제공
  *   MotorControl.Init()      → InitControlParameters()
  *   MotorControl.Reset()     → ResetParmeters()
  *   MotorControl.Execute()   → DoControl()
@@ -71,10 +71,10 @@ extern volatile uint16_t adcDataBuffer;
 extern MCAPP_MEASURE_T measureInputs;
 
 /*=============================================================================
- * MOTOR_CONTROL_INTERFACE 인스턴스 - 함수포인터 패턴
+ * MotorControlInterface_t 인스턴스 - 함수포인터 패턴
  * 사용예: MotorControl.Reset(), MotorControl.Execute() 등
  *===========================================================================*/
-const MOTOR_CONTROL_INTERFACE MotorControl = {
+const MotorControlInterface_t MotorControl = {
     .Init      = InitControlParameters,
     .Reset     = ResetParmeters,
     .Execute   = DoControl,

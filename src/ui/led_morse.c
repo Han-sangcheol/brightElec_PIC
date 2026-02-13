@@ -8,8 +8,12 @@
  *   - LedMorse.RegisterProvider(): 값 제공 콜백 등록
  *   - LedMorse_SetHwOps(): HW 함수포인터 주입
  *
+ * 내부 헬퍼:
+ *   - Morse_LedOn/Off(): HW null 체크 포함 LED 제어
+ *   - Morse_DecomposeDigits(): 숫자 → 자릿수 배열 분해 (MSD first)
+ *
  * 상태머신:
- *   IDLE → START_GAP → LOAD → ELEMENT_ON → ELEMENT_GAP → ... → CHAR_GAP → WORD_GAP → LOAD
+ *   IDLE → START_GAP → LOAD → ELEMENT_ON → ELEMENT_GAP → ... → CHAR_GAP → WORD_GAP → IDLE
  *
  * 모르스부호 규칙:
  *   dot=1단위(150ms), dash=3단위(450ms)
@@ -64,7 +68,7 @@ static const uint8_t morsePatterns[10] = {
  *===========================================================================*/
 typedef struct {
     const LED_HW_Ops_t*    hwOps;            /* HW 추상화 함수포인터 */
-    MorseValueProvider_t   provider;         /* 값 제공 콜백 */
+    MorseValueProvider_cb   provider;         /* 값 제공 콜백 */
     MorseState_e           state;            /* Morse 상태머신 상태 */
     volatile uint16_t      timer1ms;         /* 타이머 카운터 (1ms 단위) */
     int16_t                displayValue;     /* 현재 표시 중 스냅샷 값 (/1000 후) */
@@ -85,6 +89,58 @@ static LedMorse_Context_t mctx = {
     .digitIdx     = 0,
     .elemIdx      = 0,
 };
+
+/*=============================================================================
+ * HW 헬퍼 - LED On/Off (null 체크 포함)
+ *===========================================================================*/
+static void Morse_LedOn(void)
+{
+    if (mctx.hwOps != NULL && mctx.hwOps->On != NULL)
+    {
+        mctx.hwOps->On();
+    }
+}
+
+static void Morse_LedOff(void)
+{
+    if (mctx.hwOps != NULL && mctx.hwOps->Off != NULL)
+    {
+        mctx.hwOps->Off();
+    }
+}
+
+/*=============================================================================
+ * Morse_DecomposeDigits - 숫자를 자릿수 배열로 분해 (MSD first)
+ * value: 표시할 숫자 (0 이상)
+ * mctx.digits[], mctx.digitCount에 결과 저장
+ *===========================================================================*/
+static void Morse_DecomposeDigits(int16_t value)
+{
+    if (value == 0)
+    {
+        mctx.digits[0] = 0;
+        mctx.digitCount = 1;
+        return;
+    }
+
+    int16_t temp = value;
+    uint8_t count = 0;
+    uint8_t buf[MORSE_MAX_DIGITS];
+
+    while (temp > 0 && count < MORSE_MAX_DIGITS)
+    {
+        buf[count++] = (uint8_t)(temp % 10);
+        temp /= 10;
+    }
+
+    mctx.digitCount = count;
+    /* 역순 배치 (MSD first) */
+    uint8_t i;
+    for (i = 0; i < count; i++)
+    {
+        mctx.digits[i] = buf[count - 1u - i];
+    }
+}
 
 /*=============================================================================
  * LedMorse_SetHwOps - HW 함수포인터 주입
@@ -126,10 +182,7 @@ static bool LedMorse_Update(void)
         if (rawVal >= 0)
         {
             /* Blinker에서 인계: LED OFF + 시작 간격 삽입 (첫 신호 분리) */
-            if (mctx.hwOps != NULL && mctx.hwOps->Off != NULL)
-            {
-                mctx.hwOps->Off();
-            }
+            Morse_LedOff();
             mctx.timer1ms = 0;
             mctx.state = MORSE_START_GAP;
             return true;  /* 시작 간격 대기 → 다음 호출에서 처리 */
@@ -161,51 +214,19 @@ static bool LedMorse_Update(void)
             if (rawVal < 0)
             {
                 mctx.state = MORSE_IDLE;
-                if (mctx.hwOps != NULL && mctx.hwOps->Off != NULL)
-                {
-                    mctx.hwOps->Off();
-                }
+                Morse_LedOff();
                 return false;
             }
 
             /* 표시 형식 변환: 천단위 절삭 (1000→1, 40000→40, 500→0) */
             mctx.displayValue = (int16_t)(rawVal / 1000);
-
-            /* 자릿수 분해 (MSD first) */
-            if (mctx.displayValue == 0)
-            {
-                mctx.digits[0] = 0;
-                mctx.digitCount = 1;
-            }
-            else
-            {
-                int16_t temp = mctx.displayValue;
-                uint8_t count = 0;
-                uint8_t buf[MORSE_MAX_DIGITS];
-
-                while (temp > 0 && count < MORSE_MAX_DIGITS)
-                {
-                    buf[count++] = (uint8_t)(temp % 10);
-                    temp /= 10;
-                }
-
-                mctx.digitCount = count;
-                /* 역순 배치 (MSD first) */
-                uint8_t i;
-                for (i = 0; i < count; i++)
-                {
-                    mctx.digits[i] = buf[count - 1u - i];
-                }
-            }
+            Morse_DecomposeDigits(mctx.displayValue);
 
             mctx.digitIdx = 0;
             mctx.elemIdx = 0;
 
             /* 첫 요소 LED ON */
-            if (mctx.hwOps != NULL && mctx.hwOps->On != NULL)
-            {
-                mctx.hwOps->On();
-            }
+            Morse_LedOn();
             mctx.timer1ms = 0;
             mctx.state = MORSE_ELEMENT_ON;
             break;
@@ -223,10 +244,7 @@ static bool LedMorse_Update(void)
             if (mctx.timer1ms >= duration)
             {
                 /* LED OFF */
-                if (mctx.hwOps != NULL && mctx.hwOps->Off != NULL)
-                {
-                    mctx.hwOps->Off();
-                }
+                Morse_LedOff();
                 mctx.timer1ms = 0;
 
                 mctx.elemIdx++;
@@ -260,10 +278,7 @@ static bool LedMorse_Update(void)
             if (mctx.timer1ms >= MORSE_UNIT_MS)
             {
                 /* 다음 요소 LED ON */
-                if (mctx.hwOps != NULL && mctx.hwOps->On != NULL)
-                {
-                    mctx.hwOps->On();
-                }
+                Morse_LedOn();
                 mctx.timer1ms = 0;
                 mctx.state = MORSE_ELEMENT_ON;
             }
@@ -277,10 +292,7 @@ static bool LedMorse_Update(void)
             {
                 /* 다음 글자 첫 요소 LED ON */
                 mctx.elemIdx = 0;
-                if (mctx.hwOps != NULL && mctx.hwOps->On != NULL)
-                {
-                    mctx.hwOps->On();
-                }
+                Morse_LedOn();
                 mctx.timer1ms = 0;
                 mctx.state = MORSE_ELEMENT_ON;
             }
@@ -318,7 +330,7 @@ static void LedMorse_TimerISR(void)
 /*=============================================================================
  * LedMorse_RegisterProvider - 값 제공 콜백 등록
  *===========================================================================*/
-static void LedMorse_RegisterProvider(MorseValueProvider_t provider)
+static void LedMorse_RegisterProvider(MorseValueProvider_cb provider)
 {
     mctx.provider = provider;
 }
@@ -326,7 +338,7 @@ static void LedMorse_RegisterProvider(MorseValueProvider_t provider)
 /*=============================================================================
  * LedMorse 인스턴스 - Application에서 LedMorse.xxx()로 호출
  *===========================================================================*/
-const LED_MORSE_INTERFACE LedMorse = {
+const LED_MorseInterface_t LedMorse = {
     .Init             = LedMorse_Init,
     .Update           = LedMorse_Update,
     .TimerISR         = LedMorse_TimerISR,

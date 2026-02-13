@@ -73,7 +73,7 @@ static uint8_t txBuffer[20];
  *   5) CommandHandler_NotifyRx() → Callback (command_handler)
  *   6) Protocol.FormatResponse() + UartTx2.Send()
  *===========================================================================*/
-void communication(MotorData* motorData_cmd, MotorData* motorData_now)
+void communication(MotorData_t* motorData_cmd, MotorData_t* motorData_now)
 {
     if (g_uart2_rx_flag)
     {

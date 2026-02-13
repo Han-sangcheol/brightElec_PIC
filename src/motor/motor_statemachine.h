@@ -13,7 +13,7 @@
  *   (any)    → stall_flag → FAULT → motor_on=0 → STOPPED
  *
  * 함수포인터 패턴:
- *   StateHandler_t 함수포인터 배열로 상태별 핸들러 자동 디스패치
+ *   StateHandler_fn 함수포인터 배열로 상태별 핸들러 자동 디스패치
  ******************************************************************************/
 #ifndef MOTOR_STATEMACHINE_H
 #define MOTOR_STATEMACHINE_H
@@ -35,8 +35,8 @@ typedef enum {
     MOTOR_STATE_COUNT       /* 상태 총 개수 */
 } MotorState_e;
 
-/* 상태 핸들러 함수포인터 타입 */
-typedef void (*StateHandler_t)(void);
+/* 상태 핸들러 함수포인터 타입 (fn = 내부 디스패치용) */
+typedef void (*StateHandler_fn)(void);
 
 /* 함수 프로토타입 */
 void MotorStateMachine_Init(void);

@@ -14,7 +14,7 @@
  *
  * 적용 패턴:
  *   State Machine - Morse 상태별 함수포인터 디스패치
- *   Callback      - MorseValueProvider_t 값 제공자 콜백
+ *   Callback      - MorseValueProvider_cb 값 제공자 콜백
  ******************************************************************************/
 #ifndef LED_MORSE_H
 #define LED_MORSE_H
@@ -32,7 +32,7 @@ extern "C" {
  * 반환값 >= 0: 원본 RPM 값 (Morse 모듈에서 표시 형식 결정)
  * 반환값 <  0: Morse 모드 비활성 (idle)
  *===========================================================================*/
-typedef int32_t (*MorseValueProvider_t)(void);
+typedef int32_t (*MorseValueProvider_cb)(void);
 
 /*=============================================================================
  * 인터페이스 구조체 - 인스턴스 (LedMorse)
@@ -42,13 +42,13 @@ typedef struct {
     void (*Init)(void);                              /* 내부 상태 초기화 */
     bool (*Update)(void);                            /* true=활성(LED 점유), false=idle */
     void (*TimerISR)(void);                          /* 1ms 타이머 카운터 증가 */
-    void (*RegisterProvider)(MorseValueProvider_t);  /* 값 제공 콜백 등록 */
-} LED_MORSE_INTERFACE;
+    void (*RegisterProvider)(MorseValueProvider_cb);  /* 값 제공 콜백 등록 */
+} LED_MorseInterface_t;
 
 /*=============================================================================
  * 인스턴스 - Application에서 직접 사용
  *===========================================================================*/
-extern const LED_MORSE_INTERFACE LedMorse;
+extern const LED_MorseInterface_t LedMorse;
 
 /*=============================================================================
  * HW ops 주입 - pmsm.c에서 LedBlinker_Drv_GetHwOps()로 전달

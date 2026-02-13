@@ -89,8 +89,8 @@ volatile uint16_t adcDataBuffer;
 MCAPP_MEASURE_T measureInputs;
 
 /* 전역 변수: 모터 데이터 (Communication, 상태머신에서 참조) */
-MotorData MotorData_cmd;
-MotorData MotorData_now;
+MotorData_t MotorData_cmd;
+MotorData_t MotorData_now;
 
 /* 전역 변수: 모터 방향 (ADC ISR 읽기, Task 쓰기 → volatile 필요) */
 volatile unsigned int CW_CCW, CW_CCW_OLD;       /* CW = Clockwise, CCW = Counter-Clockwise */
@@ -120,7 +120,7 @@ static void UART2_Setup(void)
 
 /*=============================================================================
  * LED_Setup - LED 초기화 (수평 분리 패턴)
- * 1) 드라이버: HW ops 주입
+ * 1) HW ops 주입 (GetHwOps → SetHwOps 패턴으로 통일)
  * 2) 전략: 정상/에러 자동 전환 설정
  * 3) Core: Singleton 초기화
  * 4) 통신 건강 상태 콜백 등록 (Communication 모듈 자체 API 사용)
@@ -128,7 +128,8 @@ static void UART2_Setup(void)
  *===========================================================================*/
 static void LED_Setup(void)
 {
-    LedBlinker_Drv_Init();
+    /* LedBlinker 초기화 (보드 상태 표시) */
+    LedBlinker_SetHwOps(LedBlinker_Drv_GetHwOps());
     LedBlinker_SetAutoStrategies(&LED_STRATEGY_NORMAL, &LED_STRATEGY_ERROR);
     LedBlinker.Init();
     LedBlinker.RegisterProvider(Communication_IsHealthy);

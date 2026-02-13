@@ -49,13 +49,13 @@ static void UARTSend_2(uint8_t* data, uint8_t length)
 }
 
 /*=============================================================================
- * Wrapper - UART_TX_WRAPPER 인스턴스
+ * Wrapper - UartTxWrapper_t 인스턴스
  * 함수포인터 구조체로 UART 전송을 추상화
  *===========================================================================*/
-const UART_TX_WRAPPER UartTx1 = {
+const UartTxWrapper_t UartTx1 = {
     .Send = UARTSend_1
 };
 
-const UART_TX_WRAPPER UartTx2 = {
+const UartTxWrapper_t UartTx2 = {
     .Send = UARTSend_2
 };

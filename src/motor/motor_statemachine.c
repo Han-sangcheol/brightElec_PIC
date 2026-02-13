@@ -49,7 +49,7 @@ static void State_Stopping(void);
 static void State_Fault(void);
 
 /* 함수포인터 배열 - 상태별 핸들러 디스패치 테이블 */
-static const StateHandler_t stateHandlers[MOTOR_STATE_COUNT] = {
+static const StateHandler_fn stateHandlers[MOTOR_STATE_COUNT] = {
     State_Stopped,      /* MOTOR_STATE_STOPPED */
     State_Starting,     /* MOTOR_STATE_STARTING */
     State_Running,      /* MOTOR_STATE_RUNNING */

@@ -18,18 +18,18 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-#include "Communication.h"     /* MotorData, CommandEntry_t, CommEventCallback_t */
+#include "Communication.h"     /* MotorData_t, CommandEntry_t, CommEvent_cb */
 
 /*=============================================================================
  * 명령 디스패치 인터페이스
  *===========================================================================*/
 void CommandHandler_Init(void);
-void CommandHandler_Dispatch(uint8_t cmdId, MotorData* motorData);  /* cmd = Command */
+void CommandHandler_Dispatch(uint8_t cmdId, MotorData_t* motorData);  /* cmd = Command */
 
 /*=============================================================================
  * Callback - RX 이벤트 콜백 등록/실행
  *===========================================================================*/
-void CommandHandler_RegisterRxCallback(CommEventCallback_t cb);  /* cb = Callback */
+void CommandHandler_RegisterRxCallback(CommEvent_cb cb);  /* cb = Callback */
 void CommandHandler_NotifyRx(void);
 
 #ifdef __cplusplus

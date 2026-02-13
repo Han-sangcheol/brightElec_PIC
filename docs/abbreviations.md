@@ -49,14 +49,34 @@
 | Iq | q-axis current | q축 전류 (FOC) |
 | DQ | Direct-Quadrature | 직교 좌표계 (FOC) |
 
-## 단위/타입
+## 단위
 
 | 줄임말 | 원래 단어 | 설명 |
 |--------|-----------|------|
 | MS / ms | Milliseconds | 밀리초 |
-| _t | type | typedef 접미사 (C 관용) |
-| _e | enum | 열거형 접미사 |
+
+## typedef 접미사 규칙 (Barr Group 기반)
+
+이름만으로 타입 종류를 유추할 수 있도록 접미사를 구분한다.
+
+| 접미사 | 의미 | 용도 | 예시 |
+|--------|------|------|------|
+| `_t` | type (struct/union) | 구조체, 공용체 타입 | `LED_HW_Ops_t`, `MotorData_t`, `LED_BlinkerInterface_t` |
+| `_e` | enum | 열거형 타입 | `LED_State_e`, `MorseState_e`, `MotorState_e` |
+| `_fn` | function pointer | 내부 디스패치용 함수포인터 (모듈이 소유) | `LED_StateHandler_fn`, `StateHandler_fn`, `CommandHandler_fn` |
+| `_cb` | callback | 외부 등록 콜백 함수포인터 (호출자가 제공) | `StatusProvider_cb`, `CommEvent_cb`, `Timer2_cb` |
+
+### `_fn` vs `_cb` 구분 기준: 누가 함수를 제공하는가?
+
+- `_fn`: 모듈 자신이 내부에서 배열/테이블로 관리 (상태머신 핸들러, 명령 디스패치 테이블)
+- `_cb`: 외부 Application이 `Register()` / `Set()`으로 등록 (이벤트 콜백, 값 제공자)
+
+### 기타 접두사
+
+| 접두사 | 의미 | 설명 |
+|--------|------|------|
 | g_ | global | 전역 변수 접두사 |
+| st | static | 정적 변수 접두사 |
 
 ## 파일 접미사
 

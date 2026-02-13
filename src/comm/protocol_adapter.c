@@ -5,12 +5,12 @@
  *   - ASCII-hex ↔ 바이너리 변환 (프로토콜 파싱/포맷팅)
  *   - 패킷 유효성 검증 (STX/ETX/길이)
  *   - 체크섬 계산 (XOR)
- *   - CommandData 내부 소유 및 Getter/Setter 래퍼 제공
+ *   - CommandData_t 내부 소유 및 Getter/Setter 래퍼 제공
  *   - 유틸리티: reverse(), long_to_str()
  *
  * 적용 패턴:
- *   02: Adapter   - PROTOCOL_ADAPTER 함수포인터 구조체
- *   01: Wrapper   - CommandData Getter/Setter 래퍼
+ *   02: Adapter   - ProtocolAdapter_t 함수포인터 구조체
+ *   01: Wrapper   - CommandData_t Getter/Setter 래퍼
  *   30: Assertion - Protocol_ValidatePacket_Impl()
  *
  * 호출 관계:
@@ -45,15 +45,15 @@ typedef struct {
     uint16_t ab_side_selection : 1;
     uint16_t led_on_off : 1;
     uint16_t reserved3 : 5;
-} CommandKeyBits;
+} CommandKeyBits_t;
 
 typedef union {
     uint16_t value;
-    CommandKeyBits bits;
-} CommandKey;
+    CommandKeyBits_t bits;
+} CommandKey_t;
 
 typedef struct {
-    CommandKey key;
+    CommandKey_t key;
     int32_t speed;
     uint16_t torque;
 
@@ -62,12 +62,12 @@ typedef struct {
     uint16_t bldc_torque;
     uint16_t version_fw;
     uint8_t command_tx_buffer[20];
-} CommandData;
+} CommandData_t;
 
 /*=============================================================================
- * 정적 변수 - CommandData (이 모듈이 소유)
+ * 정적 변수 - CommandData_t (이 모듈이 소유)
  *===========================================================================*/
-static CommandData stCommandData;       /* st = Static (prefix) */
+static CommandData_t stCommandData;       /* st = Static (prefix) */
 
 /*=============================================================================
  * 내부 함수 프로토타입 (Adapter 구현)
@@ -79,10 +79,10 @@ static uint8_t Protocol_CalcChecksum_Impl(const uint8_t* data, uint8_t len);
 static PacketValidation_e Protocol_ValidatePacket_Impl(const uint8_t* data, uint8_t len);
 
 /*=============================================================================
- * Adapter - PROTOCOL_ADAPTER 인스턴스
+ * Adapter - ProtocolAdapter_t 인스턴스
  * 프로토콜 파싱/포맷팅 함수포인터 구조체
  *===========================================================================*/
-const PROTOCOL_ADAPTER Protocol = {
+const ProtocolAdapter_t Protocol = {
     .ParsePacket     = Protocol_ParsePacket_Impl,
     .FormatResponse  = Protocol_FormatResponse_Impl,
     .AsciiToHex      = Protocol_AsciiToHex_Impl,
@@ -134,7 +134,7 @@ static uint8_t Protocol_AsciiToHex_Impl(uint8_t ascii_char)
 
 /*=============================================================================
  * Adapter - 수신 패킷 파싱
- * ASCII-hex 데이터를 CommandData 구조체로 변환
+ * ASCII-hex 데이터를 CommandData_t 구조체로 변환
  *===========================================================================*/
 static bool Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len)
 {
@@ -164,7 +164,7 @@ static bool Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len)
 
 /*=============================================================================
  * Adapter - 응답 데이터 포맷팅
- * CommandData → ASCII-hex TX 버퍼 변환
+ * CommandData_t → ASCII-hex TX 버퍼 변환
  * 반환: 전송 바이트 수
  *===========================================================================*/
 static uint8_t Protocol_FormatResponse_Impl(uint8_t* outBuf)
@@ -215,8 +215,8 @@ static uint8_t Protocol_CalcChecksum_Impl(const uint8_t* data, uint8_t len)
 }
 
 /*=============================================================================
- * Wrapper - CommandData Getter 래퍼
- * CommandData는 이 모듈 내부 소유, 외부에서 Getter로 접근
+ * Wrapper - CommandData_t Getter 래퍼
+ * CommandData_t는 이 모듈 내부 소유, 외부에서 Getter로 접근
  *===========================================================================*/
 bool Protocol_GetMotorOn(void)
 {
@@ -239,7 +239,7 @@ uint16_t Protocol_GetTorque(void)
 }
 
 /*=============================================================================
- * CommandData Setter (TX 응답용 - 현재 모터 상태 업데이트)
+ * CommandData_t Setter (TX 응답용 - 현재 모터 상태 업데이트)
  *===========================================================================*/
 void Protocol_SetStatusData(uint16_t status)
 {

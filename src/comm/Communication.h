@@ -2,10 +2,10 @@
  * Communication.h - 통신 모듈 공용 타입 및 오케스트레이션 인터페이스
  *
  * 기능:
- *   - MotorData 구조체 (모터 명령/상태 데이터)
- *   - PROTOCOL_ADAPTER typedef (프로토콜 어댑터 인터페이스)
+ *   - MotorData_t 구조체 (모터 명령/상태 데이터)
+ *   - ProtocolAdapter_t typedef (프로토콜 어댑터 인터페이스)
  *   - CommandEntry_t typedef (명령 디스패치 테이블)
- *   - CommEventCallback_t typedef (RX 이벤트 콜백)
+ *   - CommEvent_cb typedef (RX 이벤트 콜백)
  *   - communication() 오케스트레이션 함수
  *   - Communication_IsHealthy() 통신 건강 상태 판단
  *
@@ -46,7 +46,7 @@ typedef struct {
     int32_t speed_command_old;
     int32_t speed_target;
     uint16_t torque;
-} MotorData;
+} MotorData_t;
 
 /*=============================================================================
  * Assertion - 패킷 유효성 검증 결과
@@ -69,31 +69,31 @@ typedef struct {
     uint8_t (*AsciiToHex)(uint8_t ascii);
     uint8_t (*CalcChecksum)(const uint8_t* data, uint8_t len);
     PacketValidation_e (*ValidatePacket)(const uint8_t* data, uint8_t len);
-} PROTOCOL_ADAPTER;
+} ProtocolAdapter_t;
 
-extern const PROTOCOL_ADAPTER Protocol;
+extern const ProtocolAdapter_t Protocol;
 
 /*=============================================================================
- * Command - 명령 핸들러 함수포인터
+ * Command - 명령 핸들러 함수포인터 (fn = 내부 디스패치용)
  *===========================================================================*/
-typedef void (*CommandHandler_t)(MotorData* motorData);
+typedef void (*CommandHandler_fn)(MotorData_t* motorData);
 
 typedef struct {
-    uint8_t          commandId;   /* 명령 ID (프로토콜의 command 바이트) */
-    CommandHandler_t handler;     /* 핸들러 함수 포인터 */
+    uint8_t           commandId;   /* 명령 ID (프로토콜의 command 바이트) */
+    CommandHandler_fn handler;     /* 핸들러 함수 포인터 */
 } CommandEntry_t;
 
 /*=============================================================================
- * Callback - RX 이벤트 콜백
+ * Callback - RX 이벤트 콜백 (cb = 외부 등록 콜백)
  *===========================================================================*/
-typedef void (*CommEventCallback_t)(void);
+typedef void (*CommEvent_cb)(void);
 
 #define COMM_MAX_CALLBACKS 3
 
 /*=============================================================================
  * 오케스트레이션 함수 (Communication.c)
  *===========================================================================*/
-void communication(MotorData* motorData_cmd, MotorData* motorData_now);
+void communication(MotorData_t* motorData_cmd, MotorData_t* motorData_now);
 void timer1ms_communication(void);
 uint16_t Get_Rx_Ccount(void);
 bool Communication_IsHealthy(void);

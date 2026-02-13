@@ -12,7 +12,7 @@
  *
  * 계층 구조:
  *   Application(pmsm.c) → Core(이 파일) ← Driver(led_blinker_drv.c)
- *   drv가 SetHwOps/SetAutoStrategies로 HW 주입, App이 LedBlinker.xxx()로 호출
+ *   drv가 SetHwOps로 HW 주입, App이 SetAutoStrategies + LedBlinker.xxx()로 호출
  *
  * 상태머신:
  *   INIT → ON → ON_WAIT → OFF_WAIT → (반복 or PAUSE → INIT)
@@ -34,12 +34,12 @@ typedef struct {
     bool                          initialized;       /* 초기화 보호 플래그 */
     const LED_HW_Ops_t*           hwOps;             /* HW 추상화 함수포인터 */
     LED_State_e                   ledState;          /* 현재 상태머신 상태 */
-    const LED_BlinkStrategy_t*    activeStrategy;    /* 현재 활성 점멸 전략 */
-    const LED_BlinkStrategy_t*    normalStrategy;    /* 자동전환: 정상 전략 */
-    const LED_BlinkStrategy_t*    errorStrategy;     /* 자동전환: 에러 전략 */
+    const LED_BlinkStrategy_t*    activeStrategy;    /* 현재 활성 점멸 패턴 */
+    const LED_BlinkStrategy_t*    normalStrategy;    /* 자동전환: 정상 패턴 */
+    const LED_BlinkStrategy_t*    errorStrategy;     /* 자동전환: 에러 패턴 */
     volatile uint16_t             ledTimer1ms;       /* 타이머 카운터 (1ms 단위) */
     uint8_t                       repeatCounter;     /* 반복 카운터 */
-    StatusProvider_t              statusProvider;    /* 상태 제공자 콜백 */
+    StatusProvider_cb              statusProvider;    /* 상태 제공자 콜백 */
     volatile uint16_t             statusCheckTimer;  /* 상태 확인 타이머 */
 } LedBlinker_Context_t;
 
@@ -66,7 +66,7 @@ static void LedState_OffWait(void);
 static void LedState_Pause(void);
 
 /* 상태 핸들러 함수포인터 배열 - 디스패치 테이블 */
-static const LED_StateHandler_t ledStateHandlers[LED_STATE_COUNT] = {
+static const LED_StateHandler_fn ledStateHandlers[LED_STATE_COUNT] = {
     LedState_Init,      /* LED_STATE_INIT */
     LedState_On,        /* LED_STATE_ON */
     LedState_OnWait,    /* LED_STATE_ON_WAIT */
@@ -238,7 +238,7 @@ void LedBlinker_SetStrategy(const LED_BlinkStrategy_t* strategy)
 
 /*=============================================================================
  * LedBlinker_TimerISR - 1ms 타이머 ISR
- * Timer1 콜백으로 등록되어 1ms마다 호출
+ * FreeRTOS Software Timer 콜백으로 등록되어 1ms마다 호출
  *===========================================================================*/
 void LedBlinker_TimerISR(void)
 {
@@ -249,7 +249,7 @@ void LedBlinker_TimerISR(void)
 /*=============================================================================
  * LedBlinker_RegisterProvider - 상태 제공자 콜백 등록
  *===========================================================================*/
-void LedBlinker_RegisterProvider(StatusProvider_t provider)
+void LedBlinker_RegisterProvider(StatusProvider_cb provider)
 {
     ctx.statusProvider = provider;
 }
@@ -257,7 +257,7 @@ void LedBlinker_RegisterProvider(StatusProvider_t provider)
 /*=============================================================================
  * LedBlinker_SetAutoStrategies - 자동 패턴 전환용 정상/에러 패턴 설정
  * Update()에서 상태 제공자 결과에 따라 자동 전환할 점멸 패턴 지정
- * Init() 전에 호출하면 Init 시 normalPattern이 activePattern으로 설정됨
+ * Init() 전에 호출하면 Init 시 normalStrategy이 activeStrategy으로 설정됨
  *===========================================================================*/
 void LedBlinker_SetAutoStrategies(const LED_BlinkStrategy_t* normal,
                                    const LED_BlinkStrategy_t* error)
@@ -276,7 +276,7 @@ void LedBlinker_SetAutoStrategies(const LED_BlinkStrategy_t* normal,
 /*=============================================================================
  * LedBlinker 인스턴스 - Application에서 LedBlinker.xxx()로 호출
  *===========================================================================*/
-const LED_BLINKER_INTERFACE LedBlinker = {
+const LED_BlinkerInterface_t LedBlinker = {
     .Init             = LedBlinker_Init,
     .Update           = LedBlinker_Update,
     .SetStrategy      = LedBlinker_SetStrategy,

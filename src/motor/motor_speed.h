@@ -30,8 +30,8 @@ extern "C" {
 extern volatile int X2C_VelRef;
 
 /* 전역 변수 (pmsm.c에서 정의, 여기서 참조) */
-extern MotorData MotorData_cmd;
-extern MotorData MotorData_now;
+extern MotorData_t MotorData_cmd;
+extern MotorData_t MotorData_now;
 
 /* 함수 프로토타입 */
 void Motor_Speed(void);

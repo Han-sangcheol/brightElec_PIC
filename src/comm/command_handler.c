@@ -17,7 +17,7 @@
  *
  * 의존:
  *   - protocol_adapter.h: Protocol_GetMotorOn/Speed 등 Getter 래퍼
- *   - Communication.h: MotorData, CommandEntry_t, CommEventCallback_t
+ *   - Communication.h: MotorData_t, CommandEntry_t, CommEvent_cb
  ******************************************************************************/
 
 /* Includes ------------------------------------------------------------------*/
@@ -28,9 +28,9 @@
 
 /*=============================================================================
  * Command - 모터 제어 명령 핸들러 (내부 함수)
- * Protocol Getter로 CommandData에서 값 읽어 MotorData로 변환
+ * Protocol Getter로 CommandData_t에서 값 읽어 MotorData_t로 변환
  *===========================================================================*/
-static void Command_MotorControl(MotorData* motorData);
+static void Command_MotorControl(MotorData_t* motorData);
 
 /*=============================================================================
  * Command - 명령 디스패치 테이블
@@ -45,7 +45,7 @@ static const CommandEntry_t commandTable[COMMAND_TABLE_SIZE] = {
 /*=============================================================================
  * Callback - RX 이벤트 콜백 배열
  *===========================================================================*/
-static CommEventCallback_t rxCallbacks[COMM_MAX_CALLBACKS] = { NULL, NULL, NULL };
+static CommEvent_cb rxCallbacks[COMM_MAX_CALLBACKS] = { NULL, NULL, NULL };
 
 /*=============================================================================
  * CommandHandler_Init - 초기화 (향후 확장용)
@@ -63,7 +63,7 @@ void CommandHandler_Init(void)
  * Command - 명령 디스패치
  * commandId로 핸들러를 검색하여 실행
  *===========================================================================*/
-void CommandHandler_Dispatch(uint8_t cmdId, MotorData* motorData)
+void CommandHandler_Dispatch(uint8_t cmdId, MotorData_t* motorData)
 {
     uint8_t i;
     for (i = 0; i < COMMAND_TABLE_SIZE; i++)
@@ -83,7 +83,7 @@ void CommandHandler_Dispatch(uint8_t cmdId, MotorData* motorData)
 /*=============================================================================
  * Callback - RX 이벤트 콜백 등록
  *===========================================================================*/
-void CommandHandler_RegisterRxCallback(CommEventCallback_t cb)
+void CommandHandler_RegisterRxCallback(CommEvent_cb cb)
 {
     uint8_t i;
     for (i = 0; i < COMM_MAX_CALLBACKS; i++)
@@ -113,9 +113,9 @@ void CommandHandler_NotifyRx(void)
 
 /*=============================================================================
  * Command - 모터 제어 명령 핸들러
- * Protocol Getter 래퍼로 CommandData에서 값 읽어 MotorData로 변환
+ * Protocol Getter 래퍼로 CommandData_t에서 값 읽어 MotorData_t로 변환
  *===========================================================================*/
-static void Command_MotorControl(MotorData* motorData)
+static void Command_MotorControl(MotorData_t* motorData)
 {
     motorData->motor_on   = Protocol_GetMotorOn();
     motorData->direction  = Protocol_GetDirection();

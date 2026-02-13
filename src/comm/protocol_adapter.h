@@ -3,8 +3,8 @@
  *
  * 기능:
  *   - ASCII-hex 프로토콜 파싱/포맷팅/검증 구현
- *   - PROTOCOL_ADAPTER 함수포인터 인스턴스 제공
- *   - CommandData 내부 소유, Getter 래퍼로 외부 접근
+ *   - ProtocolAdapter_t 함수포인터 인스턴스 제공
+ *   - CommandData_t 내부 소유, Getter 래퍼로 외부 접근
  *   - 유틸리티: reverse(), long_to_str()
  *
  * 적용 패턴:
@@ -21,17 +21,17 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "Communication.h"     /* PROTOCOL_ADAPTER, PacketValidation_e typedef */
+#include "Communication.h"     /* ProtocolAdapter_t, PacketValidation_e typedef */
 
 /*=============================================================================
  * Protocol 인스턴스 (Communication.h에서 extern 선언됨)
  * 실제 정의는 protocol_adapter.c에 위치
  *===========================================================================*/
-/* extern const PROTOCOL_ADAPTER Protocol;  -- Communication.h에서 선언 */
+/* extern const ProtocolAdapter_t Protocol;  -- Communication.h에서 선언 */
 
 /*=============================================================================
- * CommandData Getter 래퍼 (Wrapper)
- * CommandData는 protocol_adapter.c 내부 소유, 외부에서 Getter로 접근
+ * CommandData_t Getter 래퍼 (Wrapper)
+ * CommandData_t는 protocol_adapter.c 내부 소유, 외부에서 Getter로 접근
  *===========================================================================*/
 bool     Protocol_GetMotorOn(void);
 bool     Protocol_GetDirection(void);
@@ -39,7 +39,7 @@ int32_t  Protocol_GetSpeed(void);
 uint16_t Protocol_GetTorque(void);
 
 /*=============================================================================
- * CommandData Setter (TX 응답용 - 현재 모터 상태 업데이트)
+ * CommandData_t Setter (TX 응답용 - 현재 모터 상태 업데이트)
  *===========================================================================*/
 void Protocol_SetStatusData(uint16_t status);
 void Protocol_SetPresentRpm(uint16_t rpm);
