@@ -7,8 +7,9 @@
       <logicalFolder name="comm" displayName="comm" projectFiles="true">
         <itemPath>../src/comm/Communication.h</itemPath>
         <itemPath>../src/comm/command_handler.h</itemPath>
-        <itemPath>../src/comm/protocol_adapter.h</itemPath>
-        <itemPath>../src/comm/uart_wrapper.h</itemPath>
+        <itemPath>../src/comm/protocol.h</itemPath>
+        <itemPath>../src/comm/Communication_drv.h</itemPath>
+        <itemPath>../src/comm/Communication_cfg.h</itemPath>
       </logicalFolder>
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <itemPath>../src/config/FreeRTOSConfig.h</itemPath>
@@ -76,6 +77,7 @@
       </logicalFolder>
       <logicalFolder name="util" displayName="util" projectFiles="true">
         <itemPath>../src/util/ring_buffer.h</itemPath>
+        <itemPath>../src/util/str_util.h</itemPath>
       </logicalFolder>
       <itemPath>../src/hal/interrupt.h</itemPath>
       <itemPath>../src/hal/interrupt_types.h</itemPath>
@@ -99,8 +101,8 @@
       <logicalFolder name="f4" displayName="comm" projectFiles="true">
         <itemPath>../src/comm/Communication.c</itemPath>
         <itemPath>../src/comm/command_handler.c</itemPath>
-        <itemPath>../src/comm/protocol_adapter.c</itemPath>
-        <itemPath>../src/comm/uart_wrapper.c</itemPath>
+        <itemPath>../src/comm/protocol.c</itemPath>
+        <itemPath>../src/comm/Communication_drv.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f7" displayName="diag" projectFiles="true">
         <itemPath>../src/diag/diagnostics_x2cscope.c</itemPath>
@@ -163,6 +165,7 @@
       </logicalFolder>
       <logicalFolder name="f5" displayName="util" projectFiles="true">
         <itemPath>../src/util/ring_buffer.c</itemPath>
+        <itemPath>../src/util/str_util.c</itemPath>
       </logicalFolder>
       <itemPath>../src/pmsm.c</itemPath>
       <itemPath>D:/Dentium/04_instrument/02_ELMotor_dsPIC/02_Program/AN1292_dsPIC33CK256MP508_ElecLow/src/Build_info.c</itemPath>

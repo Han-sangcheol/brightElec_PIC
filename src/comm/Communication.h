@@ -3,16 +3,17 @@
  *
  * 기능:
  *   - MotorData_t 구조체 (모터 명령/상태 데이터)
- *   - ProtocolAdapter_t typedef (프로토콜 어댑터 인터페이스)
+ *   - ProtocolOps_t typedef (프로토콜 동작 인터페이스)
  *   - CommandEntry_t typedef (명령 디스패치 테이블)
  *   - CommEvent_cb typedef (RX 이벤트 콜백)
  *   - communication() 오케스트레이션 함수
  *   - Communication_IsHealthy() 통신 건강 상태 판단
  *
  * 분리된 모듈:
- *   - uart_wrapper.h/c:      UART 전송 래퍼 (Wrapper)
- *   - protocol_adapter.h/c:  프로토콜 어댑터 (Adapter)
- *   - command_handler.h/c:   명령 디스패치 (Command) + RX 콜백 (Callback)
+ *   - Communication_drv.h/c:  UART ISR + TX 전송 래퍼 (Driver)
+ *   - Communication_cfg.h:    프로토콜 상수/설정값 (Config)
+ *   - protocol.h/c:           프로토콜 (Adapter 패턴 적용)
+ *   - command_handler.h/c:    명령 디스패치 (Command) + RX 콜백 (Callback)
  ******************************************************************************/
 #ifndef INC_USER_Communication_H_
 #define INC_USER_Communication_H_
@@ -60,7 +61,7 @@ typedef enum {
 } PacketValidation_e;
 
 /*=============================================================================
- * Adapter - 프로토콜 어댑터 인터페이스 (함수포인터)
+ * 프로토콜 동작 인터페이스 (함수포인터 - LED_HW_Ops_t 패턴)
  * ASCII-hex 프로토콜 파싱/포맷팅을 추상화
  *===========================================================================*/
 typedef struct {
@@ -69,9 +70,9 @@ typedef struct {
     uint8_t (*AsciiToHex)(uint8_t ascii);
     uint8_t (*CalcChecksum)(const uint8_t* data, uint8_t len);
     PacketValidation_e (*ValidatePacket)(const uint8_t* data, uint8_t len);
-} ProtocolAdapter_t;
+} ProtocolOps_t;                        /* Ops = Operations */
 
-extern const ProtocolAdapter_t Protocol;
+extern const ProtocolOps_t Protocol;
 
 /*=============================================================================
  * Command - 명령 핸들러 함수포인터 (fn = 내부 디스패치용)
@@ -93,7 +94,7 @@ typedef void (*CommEvent_cb)(void);
 /*=============================================================================
  * 오케스트레이션 함수 (Communication.c)
  *===========================================================================*/
-void communication(MotorData_t* motorData_cmd, MotorData_t* motorData_now);
+void communication(void);
 void timer1ms_communication(void);
 uint16_t Get_Rx_Ccount(void);
 bool Communication_IsHealthy(void);

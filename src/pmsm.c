@@ -75,8 +75,8 @@
 #include "timer2.h"
 
 /* Communication 분리 모듈 */
-#include "uart_wrapper.h"
-#include "protocol_adapter.h"
+#include "Communication_drv.h"
+#include "protocol.h"
 #include "command_handler.h"
 
 /* FreeRTOS */
@@ -107,15 +107,20 @@ volatile uint8_t g_stall_stop_flag;
 #endif
 
 /*=============================================================================
- * UART2_Setup - UART2 인터페이스 초기화
- * UART_INTERFACE 함수포인터 패턴 활용
+ * Communication_Setup - 통신 초기화 (수평 분리 패턴)
+ * 1) UART2 HW 초기화 (drv)
+ * 2) CommandHandler 대상 포인터 등록 (DI: 의존성 주입)
  *===========================================================================*/
-static void UART2_Setup(void)
+static void Communication_Setup(void)
 {
+    /* UART2 HW 초기화 (drv) */
     UART2_Drv.Deinitialize();
     UART2_Drv.Initialize();
     UART2_Drv.BaudRateSet(19200);
     UART2_Drv.TransmitEnable();
+
+    /* CommandHandler 대상 포인터 등록 (DI) */
+    CommandHandler_RegisterTarget(&MotorData_cmd);
 }
 
 /*=============================================================================
@@ -190,6 +195,9 @@ static void vMotorTask(void *pvParameters)
         /* 현재 속도 업데이트 */
         MotorData_now.speed = (int32_t)estimator.qVelEstim * 2;
 
+        /* TX 응답 데이터 업데이트 (protocol Setter) */
+        Protocol_SetPresentRpm((uint16_t)abs(MotorData_now.speed));
+
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(1));  /* 정확한 1ms 주기 */
     }
 }
@@ -201,7 +209,7 @@ static void vCommTask(void *pvParameters)
 
     for (;;)
     {
-        communication(&MotorData_cmd, &MotorData_now);
+        communication();
 
         vTaskDelay(pdMS_TO_TICKS(10));  /* 약 10ms 주기 (정밀 주기 불필요) */
     }
@@ -231,7 +239,7 @@ static void vUITask(void *pvParameters)
  *
  * 초기화 순서:
  *   1) 클록, GPIO, 주변장치
- *   2) UART2 (통신)
+ *   2) Communication (drv + DI)
  *   3) LED (drv + cfg + Core + Callback)
  *   4) Timer2 (50us 속도램프 전용, Timer1은 RTOS Tick)
  *   5) 인터럽트 우선순위 설정
@@ -254,8 +262,8 @@ int main(void)
     BoardServiceInit();
     CORCONbits.SATA = 0;
 
-    /* UART2 초기화 */
-    UART2_Setup();
+    /* Communication 초기화 (drv + DI) */
+    Communication_Setup();
 
     /* LED 초기화 (drv + cfg + Core + Callback) */
     LED_Setup();

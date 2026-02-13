@@ -1,96 +1,80 @@
 /*******************************************************************************
- * Communication.c - 통신 오케스트레이션 (조정자 역할)
+ * Communication.c - 통신 오케스트레이션 (조정자 역할, HW 독립)
  *
  * 기능:
- *   - UART2 패킷 수신 ISR (링 버퍼 조립)
  *   - communication() 메인 처리: 수신 → 검증 → 파싱 → 디스패치 → 응답
  *   - Communication_IsHealthy(): 통신 건강 상태 반환 (1초 주기 자체 판단 결과)
  *   - 타이머 카운터 및 RX 카운터 관리
  *
  * 분리된 모듈 호출:
- *   - Protocol.ValidatePacket/ParsePacket/FormatResponse (protocol_adapter)
+ *   - Protocol.ValidatePacket/ParsePacket/FormatResponse (protocol)
  *   - CommandHandler_Dispatch/NotifyRx (command_handler)
- *   - UartTx2.Send (uart_wrapper)
+ *   - UartTx2.Send (Communication_drv)
  *
- * 적용 패턴:
- *   14: Ring Buffer - rxRingBuffer UART RX 링 버퍼
+ * 계층 구조 (수평 분리):
+ *   Application(pmsm.c) → Core(이 파일) → Driver(Communication_drv)
+ *                                        → Protocol(protocol)
+ *                                        → Command(command_handler)
  *
  * 호출 관계:
- *   UART2 ISR → RingBuffer → communication() → Protocol (protocol_adapter.c)
- *                                              → CommandHandler (command_handler.c)
- *                                              → UartTx2 (uart_wrapper.c)
+ *   Communication_drv ISR → 공유변수 → communication() → Protocol (protocol.c)
+ *                                                       → CommandHandler (command_handler.c)
+ *                                                       → UartTx2 (Communication_drv.c)
  ******************************************************************************/
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
-#include <xc.h>
-#include <string.h>
 
 #include "Communication.h"
-#include "protocol_adapter.h"
+#include "Communication_cfg.h"
+#include "Communication_drv.h"
+#include "protocol.h"
 #include "command_handler.h"
-#include "uart_wrapper.h"
-#include "ring_buffer.h"
-
-#include "uart2.h"
-
-/* 프로토콜 상수 (패킷 조립용) -------------------------------------------*/
-#define dSTX            0x40
-#define dETX            0x2A
 
 /*=============================================================================
  * 정적 변수 (오케스트레이션 전용)
  *===========================================================================*/
-static volatile uint8_t g_uart2_rx_flag;           /* UART ISR 쓰기, Task 읽기 */
-static uint8_t command_rx_buffer[20];              /* rx = Receive, 플래그 기반 동기화 */
-
-static volatile uint8_t g_uart2_tx_flag;           /* UART ISR 쓰기, Task 읽기 */
 static volatile uint16_t g_timer1ms_comm;          /* SW Timer 쓰기, Task 읽기 */
-
-static volatile uint16_t g_u16UartRXCounter;       /* UART ISR 쓰기, Task 읽기 */
 
 /* 통신 건강 상태 (1초 주기 자체 판단) */
 static uint16_t g_healthCheckTimer;                /* 1ms 카운터 (1초 주기용) */
 static uint16_t g_lastRxCount;                     /* 이전 RX 카운터 (비교 기준) */
 static bool     g_commHealthy;                     /* 건강 상태: true=수신 있음 */
 
-/* Ring Buffer - UART RX(Receive) 링 버퍼 */
-static RingBuffer_t rxRingBuffer;
-
 /* TX(Transmit) 응답 버퍼 */
-static uint8_t txBuffer[20];
+static uint8_t txBuffer[COMM_TX_PACKET_LEN];
 
 /*=============================================================================
  * communication - 통신 메인 처리 함수 (메인루프에서 호출)
  *
  * 흐름:
  *   1) g_uart2_rx_flag 확인 (ISR에서 패킷 완성 시 설정)
- *   2) Protocol.ValidatePacket() → Assertion (protocol_adapter)
- *   3) Protocol.ParsePacket()    → Adapter  (protocol_adapter)
+ *   2) Protocol.ValidatePacket() → Assertion (protocol)
+ *   3) Protocol.ParsePacket()    → Parsing  (protocol)
  *   4) CommandHandler_Dispatch() → Command  (command_handler)
  *   5) CommandHandler_NotifyRx() → Callback (command_handler)
  *   6) Protocol.FormatResponse() + UartTx2.Send()
  *===========================================================================*/
-void communication(MotorData_t* motorData_cmd, MotorData_t* motorData_now)
+void communication(void)
 {
     if (g_uart2_rx_flag)
     {
         g_uart2_rx_flag = 0;
 
-        /* Assertion - 패킷 유효성 검증 (protocol_adapter) */
-        PacketValidation_e validation = Protocol.ValidatePacket(command_rx_buffer, 18);
+        /* Assertion - 패킷 유효성 검증 (protocol) */
+        PacketValidation_e validation = Protocol.ValidatePacket(command_rx_buffer, COMM_RX_PACKET_LEN);
 
         if (validation == PACKET_OK)
         {
-            /* Adapter - 프로토콜 파싱 (protocol_adapter) */
-            Protocol.ParsePacket(command_rx_buffer, 18);
+            /* 프로토콜 파싱 (protocol) */
+            Protocol.ParsePacket(command_rx_buffer, COMM_RX_PACKET_LEN);
 
             /* Command - 명령 ID 추출 및 디스패치 (command_handler) */
             uint8_t cmdId = (Protocol.AsciiToHex(command_rx_buffer[1]) << 4)  /* cmd = Command */
                           |  Protocol.AsciiToHex(command_rx_buffer[2]);
-            CommandHandler_Dispatch(cmdId, motorData_cmd);
+            CommandHandler_Dispatch(cmdId);
 
             /* Callback - RX 이벤트 콜백 실행 (command_handler) */
             CommandHandler_NotifyRx();
@@ -98,58 +82,13 @@ void communication(MotorData_t* motorData_cmd, MotorData_t* motorData_now)
     }
 
     /* TX 응답 전송 */
-    if (g_timer1ms_comm >= 100)
+    if (g_timer1ms_comm >= COMM_TX_INTERVAL_MS)
     {
         g_timer1ms_comm = 0;
 
         uint8_t txLen = Protocol.FormatResponse(txBuffer);
         UartTx2.Send(txBuffer, txLen);
     }
-}
-
-/*=============================================================================
- * UART2_RxCompleteCallback - UART2 수신 ISR 콜백
- * Ring Buffer 사용하여 패킷 조립
- *===========================================================================*/
-void UART2_RxCompleteCallback(void)
-{
-    static uint8_t rxAssemblyBuf[256];  /* rx = Receive, Buf = Buffer */
-    static uint8_t rxIndex = 0;        /* rx = Receive */
-    uint8_t rxByte;                    /* rx = Receive */
-
-    /* 오버런 에러 클리어 */
-    if (U2STAbits.OERR)
-    {
-        U2STAbits.OERR = 0;
-    }
-
-    if (rxIndex >= 256) rxIndex = 0;
-
-    rxByte = UART2_Drv_Read();
-
-    /* Ring Buffer에도 원시 데이터 저장 (디버그/로그용) */
-    RingBuffer_Put(&rxRingBuffer, rxByte);
-
-    /* 패킷 조립 */
-    rxAssemblyBuf[rxIndex++] = rxByte;
-    rxAssemblyBuf[rxIndex] = 0;
-
-    /* STX 검증 */
-    if ((rxAssemblyBuf[0] & 0xff) != dSTX)
-    {
-        rxIndex = 0;
-    }
-
-    /* ETX 감지 → 패킷 완성 */
-    if (rxIndex > 3 && (rxAssemblyBuf[rxIndex - 3] & 0xff) == dETX)
-    {
-        memcpy(command_rx_buffer, rxAssemblyBuf, rxIndex);
-        g_uart2_rx_flag = 1;
-        g_uart2_tx_flag = 1;
-        rxIndex = 0;
-    }
-
-    g_u16UartRXCounter++;
 }
 
 /*=============================================================================
@@ -163,7 +102,7 @@ void timer1ms_communication(void)
 
     /* 1초 주기 통신 건강 상태 판단 */
     g_healthCheckTimer++;
-    if (g_healthCheckTimer >= 1000)
+    if (g_healthCheckTimer >= COMM_HEALTH_PERIOD_MS)
     {
         g_healthCheckTimer = 0;
         g_commHealthy = (g_u16UartRXCounter != g_lastRxCount);

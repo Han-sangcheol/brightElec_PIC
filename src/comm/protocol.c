@@ -1,37 +1,34 @@
 /*******************************************************************************
- * protocol_adapter.c - ASCII-hex 프로토콜 어댑터 구현 (Adapter)
+ * protocol.c - ASCII-hex 프로토콜 구현 (Adapter 패턴 적용)
  *
  * 기능:
  *   - ASCII-hex ↔ 바이너리 변환 (프로토콜 파싱/포맷팅)
  *   - 패킷 유효성 검증 (STX/ETX/길이)
  *   - 체크섬 계산 (XOR)
- *   - CommandData_t 내부 소유 및 Getter/Setter 래퍼 제공
- *   - 유틸리티: reverse(), long_to_str()
+ *   - CommandData_t 내부 소유 및 Getter/Setter 제공
  *
  * 적용 패턴:
- *   02: Adapter   - ProtocolAdapter_t 함수포인터 구조체
- *   01: Wrapper   - CommandData_t Getter/Setter 래퍼
+ *   02: Adapter   - ProtocolOps_t 함수포인터 구조체
+ *   01: Wrapper   - CommandData_t Getter/Setter
  *   30: Assertion - Protocol_ValidatePacket_Impl()
  *
  * 호출 관계:
  *   Communication.c → Protocol.ParsePacket()   → 이 파일
  *   Communication.c → Protocol.FormatResponse() → 이 파일
  *   command_handler.c → Protocol_GetSpeed() 등  → 이 파일
+ *
+ * 설정값 참조:
+ *   Communication_cfg.h: COMM_STX, COMM_ETX, COMM_VERSION_FW, COMM_PACKET_MIN_LEN
  ******************************************************************************/
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdbool.h>
 #include <stdint.h>
-#include "protocol_adapter.h"
-
-/* 프로토콜 상수 -----------------------------------------------------------*/
-#define dVersion_FW     105     /* FW = Firmware */
-#define dSTX            0x40    /* STX = Start of Text */
-#define dETX            0x2A    /* ETX = End of Text */
-#define PACKET_MIN_LEN  4       /* 최소 패킷 길이 (STX + cmd + ETX + checksum) */
+#include "protocol.h"
+#include "Communication_cfg.h"
 
 /*=============================================================================
- * 내부 명령 키 비트필드 (프로토콜 어댑터 내부 사용)
+ * 내부 명령 키 비트필드 (프로토콜 내부 사용)
  *===========================================================================*/
 typedef struct {
     uint16_t motor_on : 1;
@@ -61,7 +58,7 @@ typedef struct {
     uint16_t present_bldc_rpm;
     uint16_t bldc_torque;
     uint16_t version_fw;
-    uint8_t command_tx_buffer[20];
+    uint8_t command_tx_buffer[COMM_TX_PACKET_LEN];
 } CommandData_t;
 
 /*=============================================================================
@@ -70,7 +67,7 @@ typedef struct {
 static CommandData_t stCommandData;       /* st = Static (prefix) */
 
 /*=============================================================================
- * 내부 함수 프로토타입 (Adapter 구현)
+ * 내부 함수 프로토타입
  *===========================================================================*/
 static bool    Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len);  /* Impl = Implementation, len = Length */
 static uint8_t Protocol_FormatResponse_Impl(uint8_t* outBuf);              /* Buf = Buffer */
@@ -79,10 +76,10 @@ static uint8_t Protocol_CalcChecksum_Impl(const uint8_t* data, uint8_t len);
 static PacketValidation_e Protocol_ValidatePacket_Impl(const uint8_t* data, uint8_t len);
 
 /*=============================================================================
- * Adapter - ProtocolAdapter_t 인스턴스
+ * ProtocolOps_t 인스턴스 - 프로토콜 동작 인터페이스
  * 프로토콜 파싱/포맷팅 함수포인터 구조체
  *===========================================================================*/
-const ProtocolAdapter_t Protocol = {
+const ProtocolOps_t Protocol = {
     .ParsePacket     = Protocol_ParsePacket_Impl,
     .FormatResponse  = Protocol_FormatResponse_Impl,
     .AsciiToHex      = Protocol_AsciiToHex_Impl,
@@ -97,19 +94,19 @@ const ProtocolAdapter_t Protocol = {
 static PacketValidation_e Protocol_ValidatePacket_Impl(const uint8_t* data, uint8_t len)
 {
     /* 길이 검증 */
-    if (len < PACKET_MIN_LEN)
+    if (len < COMM_PACKET_MIN_LEN)
     {
         return PACKET_ERR_LENGTH;
     }
 
     /* STX 검증 */
-    if (data[0] != dSTX)
+    if (data[0] != COMM_STX)
     {
         return PACKET_ERR_STX;
     }
 
     /* ETX 검증 (ETX 위치: data[len-3]) */
-    if (data[len - 3] != dETX)
+    if (data[len - 3] != COMM_ETX)
     {
         return PACKET_ERR_ETX;
     }
@@ -118,7 +115,7 @@ static PacketValidation_e Protocol_ValidatePacket_Impl(const uint8_t* data, uint
 }
 
 /*=============================================================================
- * Adapter - ASCII-hex 문자를 16진수로 변환
+ * ASCII-hex 문자를 16진수로 변환
  *===========================================================================*/
 static uint8_t Protocol_AsciiToHex_Impl(uint8_t ascii_char)
 {
@@ -133,7 +130,7 @@ static uint8_t Protocol_AsciiToHex_Impl(uint8_t ascii_char)
 }
 
 /*=============================================================================
- * Adapter - 수신 패킷 파싱
+ * 수신 패킷 파싱
  * ASCII-hex 데이터를 CommandData_t 구조체로 변환
  *===========================================================================*/
 static bool Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len)
@@ -163,15 +160,15 @@ static bool Protocol_ParsePacket_Impl(const uint8_t* raw, uint8_t len)
 }
 
 /*=============================================================================
- * Adapter - 응답 데이터 포맷팅
+ * 응답 데이터 포맷팅
  * CommandData_t → ASCII-hex TX 버퍼 변환
  * 반환: 전송 바이트 수
  *===========================================================================*/
 static uint8_t Protocol_FormatResponse_Impl(uint8_t* outBuf)
 {
-    stCommandData.version_fw = dVersion_FW;
+    stCommandData.version_fw = COMM_VERSION_FW;
 
-    outBuf[0] = 0x40;
+    outBuf[0] = COMM_STX;
     outBuf[1] = '4';
     outBuf[2] = '0';
 
@@ -196,11 +193,11 @@ static uint8_t Protocol_FormatResponse_Impl(uint8_t* outBuf)
     outBuf[18] = ((stCommandData.version_fw % 100) % 10) + '0';
     outBuf[19] = ']';
 
-    return 20;
+    return COMM_TX_PACKET_LEN;
 }
 
 /*=============================================================================
- * Adapter - 체크섬 계산 (XOR)
+ * 체크섬 계산 (XOR)
  *===========================================================================*/
 static uint8_t Protocol_CalcChecksum_Impl(const uint8_t* data, uint8_t len)
 {
@@ -215,7 +212,7 @@ static uint8_t Protocol_CalcChecksum_Impl(const uint8_t* data, uint8_t len)
 }
 
 /*=============================================================================
- * Wrapper - CommandData_t Getter 래퍼
+ * CommandData_t Getter
  * CommandData_t는 이 모듈 내부 소유, 외부에서 Getter로 접근
  *===========================================================================*/
 bool Protocol_GetMotorOn(void)
@@ -256,58 +253,4 @@ void Protocol_SetBldcTorque(uint16_t torque)
     stCommandData.bldc_torque = torque;
 }
 
-/*=============================================================================
- * 유틸리티: 문자열 반전
- *===========================================================================*/
-void reverse(char str[], int length)
-{
-    int start = 0;
-    int end = length - 1;
-    while (start < end)
-    {
-        char temp = str[start];
-        str[start] = str[end];
-        str[end] = temp;
-        end--;
-        start++;
-    }
-}
-
-/*=============================================================================
- * 유틸리티: long → 문자열 변환
- *===========================================================================*/
-int long_to_str(long num, char* str)
-{
-    int i = 0;
-    bool isNegative = false;
-
-    if (num == 0)
-    {
-        str[i++] = '0';
-        str[i] = '\0';
-        return 1;
-    }
-
-    if (num < 0)
-    {
-        isNegative = true;
-        num = -num;
-    }
-
-    while (num != 0)
-    {
-        int rem = num % 10;
-        str[i++] = rem + '0';
-        num = num / 10;
-    }
-
-    if (isNegative)
-    {
-        str[i++] = '-';
-    }
-
-    reverse(str, i);
-    str[i] = '\0';
-
-    return i;
-}
+/* 유틸리티 함수 reverse(), long_to_str()은 src/util/str_util.c로 이동됨 */
