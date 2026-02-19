@@ -76,7 +76,8 @@ MotorState_e MotorStateMachine_GetState(void)
 /*=============================================================================
  * MotorStateMachine_Execute - 상태머신 실행 (메인루프에서 호출)
  * 1) Stall 검사 및 motor_on_command 결정
- * 2) 현재 상태의 핸들러 함수포인터 디스패치
+ * 2) RX 타임아웃 검사 (1초 이상 수신 없으면 motor_on_command=0 강제)
+ * 3) 현재 상태의 핸들러 함수포인터 디스패치
  *===========================================================================*/
 void MotorStateMachine_Execute(void)
 {
@@ -107,6 +108,12 @@ void MotorStateMachine_Execute(void)
     #else
     MotorData_cmd.motor_on_command = MotorData_cmd.motor_on;
     #endif
+
+    /* RX 타임아웃: 1초 이상 수신 없으면 모터 정지 강제 */
+    if (!Communication_IsHealthy())
+    {
+        MotorData_cmd.motor_on_command = 0;
+    }
 
     /* 상태 핸들러 디스패치 (함수포인터 배열) */
     if (currentState < MOTOR_STATE_COUNT && stateHandlers[currentState] != NULL)
