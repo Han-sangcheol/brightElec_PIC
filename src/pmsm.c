@@ -6,7 +6,7 @@
  *   - vMotorTask(): 모터 상태머신 + 속도 업데이트 (1ms 주기, vTaskDelayUntil)
  *   - vCommTask(): UART 통신 처리 (10ms 주기, vTaskDelay)
  *   - vUITask(): LED 업데이트 + 진단 (10ms 주기, vTaskDelay)
- *   - _ADCInterrupt(): ADC ISR - 전류 샘플링, FOC 제어 실행 (변경 없음)
+ *   - _ADCInterrupt(): ADC ISR - 전류 샘플링, 과전류/스톨 사전검사, FOC 제어 실행
  *   - _PWMInterrupt(): PWM 폴트 ISR (변경 없음)
  *   - vApplicationSetupTickTimerInterrupt(): Timer1 RTOS Tick 설정 (timer1.c)
  *
@@ -362,6 +362,37 @@ void __attribute__((__interrupt__, no_auto_psv)) _ADCInterrupt()
                 iabc.b = measureInputs.current.Ib;
             }
 #endif
+
+#ifdef STALL_STOP
+            /* 과전류/스톨 감지 (FOC 실행 전 선행 검사) */
+            if (measureInputs.current.Ia > 10000
+             || measureInputs.current.Ib > 10000)
+            {
+                MotorControl.Reset();
+                g_stall_stop_flag = 1;
+                STALL_CNT = 0;
+                goto adc_isr_tail;
+            }
+
+            if (measureInputs.current.Ia > 8000
+             || measureInputs.current.Ib > 8000)
+            {
+                STALL_CNT++;
+            }
+            else if (measureInputs.current.Ia < 7500
+                  && measureInputs.current.Ib < 7500)
+            {
+                STALL_CNT = 0;
+            }
+
+            if (STALL_CNT > 130)
+            {
+                MotorControl.Reset();
+                g_stall_stop_flag = 1;
+                STALL_CNT = 0;
+                goto adc_isr_tail;
+            }
+#endif
             /* Clarke/Park 변환 */
             MC_TransformClarke_Assembly(&iabc, &ialphabeta);
             MC_TransformPark_Assembly(&ialphabeta, &sincosTheta, &idq);
@@ -421,26 +452,7 @@ void __attribute__((__interrupt__, no_auto_psv)) _ADCInterrupt()
 #endif
     }
 
-    /* Stall 감지 */
-#ifdef STALL_STOP
-    if (measureInputs.current.Ia > 8000
-     || measureInputs.current.Ib > 8000)
-    {
-        STALL_CNT++;
-    }
-    else if (measureInputs.current.Ia < 7500
-          || measureInputs.current.Ib < 7500)
-    {
-        STALL_CNT = 0;
-    }
-
-    if (STALL_CNT > 130)
-    {
-        MotorControl.Reset();
-        g_stall_stop_flag = 1;
-    }
-#endif
-
+adc_isr_tail:
     if (singleShuntParam.adcSamplePoint == 0)
     {
         if (uGF.bits.RunMotor == 0)

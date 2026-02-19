@@ -159,7 +159,7 @@ devInf.setMemInfo(memTypeInfo)
 ######################## Power Info ########################
 power = PowerInfo()
 power.shutDownSystem = False
-power.isToolPower = True
+power.isToolPower = False
 power.useVPPfirst = False
 power.useLowVoltageProgramming = True
 power.useMaintainActivePower = False
@@ -189,7 +189,7 @@ t.end = 0xafff
 t.data = "write_Pgm_st_0x0_op1_0.dat"
 t.type = "Pgm"
 t.mask = 0x0
-t.crc = 0xcb4f
+t.crc = 0x8732
 o.addTI(t)
 t = Tinfo()
 t.start = 0x2b800

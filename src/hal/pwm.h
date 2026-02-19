@@ -100,7 +100,7 @@
 #define BOOTSTRAP_CHARGING_COUNTS (uint16_t)((BOOTSTRAP_CHARGING_TIME_SECS/LOOPTIME_SEC )* 2)
         
 // Definition to enable or disable PWM Fault
-// #define ENABLE_PWM_FAULT
+#define ENABLE_PWM_FAULT
         
 #define DDEADTIME               (uint16_t)(DEADTIME_MICROSEC*FOSC_MHZ)
 // loop time in terms of PWM clock period

@@ -7,7 +7,7 @@
  *   - State_Starting(): PWM 활성화, CW/CCW 설정, RunMotor=1 → RUNNING
  *   - State_Running():  Motor_Speed() 호출, motor_on=0 시 STOPPING 전환
  *   - State_Stopping(): speed_command=0, 감속 완료 시 ResetParmeters → STOPPED
- *   - State_Fault():    스톨 감지, motor_on=0 입력 대기 후 STOPPED 전환
+ *   - State_Fault():    스톨 감지, 속도램프 초기화, motor_on=0 대기 후 STOPPED 전환
  *   - MotorStateMachine_GetSetRPM(): 모터 구동 시 설정 RPM 반환, 정지 시 -1
  *
  * 함수포인터 패턴:
@@ -85,10 +85,13 @@ void MotorStateMachine_Execute(void)
     if (g_stall_stop_flag != 0)
     {
         MotorData_cmd.motor_on_command = 0;
-        /* 구동중이었다면 FAULT 상태로 전환 */
+        /* 구동중이었다면 FAULT 상태로 전환 + 속도 램프 즉시 초기화 */
         if (currentState != MOTOR_STATE_FAULT
          && currentState != MOTOR_STATE_STOPPED)
         {
+            MotorData_cmd.speed_command = 0;
+            MotorData_cmd.speed_target = 0;
+            X2C_VelRef = 0;
             currentState = MOTOR_STATE_FAULT;
         }
         /* motor_on이 0이 되면 stall 플래그 해제 */
