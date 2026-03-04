@@ -35,9 +35,17 @@
 #include "uart2.h"
 
 /*=============================================================================
+ * 패킷 수신 플래그 상태
+ *===========================================================================*/
+typedef enum {
+    RX_FLAG_EMPTY,      /* 수신 패킷 없음 */
+    RX_FLAG_READY       /* 패킷 수신 완료 */
+} RxFlag_e;
+
+/*=============================================================================
  * ISR 내부 변수 (static 캡슐화 - 외부에서 API 함수로만 접근)
  *===========================================================================*/
-static volatile uint8_t  g_rxFlag;                               /* 패킷 수신 완료 플래그 */
+static volatile RxFlag_e g_rxFlag;                               /* 패킷 수신 완료 플래그 */
 static uint8_t           g_rxPacketBuf[COMM_RX_PACKET_LEN];     /* 수신 완료된 패킷 데이터 */
 static volatile uint8_t  g_rxPacketLen;                          /* 수신 완료된 패킷 길이 */
 static volatile uint16_t g_rxPacketCount;                        /* 수신 패킷 카운터 (건강상태용) */
@@ -119,7 +127,7 @@ void UART2_RxCompleteCallback(void)
     {
         memcpy(g_rxPacketBuf, rxAssemblyBuf, rxIndex);
         g_rxPacketLen = rxIndex;
-        g_rxFlag = 1;
+        g_rxFlag = RX_FLAG_READY;
         g_rxPacketCount++;
         rxIndex = 0;
     }
@@ -134,7 +142,7 @@ void UART2_RxCompleteCallback(void)
  *---------------------------------------------------------------------------*/
 bool COMM_Drv_IsPacketReady(void)
 {
-    return (g_rxFlag != 0);
+    return (g_rxFlag == RX_FLAG_READY);
 }
 
 /*-----------------------------------------------------------------------------
@@ -150,7 +158,7 @@ uint8_t COMM_Drv_GetPacket(uint8_t* buf, uint8_t maxLen)
     if (len > maxLen) len = maxLen;
 
     memcpy(buf, g_rxPacketBuf, len);
-    g_rxFlag = 0;
+    g_rxFlag = RX_FLAG_EMPTY;
 
     return len;
 }

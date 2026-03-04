@@ -179,7 +179,7 @@ void DoControl(void)
     else
     /* Closed Loop Vector Control */
     {
-        /* 외부 50us 램프(Timer1 ISR)에서 이미 부드러운 가감속 처리 완료
+        /* 외부 50us 램프(Timer2 ISR)에서 이미 부드러운 가감속 처리 완료
            내부 2차 램프 바이패스 - targetSpeed를 qVelRef에 직접 반영 */
         ctrlParm.targetSpeed = X2C_VelRef;
         ctrlParm.qVelRef = ctrlParm.targetSpeed;
